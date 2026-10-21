@@ -6,6 +6,13 @@ from services.ObjectFound import updateStatus, updateFoundDate
 from validators.UpdateStatusSchema import UpdateStatusSchema
 from validators.UpdateFoundDateSchema import UpdateFoundDateSchema
 
+def _validationError(error: ValidationError):
+    return jsonify({"error": "Invalid request", "details": error.errors()}), 400
+
+
+def _serviceError(error: ServiceError):
+    return jsonify({"error": str(error)}), error.status_code
+
 
 def updateStatusController(id_object):   
     try: 

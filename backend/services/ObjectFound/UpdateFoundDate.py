@@ -1,7 +1,7 @@
 from datetime import date
 
 from database.database import Session
-from errors import ForbiddenError, ServiceError
+from errors import AuthorizationError, ServiceError
 
 from .GetObjectFound import getObjectFoundOrFail, serializeObjectFound
 
@@ -17,7 +17,7 @@ def updateFoundDate(id_object: int, user_id: int, data: dict) -> dict:
     with Session.begin() as session:
         obj = getObjectFoundOrFail(session, id_object)
         if obj.id_user != user_id:
-            raise ForbiddenError("You cannot update this object")
+            raise AuthorizationError("You cannot update this object")
         obj.found_date = found_date
         session.flush()
         return serializeObjectFound(obj)

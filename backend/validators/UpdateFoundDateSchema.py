@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, ConfigDict
 
 
 class UpdateFoundDateSchema(BaseModel):
