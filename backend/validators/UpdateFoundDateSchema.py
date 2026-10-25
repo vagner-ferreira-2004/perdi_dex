@@ -4,6 +4,7 @@ from pydantic import BaseModel, field_validator, ConfigDict
 
 
 class UpdateFoundDateSchema(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     found_date: date
 
     @field_validator("found_date")
