@@ -1,9 +1,18 @@
-from flask import g, jsonify, request
+from flask import g, jsonify, request, send_from_directory
 from pydantic import ValidationError
+from werkzeug.exceptions import NotFound
 
 from errors import ServiceError
-from services.ObjectFound import createObjectFound, updateFoundDate, updateStatus
+from helpers.images import UPLOAD_DIR
+from services.ObjectFound import (
+    createObjectFound,
+    getObjectFound,
+    listObjectsFound,
+    updateFoundDate,
+    updateStatus,
+)
 from validators.CreateObjectFoundSchema import CreateObjectFoundSchema
+from validators.ListObjectsFoundSchema import ListObjectsFoundSchema
 from validators.UpdateFoundDateSchema import UpdateFoundDateSchema
 from validators.UpdateStatusSchema import UpdateStatusSchema
 
@@ -51,3 +60,27 @@ def createObjectFoundController():
         return _validationError(error)
     except ServiceError as error:
         return _serviceError(error)
+
+def listObjectsFoundController():
+    try:
+        data = ListObjectsFoundSchema.model_validate(request.args.to_dict())
+        result = listObjectsFound(data.model_dump(exclude_none=True))
+        return jsonify(result), 200
+    except ValidationError as error:
+        return _validationError(error)
+    except ServiceError as error:
+        return _serviceError(error)
+
+
+def getObjectFoundController(id_object):
+    try:
+        return jsonify(getObjectFound(id_object)), 200
+    except ServiceError as error:
+        return _serviceError(error)
+
+
+def getPhotoController(filename):
+    try:
+        return send_from_directory(UPLOAD_DIR, filename)
+    except NotFound:
+        return jsonify({"error": "Photo not found"}), 404
