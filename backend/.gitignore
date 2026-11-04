@@ -1,1 +1,4 @@
 .env
+# fotos enviadas pelos usuários
+__pycache__/
+uploads/
