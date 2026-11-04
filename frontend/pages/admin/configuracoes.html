@@ -144,7 +144,7 @@
                             </div>
                             <div class="campo">
                                 <label for="campoCpf">CPF<span class="obrig">*</span></label>
-                                <input type="text" id="campoCpf" placeholder="000.000.000-00" inputmode="numeric">
+                                <input type="text" id="campoCpf" placeholder="000.000.000-00" inputmode="numeric" readonly>
                                 <span class="msg-erro" id="campoCpfErro"></span>
                             </div>
                             <!-- Nota: Removido o RGM pois o Admin não o possui -->
@@ -179,7 +179,7 @@
                                     <span class="msg-erro" id="senhaConfirmarErro"></span>
                                 </div>
                             </div>
-                            <p class="dica-senha">Use ao menos 6 caracteres</p>
+                            <p class="dica-senha">Use ao menos 8 caracteres</p>
                         </div>
 
                         <div class="acoes-form">
@@ -196,9 +196,9 @@
             <div class="modal">
                 <div class="modal-topo">
                     <i class="fa-solid fa-trash-can"></i>
-                    <h3>Excluir sua conta de Administrador?</h3>
+                    <h3>Desativar sua conta de Administrador?</h3>
                 </div>
-                <p>Essa ação é <strong>permanente</strong>. Todo o seu histórico e acesso administrativo ao sistema serão revogados.</p>
+                <p>Sua conta e acesso administrativo serão desativados. O histórico operacional será preservado.</p>
                 <div class="area">
                     <div class="campo">
                         <label for="senhaExcluir">Confirme a exclusão da conta</label>
@@ -219,6 +219,8 @@
         
 
         <!-- JS -->
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
         <script src="../../src/js/global/tema.js"></script>
         <script src="../../src/js/global/font-awesome.js"></script>
 

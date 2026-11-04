@@ -13,11 +13,15 @@ const GerenciadorToast = (() => {
         }
     }
 
-    function exibir(mensagem, duracao = 3000) {
+    function exibir(mensagem, duracao = 3000, erro = false) {
         inicializar();
         const toast = document.getElementById('toastNotificacao');
-        
-        toast.innerHTML = `<i class="fa-regular fa-circle-check" style="margin-right: 8px;"></i><span>${mensagem}</span>`;
+        const icon = document.createElement('i');
+        icon.className = erro ? 'fa-solid fa-circle-exclamation' : 'fa-regular fa-circle-check';
+        icon.style.marginRight = '8px';
+        const text = document.createElement('span');
+        text.textContent = mensagem;
+        toast.replaceChildren(icon, text);
         toast.classList.add('visivel');
         
         clearTimeout(timerToast);
@@ -169,9 +173,19 @@ class ModalContestarComponent extends HTMLElement {
                 <div class="resgate-aviso-info">
                     <i class="fa-solid fa-circle-info"></i>
                     <div class="texto-aviso">
-                        <strong>Sua contestação será enviada ao administrador.</strong>
-                        <p>Analisaremos o histórico de entrega e entraremos em contato para esclarecer a situação.</p>
+                        <strong>Descreva por que você acredita ser o proprietário.</strong>
+                        <p>Inclua detalhes que ajudem a identificar o item. Você pode anexar até 3 imagens, com no máximo 10 MB cada.</p>
                     </div>
+                </div>
+                <div class="campo campo-textarea">
+                    <label for="contestacaoDescricao">Descrição da contestação</label>
+                    <textarea id="contestacaoDescricao" maxlength="2000" minlength="20" required
+                        placeholder="Informe detalhes que comprovem a propriedade (mínimo 20 caracteres)"></textarea>
+                </div>
+                <div class="campo">
+                    <label for="contestacaoEvidencias">Evidências (opcional, até 3 imagens)</label>
+                    <input type="file" id="contestacaoEvidencias" accept="image/png,image/jpeg,image/webp,image/avif" multiple>
+                    <small id="contestacaoEvidenciasAjuda">Cada arquivo deve ter até 10 MB.</small>
                 </div>
                 <div class="modal-resgate-acoes">
                     <button type="button" class="btn-cancelar-resgate" id="btnCancelarContestar"><span>Cancelar</span></button>
@@ -385,10 +399,9 @@ class ModalComprovanteResgateComponent extends HTMLElement {
                     <div class="card-preview retirar">
                         <div class="topico"><i class="fa-solid fa-location-dot"></i><h6>Onde retirar</h6></div>
                         <div class="wrapper">
-                            <div class="box"><i class="fa-regular fa-building"></i><strong>Local</strong><p>Bloco Alfa - 4º andar</p></div>
-                            <div class="box"><i class="fa-regular fa-calendar-days"></i><strong>Data disponível</strong><p>18/09/2026</p></div>
-                            <div class="box"><i class="fa-regular fa-clock"></i><strong>Horário</strong><p>8:00 às 17:00</p></div>
-                            <div class="box"><i class="fa-regular fa-hourglass"></i><strong>Prazo para retirada</strong><p>25/09/2026</p></div>
+                            <div class="box"><i class="fa-regular fa-building"></i><strong>Local e horário</strong><p>Combine a retirada com a administração pelos canais oficiais.</p></div>
+                            <div class="box"><i class="fa-regular fa-calendar-days"></i><strong>Data disponível</strong><p>A administração informará a data após aprovar o pedido.</p></div>
+                            <div class="box"><i class="fa-regular fa-clock"></i><strong>Confirmação</strong><p>Confirme somente depois de receber e conferir o item.</p></div>
                         </div>
                     </div>
                     <div class="card-preview levar">
@@ -556,7 +569,9 @@ const GerenciadorModais = (() => {
 
         let statusChave = item.status;
         if (!isMeusItens) {
-            statusChave = (item.status === 'aprovado') ? 'perdido' : 'achado';
+            statusChave = item.usuarioSolicitou
+                ? 'solicitado'
+                : (item.status === 'aprovado') ? 'perdido' : 'achado';
         }
         renderizarStatus(document.getElementById('modalStatus'), statusChave);
 
@@ -567,8 +582,8 @@ const GerenciadorModais = (() => {
                 let classeAviso = '';
                 let btnHTML = '';
 
-                if (item.estadoSolicitacao === 'analise') {
-                    msg = '<div class="desc-aviso"><i class="fa-solid fa-clock-rotate-left"></i> <strong>Solicitação em análise:</strong></div> <p>Aguarde o retorno da avaliação.</p>';
+                if (item.estadoSolicitacao === 'pendente') {
+                    msg = '<div class="desc-aviso"><i class="fa-solid fa-clock-rotate-left"></i> <strong>Solicitação pendente:</strong></div> <p>Aguarde o retorno da administração.</p>';
                     classeAviso = 'aviso-analise';
                 } else if (item.estadoSolicitacao === 'reprovado') {
                     msg = '<div class="desc-aviso"><i class="fa-solid fa-circle-exclamation"></i> <strong>Solicitação reprovada:</strong></div> <p>Não possui as informações corretas para o resgate.</p>';
@@ -590,6 +605,12 @@ const GerenciadorModais = (() => {
                         abrirComprovante(item);
                     };
                 }
+            } else if (!isMeusItens && item.usuarioSolicitou) {
+                avisoSol.className = 'modal-aviso-solicitacao aviso-analise';
+                avisoSol.style.display = 'block';
+                avisoSol.textContent = item.estadoSolicitacao === 'aprovado'
+                    ? 'Seu pedido foi aprovado. Veja o comprovante na área Meus itens.'
+                    : 'Seu pedido de resgate está aguardando análise.';
             } else {
                 avisoSol.className = 'modal-aviso-solicitacao';
                 avisoSol.style.display = 'none';
@@ -600,11 +621,17 @@ const GerenciadorModais = (() => {
         if (btnResgatar) btnResgatar.style.display = 'none';
         if (btnContestar) btnContestar.style.display = 'none';
 
-        if (!isMeusItens) {
+        if (!isMeusItens && window.PerdidexUser?.role !== 'admin') {
             if (item.status === 'aprovado' && btnResgatar) {
                 btnResgatar.style.display = 'inline-flex';
-            } else if (['devolvido', 'resgatado'].includes(item.status) && btnContestar) {
+                btnResgatar.disabled = false;
+                btnResgatar.title = 'Solicitar resgate deste item';
+                btnResgatar.querySelector('span').textContent = 'Resgatar';
+            } else if (item.status === 'devolvido' && btnContestar) {
                 btnContestar.style.display = 'inline-flex';
+                btnContestar.disabled = false;
+                btnContestar.title = 'Contestar a propriedade deste item';
+                btnContestar.querySelector('span').textContent = 'Contestar';
             }
         }
 
@@ -640,7 +667,6 @@ const GerenciadorModais = (() => {
         if (img) { img.src = item.foto || ''; img.alt = item.categoria || ''; }
         if (desc) desc.textContent = item.descricao || '';
         if (cat) cat.textContent = item.categoria || '';
-
         renderizarStatus(document.getElementById('resgateStatus'), 'perdido');
 
         modal.classList.add('ativo');
@@ -659,6 +685,10 @@ const GerenciadorModais = (() => {
         if (img) { img.src = item.foto || ''; img.alt = item.categoria || ''; }
         if (desc) desc.textContent = item.descricao || '';
         if (cat) cat.textContent = item.categoria || '';
+        const description = document.getElementById('contestacaoDescricao');
+        const evidenceInput = document.getElementById('contestacaoEvidencias');
+        if (description) description.value = '';
+        if (evidenceInput) evidenceInput.value = '';
 
         renderizarStatus(document.getElementById('contestarStatus'), 'achado');
 
@@ -862,32 +892,64 @@ const GerenciadorModais = (() => {
             if (itemAtual) abrirContestar(itemAtual);
         });
 
-        document.getElementById('btnConfirmarResgate')?.addEventListener('click', () => {
-            if (itemAtual && callbacks.onConfirmarResgate) callbacks.onConfirmarResgate(itemAtual);
-            fecharModal(document.getElementById('modalResgate'));
-            itemAtual = null;
-            GerenciadorToast.exibir("Solicitação de resgate enviada com sucesso!");
+        document.getElementById('btnConfirmarResgate')?.addEventListener('click', async () => {
+            try {
+                if (!itemAtual || !callbacks.onConfirmarResgate) throw new Error('Ação indisponível.');
+                await callbacks.onConfirmarResgate(itemAtual);
+                fecharModal(document.getElementById('modalResgate'));
+                itemAtual = null;
+                GerenciadorToast.exibir("Solicitação de resgate enviada com sucesso!");
+            } catch (error) {
+                GerenciadorToast.exibir(`Não foi possível solicitar o resgate: ${error.message}`, 4500, true);
+            }
         });
 
-        document.getElementById('btnConfirmarContestar')?.addEventListener('click', () => {
-            if (itemAtual && callbacks.onConfirmarContestacao) callbacks.onConfirmarContestacao(itemAtual);
-            fecharModal(document.getElementById('modalContestar'));
-            itemAtual = null;
-            GerenciadorToast.exibir("Contestação enviada para análise da administração!");
+        document.getElementById('btnConfirmarContestar')?.addEventListener('click', async () => {
+            try {
+                if (!itemAtual || !callbacks.onConfirmarContestacao) throw new Error('Ação indisponível.');
+                const description = document.getElementById('contestacaoDescricao')?.value || '';
+                const evidenceInput = document.getElementById('contestacaoEvidencias');
+                const files = Array.from(evidenceInput?.files || []);
+                if (description.trim().length < 20) {
+                    throw new Error('A descrição deve ter pelo menos 20 caracteres.');
+                }
+                if (files.length > 3) {
+                    throw new Error('Envie no máximo 3 imagens como evidência.');
+                }
+                if (files.some((file) => file.size > 10 * 1024 * 1024)) {
+                    throw new Error('Cada evidência deve ter no máximo 10 MB.');
+                }
+                await callbacks.onConfirmarContestacao(itemAtual, { description, files });
+                fecharModal(document.getElementById('modalContestar'));
+                itemAtual = null;
+                GerenciadorToast.exibir("Contestação enviada. Acompanhe o resultado em Minhas contestações.");
+            } catch (error) {
+                GerenciadorToast.exibir(`Não foi possível enviar a contestação: ${error.message}`, 4500, true);
+            }
         });
 
-        document.getElementById('btnConcluirExcluir')?.addEventListener('click', () => {
-            if (itemAtual && callbacks.onConfirmarExcluir) callbacks.onConfirmarExcluir(itemAtual);
-            fecharModal(document.getElementById('modalExcluir'));
-            itemAtual = null;
-            GerenciadorToast.exibir("O item foi excluído do sistema permanentemente!");
+        document.getElementById('btnConcluirExcluir')?.addEventListener('click', async () => {
+            try {
+                if (!itemAtual || !callbacks.onConfirmarExcluir) throw new Error('Ação indisponível.');
+                await callbacks.onConfirmarExcluir(itemAtual);
+                fecharModal(document.getElementById('modalExcluir'));
+                itemAtual = null;
+                GerenciadorToast.exibir("O item foi desativado e removido das listagens.");
+            } catch (error) {
+                GerenciadorToast.exibir(`Não foi possível desativar o item: ${error.message}`, 4500, true);
+            }
         });
 
-        document.getElementById('btnConcluirCancelarSolicitacao')?.addEventListener('click', () => {
-            if (itemAtual && callbacks.onConfirmarCancelarSolicitacao) callbacks.onConfirmarCancelarSolicitacao(itemAtual);
-            fecharModal(document.getElementById('modalCancelarSolicitacao'));
-            itemAtual = null;
-            GerenciadorToast.exibir("Sua solicitação de resgate foi cancelada!");
+        document.getElementById('btnConcluirCancelarSolicitacao')?.addEventListener('click', async () => {
+            try {
+                if (!itemAtual || !callbacks.onConfirmarCancelarSolicitacao) throw new Error('Ação indisponível.');
+                await callbacks.onConfirmarCancelarSolicitacao(itemAtual);
+                fecharModal(document.getElementById('modalCancelarSolicitacao'));
+                itemAtual = null;
+                GerenciadorToast.exibir("Sua solicitação de resgate foi cancelada!");
+            } catch (error) {
+                GerenciadorToast.exibir(`Não foi possível cancelar a solicitação: ${error.message}`, 4500, true);
+            }
         });
 
         document.getElementById('btnConfirmarRetiradaComprovante')?.addEventListener('click', () => {
@@ -900,17 +962,22 @@ const GerenciadorModais = (() => {
         // ==========================================
         // LÓGICA DO MODAL DE SENHA (CORRIGIDA E DIRETA)
         // ==========================================
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', async (e) => {
             const btnConcluir = e.target.closest('#btnConcluirSenhaRetirada');
             if (btnConcluir) {
-                if (itemAtual && callbacks.onConfirmarRetirada) {
-                    callbacks.onConfirmarRetirada(itemAtual);
+                try {
+                    if (!itemAtual || !callbacks.onConfirmarRetirada) throw new Error('Ação indisponível.');
+                    const inputSenha = document.getElementById('inputSenhaRetirada');
+                    const password = inputSenha?.value || '';
+                    if (!password) throw new Error('Digite sua senha para confirmar.');
+                    await callbacks.onConfirmarRetirada(itemAtual, password);
+                    if (inputSenha) inputSenha.value = '';
+                    GerenciadorToast.exibir("A retirada do item foi confirmada. Obrigado!");
+                    fecharModal(document.getElementById('modalSenhaRetirada'));
+                    itemAtual = null;
+                } catch (error) {
+                    GerenciadorToast.exibir(`Não foi possível confirmar a retirada: ${error.message}`, 4500, true);
                 }
-                
-                GerenciadorToast.exibir("A retirada do item foi confirmada. Obrigado!");
-                
-                fecharModal(document.getElementById('modalSenhaRetirada'));
-                itemAtual = null;
             }
         });
 
@@ -929,7 +996,7 @@ const GerenciadorModais = (() => {
         // ==========================================
         // LÓGICA DO MODAL DE EDITAR (MANTIDA)
         // ==========================================
-        document.getElementById('btnConcluirEditar')?.addEventListener('click', () => {
+        document.getElementById('btnConcluirEditar')?.addEventListener('click', async () => {
             if (itemAtual) {
                 const fotoBase64 = document.getElementById('editFotoBase64')?.value;
                 const fotoPreview = document.getElementById('editItemFoto')?.src;
@@ -951,8 +1018,14 @@ const GerenciadorModais = (() => {
                     corClasse: corClasseFinal
                 };
 
-                if (callbacks.onConfirmarEditar) callbacks.onConfirmarEditar(itemAtual, dadosAtualizados);
-                GerenciadorToast.exibir("As informações do item foram editadas com sucesso!");
+                try {
+                    if (!callbacks.onConfirmarEditar) throw new Error('Ação indisponível.');
+                    await callbacks.onConfirmarEditar(itemAtual, dadosAtualizados);
+                    GerenciadorToast.exibir("As informações do item foram editadas com sucesso!");
+                } catch (error) {
+                    GerenciadorToast.exibir(`Não foi possível editar o item: ${error.message}`, 4500, true);
+                    return;
+                }
             }
             fecharModal(document.getElementById('modalEditar'));
             itemAtual = null;

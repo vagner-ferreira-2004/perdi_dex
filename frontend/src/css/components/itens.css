@@ -758,6 +758,20 @@
     background-color: var(--orange2);
 }
 
+.btn-resgatar:disabled,
+.btn-contestar:disabled{
+    opacity: .55;
+    cursor: not-allowed;
+}
+.btn-resgatar:disabled:hover{
+    background: transparent;
+    color: var(--red);
+}
+.btn-contestar:disabled:hover{
+    background: transparent;
+    color: var(--orange2);
+}
+
 
 .btn-comprovante{
     border-color: var(--purple);

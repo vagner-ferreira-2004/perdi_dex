@@ -78,6 +78,26 @@ const TemplatesItens = {
 
 class TodosItensComponent extends HTMLElement {
     connectedCallback() {
+        if (window.location.pathname.includes('/admin/')) {
+            this.innerHTML = `
+            <div class="filtros-status-wrapper" id="filtrosStatus">
+                <button type="button" class="btn-tab-status ativo" data-status="todos"><span>Todos</span><span class="badge-qtd" id="qtd-todos">0</span></button>
+                <button type="button" class="btn-tab-status" data-status="analise"><span>Em análise</span><span class="badge-qtd" id="qtd-analise">0</span></button>
+                <button type="button" class="btn-tab-status" data-status="aprovado"><span>Publicados</span><span class="badge-qtd" id="qtd-aprovado">0</span></button>
+                <button type="button" class="btn-tab-status" data-status="reprovado"><span>Reprovados</span><span class="badge-qtd" id="qtd-reprovado">0</span></button>
+                <button type="button" class="btn-tab-status" data-status="devolvido"><span>Devolvidos</span><span class="badge-qtd" id="qtd-devolvido">0</span></button>
+            </div>
+            <div class="area-definicao">
+                <div class="definicao-status todos ativo"><i class="fa-solid fa-border-all"></i><span>Todos os itens ativos no sistema</span></div>
+                <div class="definicao-status analises"><i class="fa-solid fa-hourglass"></i><span>Cadastros aguardando avaliação</span></div>
+                <div class="definicao-status aprovados"><i class="fa-solid fa-check"></i><span>Itens publicados</span></div>
+                <div class="definicao-status reprovados"><i class="fa-solid fa-xmark"></i><span>Cadastros reprovados</span></div>
+                <div class="definicao-status devolvidos"><i class="fa-solid fa-arrow-rotate-left"></i><span>Itens devolvidos</span></div>
+            </div>
+            ${TemplatesItens.gerarHtml(true)}
+            `;
+            return;
+        }
         this.innerHTML = `
         <div class="filtros-status-wrapper" id="filtrosStatus">
             <button type="button" class="btn-tab-status ativo" data-status="todos"><span>Todos</span><span class="badge-qtd" id="qtd-todos">0</span></button>
@@ -145,17 +165,19 @@ const GerenciadorItens = (() => {
         const tDetalhes = modoTabela ? '<span>Detalhes</span>' : '';
 
         if (!ehPaginaMeusItens()) {
-            const tResgatar = modoTabela ? '<span>Resgatar</span>' : '<span>Resgatar</span>';
-            const tContestar = modoTabela ? '<span>Contestar</span>' : '<span>Contestar</span>';
-
+            if (window.PerdidexUser?.role === 'admin') {
+                return `<button type="button" class="btn-detalhes" title="Ver Detalhes">${tDetalhes}<i class="fi fi-br-info"></i></button>`;
+            }
             if (status === 'aprovado') {
                 return `
-                    <button type="button" class="btn-resgatar" title="Resgatar">${tResgatar}<i class="fa-solid fa-arrow-right"></i></button>
+                    <button type="button" class="btn-resgatar" title="Solicitar resgate deste item"><span>Solicitar resgate</span><i class="fa-solid fa-arrow-right"></i></button>
                     <button type="button" class="btn-detalhes" title="Ver Detalhes">${tDetalhes}<i class="fi fi-br-info"></i></button>
                 `;
-            } else if (['devolvido', 'resgatado'].includes(status)) {
+            } else if (status === 'solicitado' && item.usuarioSolicitou) {
+                return `<button type="button" class="btn-detalhes" title="Ver Detalhes">${tDetalhes}<i class="fi fi-br-info"></i></button>`;
+            } else if (status === 'devolvido') {
                 return `
-                    <button type="button" class="btn-contestar" title="Contestar Entrega">${tContestar}<i class="fa-solid fa-arrow-right"></i></button>
+                    <button type="button" class="btn-contestar" title="Contestar a propriedade deste item"><span>Contestar propriedade</span><i class="fa-solid fa-arrow-right"></i></button>
                     <button type="button" class="btn-detalhes" title="Ver Detalhes">${tDetalhes}<i class="fi fi-br-info"></i></button>
                 `;
             }
@@ -183,8 +205,9 @@ const GerenciadorItens = (() => {
             let botoesHTML = `<button type="button" class="btn-detalhes" title="Ver Detalhes">${tDetalhes}<i class="fi fi-br-info"></i></button>`;
             if (item.estadoSolicitacao === 'aprovado') {
                 botoesHTML += `<button type="button" class="btn-comprovante" title="Ver Comprovante">${tComprovante}<i class="fi fi-br-receipt"></i></button>`;
+            } else if (item.estadoSolicitacao === 'pendente') {
+                botoesHTML += `<button type="button" class="btn-cancelar-solicitacao" title="Retirar Solicitação">${tCancelar}<i class="fa-solid fa-ban"></i></button>`;
             }
-            botoesHTML += `<button type="button" class="btn-cancelar-solicitacao" title="Retirar Solicitação">${tCancelar}<i class="fa-solid fa-ban"></i></button>`;
             return botoesHTML;
         }
 
@@ -239,10 +262,10 @@ const GerenciadorItens = (() => {
             const boxStatus = clone.querySelector('.status');
             if (boxStatus) {
                 let statusChave = item.status;
-                
-                // Adapta para Perdido ou Achado se não for Meus Itens
                 if (!isMeusItens) {
-                    statusChave = (item.status === 'aprovado') ? 'perdido' : 'achado';
+                    statusChave = item.usuarioSolicitou
+                        ? 'solicitado'
+                        : (item.status === 'aprovado') ? 'perdido' : 'achado';
                 }
 
                 const conf = GerenciadorModais?.formatacaoStatus[statusChave] || { rotulo: statusChave, classe: statusChave, icone: 'fa-solid fa-circle-question' };
@@ -302,10 +325,10 @@ const GerenciadorItens = (() => {
             const boxStatus = clone.querySelector('.status');
             if (boxStatus) {
                 let statusChave = item.status;
-
-                // MÁGICA ACONTECE AQUI: Adapta para Perdido ou Achado se não for Meus Itens
                 if (!isMeusItens) {
-                    statusChave = (item.status === 'aprovado') ? 'perdido' : 'achado';
+                    statusChave = item.usuarioSolicitou
+                        ? 'solicitado'
+                        : (item.status === 'aprovado') ? 'perdido' : 'achado';
                 }
 
                 const conf = GerenciadorModais?.formatacaoStatus[statusChave] || { rotulo: statusChave, classe: statusChave, icone: 'fa-solid fa-circle-question' };

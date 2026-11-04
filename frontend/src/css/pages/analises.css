@@ -1,0 +1,92 @@
+.analises-pagina {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.analises-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.analises-cabecalho h1 {
+    margin: 0;
+    color: var(--title-blue);
+    font-size: 1.5rem;
+}
+
+.analises-cabecalho p,
+.analise-metadados {
+    color: var(--text-gray);
+}
+
+.lista-analises {
+    display: grid;
+    gap: 1rem;
+}
+
+.analise-item {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-dash);
+    border: 1px solid var(--border-card);
+    border-radius: var(--raio);
+}
+
+.analise-item > img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.6rem;
+}
+
+.analise-conteudo h2 {
+    margin: 0 0 0.35rem;
+    color: var(--title-blue);
+    font-size: 1.1rem;
+}
+
+.analise-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.analise-motivo {
+    flex: 1 1 250px;
+    min-height: 2.5rem;
+    padding: 0.5rem;
+}
+
+.analise-evidencias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.analise-evidencias a {
+    color: var(--title-blue);
+    text-decoration: underline;
+}
+
+.analise-erro {
+    color: #b42318;
+}
+
+@media (max-width: 640px) {
+    .analise-item {
+        grid-template-columns: 1fr;
+    }
+
+    .analise-item > img {
+        height: 220px;
+    }
+}

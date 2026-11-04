@@ -1,15 +1,63 @@
+function obterUsuarioSessao() {
+    return window.PerdidexUser || {};
+}
+
+function escaparHtml(valor) {
+    return String(valor || '').replace(/[&<>"']/g, (caractere) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    })[caractere]);
+}
+
+function nomePerfilUsuario(user) {
+    const nomes = { student: 'Estudante', professor: 'Professor', staff: 'Funcionário' };
+    return nomes[user.profile] || user.profile || '';
+}
+
+function iconePerfilUsuario(user) {
+    const icones = {
+        student: 'fa-solid fa-user-graduate',
+        professor: 'fa-solid fa-person-chalkboard',
+        staff: 'fa-solid fa-user-tie'
+    };
+    return user.role === 'admin' ? 'fa-solid fa-user-gear' : (icones[user.profile] || 'fa-solid fa-user');
+}
+
+async function atualizarBadgeNotificacoes(menu) {
+    const badge = menu.querySelector('.nao-lidas');
+    if (!badge || !window.PerdidexApi || !window.PerdidexUser) return;
+    try {
+        const result = await window.PerdidexApi.get('/notifications?page=1&per_page=1');
+        badge.textContent = String(result.unread || 0);
+        badge.style.display = result.unread ? 'flex' : 'none';
+        badge.removeAttribute('title');
+    } catch (error) {
+        badge.textContent = '!';
+        badge.style.display = 'flex';
+        badge.title = `Não foi possível atualizar notificações: ${error.message}`;
+        badge.setAttribute('aria-label', badge.title);
+    }
+}
+
 class MenuUserComponent extends HTMLElement {
     connectedCallback() {
         this.renderizar();
 
-        window.addEventListener('usuarioAtualizado', () => {
+        window.addEventListener('perdidexSessionReady', () => {
             this.renderizar();
         });
     }
 
     renderizar() {
-        const user = window.BancoDeDados?.usuario || {};
-        const iniciais = window.obterIniciaisNome ? window.obterIniciaisNome(user.nome) : '';
+        const user = obterUsuarioSessao();
+        const iniciais = window.obterIniciaisNome ? window.obterIniciaisNome(user.name) : '';
+        const nome = escaparHtml(user.name);
+        const perfilTexto = escaparHtml(nomePerfilUsuario(user));
+        const email = escaparHtml(user.email);
+        const telefone = escaparHtml(user.phone);
 
         this.innerHTML = `
         <!-- MENU LATERAL FIXO -->
@@ -26,16 +74,16 @@ class MenuUserComponent extends HTMLElement {
                     <div class="avatar">${iniciais}</div>
 
                     <div class="info">
-                        <strong>${user.nome || ''}</strong>
-                        <div><i class="${user.iconePerfil || ''}"></i><span>${user.perfil || ''}</span></div>
+                        <strong>${nome}</strong>
+                        <div><i class="${iconePerfilUsuario(user)}"></i><span>${perfilTexto}</span></div>
                     </div>
 
                     <i class="fi fi-br-angle-small-down btn-perfil"></i>
                 </div>
                 
                 <div class="dados">
-                    <span><i class="fa-solid fa-envelope"></i><p>${user.email || ''}</p></span>
-                    <span><i class="fa-solid fa-phone"></i><p>${user.telefone || ''}</p></span>
+                    <span><i class="fa-solid fa-envelope"></i><p>${email}</p></span>
+                    <span><i class="fa-solid fa-phone"></i><p>${telefone}</p></span>
                 </div>
             </div>
 
@@ -54,6 +102,7 @@ class MenuUserComponent extends HTMLElement {
                     <h3>Conta</h3>
                     <ul>
                         <li><a href="notificacoes.html"><i class="fa-regular fa-bell icon-normal"></i><i class="fa-solid fa-bell icon-ativo"></i><span>Notificações</span><div class="nao-lidas" style="display: none;">0</div></a></li>
+                        <li><a href="contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Minhas contestações</span></a></li>
                         <li><a href="configuracoes.html"><i class="fi fi-rr-settings icon-normal"></i><i class="fa-solid fa-gear icon-ativo"></i><span>Configurações</span></a></li>
                     </ul>
                 </li>
@@ -63,7 +112,7 @@ class MenuUserComponent extends HTMLElement {
                     <ul>
                         <li><a href="ajuda.html"><i class="fa-regular fa-circle-question icon-normal"></i><i class="fa-solid fa-circle-question icon-ativo"></i><span>Ajuda</span></a></li>
                         <hr>
-                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket icon-normal"></i><i class="fa-solid fa-right-from-bracket icon-ativo"></i><span>Sair</span></a></li>
+                        <li><a href="#" class="btn-sair"><i class="fa-solid fa-arrow-right-from-bracket icon-normal"></i><i class="fa-solid fa-right-from-bracket icon-ativo"></i><span>Sair</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -150,27 +199,18 @@ class MenuUserComponent extends HTMLElement {
         }
         
         const badge = this.querySelector(".nao-lidas");
-        
-        const atualizarBadgeMenu = () => {
-            if(typeof window.BancoDeDados === 'undefined' || !badge) return;
-            
-            const notificacoes = window.BancoDeDados.gerarNotificacoes();
-            const naoLidas = notificacoes.filter(n => !n.lida).length;
-            
-            if (naoLidas > 0) {
-                if (naoLidas > 9) {
-                    badge.innerHTML = '9<span class="mais" style="display: flex;">+</span>';
-                } else {
-                    badge.innerHTML = naoLidas;
-                }
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
+        if (badge) badge.style.display = 'none';
+        window.atualizarBadgeGlobal = () => atualizarBadgeNotificacoes(this);
+        window.atualizarBadgeGlobal();
+        this.querySelector('.btn-sair')?.addEventListener('click', async (event) => {
+            event.preventDefault();
+            try {
+                await window.PerdidexApi.logout();
+                window.location.assign('../auth/index.html?mode=login');
+            } catch (error) {
+                window.alert(`Não foi possível encerrar a sessão: ${error.message}`);
             }
-        }
-
-        setTimeout(atualizarBadgeMenu, 100);
-        window.atualizarBadgeGlobal = atualizarBadgeMenu;
+        });
 
         const elementoAno = this.querySelector(".ano-atual");
         if (elementoAno) {
@@ -187,16 +227,18 @@ class MenuAdminComponent extends HTMLElement {
     connectedCallback() {
         this.renderizar();
 
-        // Escuta atualizações específicas do admin, ou pode manter 'usuarioAtualizado' dependendo da sua lógica de login
-        window.addEventListener('adminAtualizado', () => {
+        window.addEventListener('perdidexSessionReady', () => {
             this.renderizar();
         });
     }
 
     renderizar() {
-        // Busca os dados do ADMINISTRADOR no banco
-        const admin = window.BancoDeDados?.administrador || {};
-        const iniciais = window.obterIniciaisNome ? window.obterIniciaisNome(admin.nome) : '';
+        const admin = obterUsuarioSessao();
+        const iniciais = window.obterIniciaisNome ? window.obterIniciaisNome(admin.name) : '';
+        const nome = escaparHtml(admin.name);
+        const perfilTexto = escaparHtml(nomePerfilUsuario(admin));
+        const email = escaparHtml(admin.email);
+        const telefone = escaparHtml(admin.phone);
 
         this.innerHTML = `
         <!-- MENU LATERAL FIXO (ADMINISTRADOR) -->
@@ -213,16 +255,16 @@ class MenuAdminComponent extends HTMLElement {
                     <div class="avatar admin-avatar">${iniciais}</div>
 
                     <div class="info">
-                        <strong>${admin.nome || ''}</strong>
-                        <div><i class="${admin.iconePerfil || ''}"></i><span>${admin.perfil || ''}</span></div>
+                        <strong>${nome}</strong>
+                        <div><i class="${iconePerfilUsuario(admin)}"></i><span>${perfilTexto}</span></div>
                     </div>
 
                     <i class="fi fi-br-angle-small-down btn-perfil"></i>
                 </div>
                 
                 <div class="dados">
-                    <span><i class="fa-solid fa-envelope"></i><p>${admin.email || ''}</p></span>
-                    <span><i class="fa-solid fa-phone"></i><p>${admin.telefone || ''}</p></span>
+                    <span><i class="fa-solid fa-envelope"></i><p>${email}</p></span>
+                    <span><i class="fa-solid fa-phone"></i><p>${telefone}</p></span>
                 </div>
             </div>
 
@@ -233,6 +275,8 @@ class MenuAdminComponent extends HTMLElement {
                     <ul>
                         <li><a href="index.html"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i><span>Início</span></a></li>
                         <li><a href="analises.html"><i class="fi fi-rr-analyse icon-normal"></i><i class="fi fi-sr-analyse icon-ativo"></i><span>Análises</span></a></li>
+                        <li><a href="solicitacoes.html"><i class="fa-solid fa-hand"></i><span>Resgates</span></a></li>
+                        <li><a href="contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Contestações</span></a></li>
                         <li><a href="usuarios.html"><i class="fa-regular fa-user icon-normal"></i><i class="fa-solid fa-user icon-ativo"></i><span>Usuários</span></a></li>
                     </ul>
                 </li>
@@ -248,7 +292,7 @@ class MenuAdminComponent extends HTMLElement {
                 <li class="grupo">
                     <ul>
                         <hr>
-                        <li><a href=""><i class="fa-solid fa-arrow-right-from-bracket icon-normal"></i><i class="fa-solid fa-right-from-bracket icon-ativo"></i><span>Sair</span></a></li>
+                        <li><a href="#" class="btn-sair"><i class="fa-solid fa-arrow-right-from-bracket icon-normal"></i><i class="fa-solid fa-right-from-bracket icon-ativo"></i><span>Sair</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -340,28 +384,18 @@ class MenuAdminComponent extends HTMLElement {
         
         // Badge de Notificações do Admin (ajustado se o admin tiver uma fila de aprovação)
         const badge = this.querySelector(".nao-lidas");
-        
-        const atualizarBadgeMenu = () => {
-            if(typeof window.BancoDeDados === 'undefined' || !badge) return;
-            
-            // Aqui você pode mudar para buscar itens pendentes de aprovação, por exemplo
-            const notificacoes = window.BancoDeDados.gerarNotificacoes ? window.BancoDeDados.gerarNotificacoes() : [];
-            const naoLidas = notificacoes.filter(n => !n.lida).length;
-            
-            if (naoLidas > 0) {
-                if (naoLidas > 9) {
-                    badge.innerHTML = '9<span class="mais" style="display: flex;">+</span>';
-                } else {
-                    badge.innerHTML = naoLidas;
-                }
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
+        if (badge) badge.style.display = 'none';
+        window.atualizarBadgeGlobal = () => atualizarBadgeNotificacoes(this);
+        window.atualizarBadgeGlobal();
+        this.querySelector('.btn-sair')?.addEventListener('click', async (event) => {
+            event.preventDefault();
+            try {
+                await window.PerdidexApi.logout();
+                window.location.assign('../auth/index.html?mode=login');
+            } catch (error) {
+                window.alert(`Não foi possível encerrar a sessão: ${error.message}`);
             }
-        }
-
-        setTimeout(atualizarBadgeMenu, 100);
-        window.atualizarBadgeGlobal = atualizarBadgeMenu;
+        });
 
         const elementoAno = this.querySelector(".ano-atual");
         if (elementoAno) {

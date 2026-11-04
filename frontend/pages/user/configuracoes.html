@@ -114,7 +114,7 @@
                         <div class="zona-perigo-linha">
                             <div class="txt">
                                 <strong><i class="fa-regular fa-trash-can"></i>Excluir conta</strong>
-                                <p>Excluir sua conta permanentemente.</p>
+                                <p>Desativar sua conta e preservar o histórico operacional.</p>
                             </div>
                             <button class="seta-link" id="btnAbrirExcluir" aria-label="Excluir conta"><i class="fa-solid fa-arrow-right"></i></button>
                         </div>
@@ -157,12 +157,12 @@
                             </div>
                             <div class="campo">
                                 <label for="campoCpf">CPF<span class="obrig">*</span></label>
-                                <input type="text" id="campoCpf" placeholder="000.000.000-00" inputmode="numeric">
+                                <input type="text" id="campoCpf" placeholder="000.000.000-00" inputmode="numeric" readonly>
                                 <span class="msg-erro" id="campoCpfErro"></span>
                             </div>
                             <div class="campo">
                                 <label for="campoRgm">RGM<span class="obrig">*</span></label>
-                                <input type="text" id="campoRgm" placeholder="00000000" inputmode="numeric">
+                                <input type="text" id="campoRgm" placeholder="00000000" inputmode="numeric" readonly>
                                 <span class="msg-erro" id="campoRgmErro"></span>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                     <span class="msg-erro" id="senhaConfirmarErro"></span>
                                 </div>
                             </div>
-                            <p class="dica-senha">Use ao menos 6 caracteres</p>
+                            <p class="dica-senha">Use ao menos 8 caracteres</p>
                         </div>
 
                         <div class="acoes-form">
@@ -215,7 +215,7 @@
                     <i class="fa-solid fa-trash-can"></i>
                     <h3>Excluir sua conta?</h3>
                 </div>
-                <p>Essa ação é <strong>permanente</strong>. Todos os seus dados, itens cadastrados e histórico de notificações serão apagados e não poderão ser recuperados.</p>
+                <p>Sua conta será desativada e você perderá o acesso. O histórico operacional necessário será preservado.</p>
                 <div class="area">
                     <div class="campo">
                         <label for="senhaExcluir">Confirme a exclusão da conta</label>
@@ -238,6 +238,8 @@
         <!-- JS -->
         <!-- Banco de Dados Global -->
         <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
 
         <!-- Lógica das Configurações -->
         <script src="../../src/js/pages/configuracoes.js"></script>

@@ -34,10 +34,10 @@ const ctx = document.getElementById('cadastrosChart');
 const chartCadastros = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['Utensílios', 'Bolsas', 'Eletrônicos', 'Chaves', 'Outros'],
+        labels: [],
         datasets: [{
             label: 'Quantidade',
-            data: [9, 6, 15, 11, 4],
+            data: [],
             backgroundColor: ['#97e3b8', '#ffac65', '#cd1b31', '#5e2697', '#169ad8'],
             borderWidth: 0,
             hoverOffset: 12, 
@@ -93,7 +93,7 @@ const chartCadastros = new Chart(ctx, {
                     label: function(context) {
                         let value = context.raw;
                         let total = context.chart._metasets[context.datasetIndex].total;
-                        let percentage = ((value / total) * 100).toFixed(1) + '%';
+                        let percentage = (total ? (value / total) * 100 : 0).toFixed(1) + '%';
                         return `${value} itens (${percentage})`;
                     }
                 }
@@ -112,12 +112,26 @@ const chartCadastros = new Chart(ctx, {
                 formatter: (value, context) => {
                     const data = context.chart.data.datasets[0].data;
                     const total = data.reduce((acc, val) => acc + val, 0);
-                    const porcentagem = (value / total) * 100;
+                    const porcentagem = total ? (value / total) * 100 : 0;
                     return porcentagem.toFixed(1) + '%';
                 }
             }
         }
     }
+});
+
+window.addEventListener('perdidexDashboardData', (event) => {
+    const stats = event.detail;
+    chartCadastros.data.labels = Object.keys(stats.byCategory);
+    chartCadastros.data.datasets[0].data = Object.values(stats.byCategory);
+    chartCadastros.update();
+
+    chartProgresso.data.datasets[0].data = [stats.published, stats.returned];
+    chartProgresso.update();
+
+    chartMes.data.datasets[0].data = stats.byMonth;
+    chartMes.data.datasets[1].data = stats.returnedByMonth;
+    chartMes.update();
 });
 
 
@@ -129,10 +143,10 @@ const progressoCtx = document.getElementById('progressoChart');
 const chartProgresso = new Chart(progressoCtx, {
     type: 'pie',
     data: {
-        labels: ['Perdidos', 'Devolvidos'],
+        labels: ['Publicados', 'Devolvidos'],
         datasets: [{
             label: 'Quantidade',
-            data: [50, 30],
+            data: [0, 0],
             backgroundColor: ['#e2374b', '#3ac0e9'],
             borderWidth: 0,
             hoverOffset: 12, 
@@ -184,7 +198,7 @@ const chartProgresso = new Chart(progressoCtx, {
                     label: function(context) {
                         let value = context.raw;
                         let total = context.chart._metasets[context.datasetIndex].total;
-                        let percentage = ((value / total) * 100).toFixed(1) + '%';
+                        let percentage = (total ? (value / total) * 100 : 0).toFixed(1) + '%';
                         return `${value} itens (${percentage})`;
                     }
                 }
@@ -203,7 +217,7 @@ const chartProgresso = new Chart(progressoCtx, {
                 formatter: (value, context) => {
                     const data = context.chart.data.datasets[0].data;
                     const total = data.reduce((acc, val) => acc + val, 0);
-                    const porcentagem = (value / total) * 100;
+                    const porcentagem = total ? (value / total) * 100 : 0;
                     return porcentagem.toFixed(1) + '%';
                 }
             }
@@ -224,8 +238,8 @@ const chartMes = new Chart(mesCtx, {
         labels: meses,
         datasets: [
             {
-                label: 'Perdidos',
-                data: [10, 15, 12, 5, 14, 20, 17, 22, 25, 18, 12, 8],
+                label: 'Itens cadastrados',
+                data: Array(12).fill(0),
                 borderColor: '#e2374b',
                 backgroundColor: '#e2374b',
                 borderWidth: 3,
@@ -234,8 +248,8 @@ const chartMes = new Chart(mesCtx, {
                 pointHoverRadius: 8
             },
             {
-                label: 'Devolvidos',
-                data: [3, 5, 4, 2, 4, 5, 3, 7, 6, 8, 9, 4],
+                label: 'Itens devolvidos',
+                data: Array(12).fill(0),
                 borderColor: '#3ac0e9',
                 backgroundColor: '#3ac0e9',
                 borderWidth: 3,

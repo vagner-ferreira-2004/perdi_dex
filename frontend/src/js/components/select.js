@@ -15,7 +15,6 @@ const GerenciadorSelect = (() => {
         const dropdown = container.querySelector('.select-dropdown');
         const labelTexto = container.querySelector('.select-btn-text') || container.querySelector('.btn-texto') || container.querySelector('span:first-child');
         const inputOculto = container.querySelector('.input-oculto') || container.querySelector('input[type="hidden"]');
-        const opcoes = container.querySelectorAll('.option');
 
         // Abre / Fecha o menu
         selectBtn?.addEventListener('click', (e) => {
@@ -34,34 +33,28 @@ const GerenciadorSelect = (() => {
             selectBtn.style.borderColor = "";
         });
 
-        // Seleção de opções
-        opcoes.forEach(opt => {
-            opt.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const valor = opt.getAttribute('data-value') || '';
-                const conteudoHtml = opt.innerHTML.trim();
+        dropdown?.addEventListener('click', (e) => {
+            const opt = e.target.closest('.option');
+            if (!opt || !dropdown.contains(opt)) return;
+            e.stopPropagation();
+            const valor = opt.getAttribute('data-value') || '';
+            const conteudoHtml = opt.innerHTML.trim();
 
-                if (inputOculto) inputOculto.value = valor;
-                if (labelTexto) labelTexto.innerHTML = conteudoHtml;
+            if (inputOculto) inputOculto.value = valor;
+            if (labelTexto) labelTexto.innerHTML = conteudoHtml;
 
-                // Estilos de preenchimento
-                if (valor === '') {
-                    selectBtn?.classList.remove('tem-valor');
-                    if (labelTexto) labelTexto.style.color = "#8b8b8b";
-                } else {
-                    selectBtn?.classList.add('tem-valor');
-                    if (labelTexto) labelTexto.style.color = "#3b383e";
-                    selectBtn.style.borderColor = "";
-                }
+            if (valor === '') {
+                selectBtn?.classList.remove('tem-valor');
+                if (labelTexto) labelTexto.style.color = "#8b8b8b";
+            } else {
+                selectBtn?.classList.add('tem-valor');
+                if (labelTexto) labelTexto.style.color = "#3b383e";
+                selectBtn.style.borderColor = "";
+            }
 
-                dropdown?.classList.remove('mostrar');
-                selectBtn?.classList.remove('ativo');
-
-                // Executa callback se houver
-                if (opcoesConfig.onSelect) {
-                    opcoesConfig.onSelect(valor, opt);
-                }
-            });
+            dropdown.classList.remove('mostrar');
+            selectBtn?.classList.remove('ativo');
+            if (opcoesConfig.onSelect) opcoesConfig.onSelect(valor, opt);
         });
 
         // Validação de formulário associado

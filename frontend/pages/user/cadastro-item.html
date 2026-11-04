@@ -76,14 +76,14 @@
                                 </div>
 
                                 <!-- Input de arquivo real oculto -->
-                                <input type="file" name="foto[]" class="upload-input" accept="image/png, image/jpg, image/jpeg, image/webp, image/avif" hidden>
+                                <input type="file" name="photo" class="upload-input" accept="image/png, image/jpg, image/jpeg, image/webp, image/avif" hidden>
                             </div>
 
                             <!-- Nome do arquivo exibido fora da borda -->
                             <span class="upload-filename"></span>
 
                             <!-- Campo oculto para enviar a imagem cortada (Base64) no formulário -->
-                            <input type="hidden" name="foto_item[]" id="foto" class="upload-base64-input" required>
+                            <input type="hidden" id="foto" class="upload-base64-input" required>
                         </div>
                     </div>
 
@@ -99,18 +99,10 @@
 
                             <div class="select-dropdown">
                                 <div class="option selecione" data-value="">Selecione uma categoria...</div>
-                                <div class="option" data-value="Acessórios">Acessórios</div>
-                                <div class="option" data-value="Bolsas">Bolsas</div>
-                                <div class="option" data-value="Chaves">Chaves</div>
-                                <div class="option" data-value="Documentos">Documentos</div>
-                                <div class="option" data-value="Eletrônicos">Eletrônicos</div>
-                                <div class="option" data-value="Roupas">Roupas</div>
-                                <div class="option" data-value="Utensílios">Utensílios</div>
-                                <div class="option" data-value="Outros">Outros</div>
                             </div>
 
                             <!-- Input que armazena o valor a ser enviado no formulário -->
-                            <input type="hidden" name="categoria" id="categoria" class="input-oculto" required>
+                            <input type="hidden" name="id_category" id="categoria" class="input-oculto" required>
                         </div>
 
                         <!-- Descrição -->
@@ -148,14 +140,14 @@
                             </div>
 
                             <!-- Input que armazena o valor a ser enviado no formulário -->
-                            <input type="hidden" name="categoria" id="categoria" class="input-oculto" required>
+                            <input type="hidden" name="color" id="cor" class="input-oculto" required>
                         </div>
 
 
                         <!-- Marca -->
                         <div class="campo campo-marca">
                             <label for="marca">Marca</label>
-                            <input type="text" placeholder="Digite a marca (opcional)">
+                            <input type="text" id="marca" name="brand" placeholder="Digite a marca (opcional)">
                         </div>
 
 
@@ -163,7 +155,7 @@
                         <div class="campo campo-data">
                             <label for="data">Data</label>
                             <div class="input-icone-wrapper">
-                                <input type="text" name="data" id="data" placeholder="dd/mm/aaaa" autocomplete="off" required>
+                                <input type="text" id="data" placeholder="dd/mm/aaaa" autocomplete="off" required>
                                 <i class="fa-regular fa-calendar"></i>
                             </div>
                         </div>
@@ -172,7 +164,14 @@
                         <!-- Local -->
                         <div class="campo">
                             <label for="local">Local</label>
-                            <input type="text" placeholder="Informe onde foi encontrado" required>
+                            <div class="campo-select custom-select-container" id="seletorLocal">
+                                <div class="select-btn">
+                                    <span class="select-btn-text">Selecione o local...</span>
+                                    <i class="fa-solid fa-angle-down select-icon"></i>
+                                </div>
+                                <div class="select-dropdown"></div>
+                                <input type="hidden" name="id_location" id="local" class="input-oculto" required>
+                            </div>
                         </div>
                     </div>
 
@@ -251,6 +250,8 @@
 
         <!-- Banco de Dados Global -->
         <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
 
         <!-- Scripts Globais do Sistema -->
         <script src="../../src/js/global/tema.js"></script>

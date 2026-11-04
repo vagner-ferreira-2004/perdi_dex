@@ -16,7 +16,9 @@ def loginUser(data: dict) -> dict:
         raise AuthenticationError("Invalid credentials")
 
     with Session() as session:
-        user = session.query(User).filter_by(email=email.strip()).one_or_none()
+        user = session.query(User).filter_by(
+            email=email.strip(), is_active=True
+        ).one_or_none()
         if user is None or not verifyPassword(password, user.password_hash):
             raise AuthenticationError("Invalid credentials")
 

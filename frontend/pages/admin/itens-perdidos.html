@@ -24,16 +24,35 @@
     </head>
     <body>
         <!-- MENU LATERAL FIXO -->
-        <div id="menu" data-menu="../../components/menu-admin.html"></div>
+        <menu-admin></menu-admin>
 
         <!-- MAIN -->
-        <main></main>
+        <main>
+            <div class="topo-mobile">
+                <div class="logo"><a href="index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span><span></span><span></span></button>
+            </div>
+            <div class="topo-pesquisa">
+                <h2>Itens do sistema</h2>
+                <search-bar></search-bar>
+            </div>
+            <ordenar-itens></ordenar-itens>
+            <todos-itens></todos-itens>
+            <modal-detalhes></modal-detalhes>
+        </main>
 
         
         <!-- JS -->
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+        <script src="../../src/js/components/listagem-itens.js"></script>
         <script src="../../src/js/global/tema.js"></script>
         <script src="../../src/js/global/font-awesome.js"></script>
         <script src="../../src/js/components/menu.js"></script>
-        <script src="../../src/js/components/modais.js"></script>
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/itens.js"></script>
+        <script src="../../src/js/components/modais-itens.js"></script>
+        <script src="../../src/js/components/search.js"></script>
+        <script src="../../src/js/components/arrastar-cards.js"></script>
     </body>
 </html>

@@ -1,0 +1,41 @@
+.pagina-ajuda {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.pagina-ajuda header {
+    margin-bottom: 1.5rem;
+}
+
+.pagina-ajuda h1,
+.ajuda-perguntas h2 {
+    color: var(--title-blue);
+}
+
+.pagina-ajuda header p {
+    color: var(--text-gray);
+}
+
+.ajuda-perguntas {
+    display: grid;
+    gap: 1rem;
+}
+
+.ajuda-perguntas article {
+    padding: 1.2rem;
+    background: var(--bg-dash);
+    border: 1px solid var(--border-card);
+    border-radius: var(--raio);
+}
+
+.ajuda-perguntas h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.ajuda-perguntas p {
+    margin: 0;
+    color: var(--text-header);
+    line-height: 1.6;
+}

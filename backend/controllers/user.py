@@ -2,13 +2,15 @@ from flask import g, jsonify, request
 from pydantic import ValidationError
 
 from errors import ServiceError
-from services.User import changePassword, getMe, updateMe
+from services.User import changePassword, deleteMe, getMe, updateMe
 from validators.RegisterSchema import ChangePasswordSchema
 from validators.UpdateUserSchema import UpdateUserSchema
 
 
 def _validationError(error: ValidationError):
-    return jsonify({"error": "Invalid request", "details": error.errors()}), 400
+    return jsonify(
+        {"error": "Invalid request", "details": error.errors(include_context=False)}
+    ), 400
 
 
 def _serviceError(error: ServiceError):
@@ -39,5 +41,13 @@ def changePasswordController():
         return jsonify({"message": "Password changed successfully"}), 200
     except ValidationError as error:
         return _validationError(error)
+    except ServiceError as error:
+        return _serviceError(error)
+
+
+def deleteMeController():
+    try:
+        deleteMe(g.user_id, request.get_json(silent=True) or {})
+        return jsonify({"message": "Account deactivated successfully"}), 200
     except ServiceError as error:
         return _serviceError(error)

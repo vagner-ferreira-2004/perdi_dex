@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="../../src/css/components/main-user.css">
         <link rel="stylesheet" href="../../src/css/pages/dashboard-user.css">
         <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+        <link rel="stylesheet" href="../../src/css/pages/analises.css">
     </head>
     <body>
         <!-- MENU LATERAL FIXO -->
@@ -26,6 +27,17 @@
                 <div class="logo"><a href=""><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
                 <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
             </div>
+            <section class="analises-pagina">
+                <header class="analises-cabecalho">
+                    <div>
+                        <h1>Cadastros para análise</h1>
+                        <p>Revise os itens enviados antes de publicá-los no catálogo.</p>
+                    </div>
+                    <strong id="totalPendentes" aria-live="polite">Carregando...</strong>
+                </header>
+                <div id="mensagemAnalises" role="status" aria-live="polite"></div>
+                <div id="listaAnalises" class="lista-analises" aria-live="polite"></div>
+            </section>
         </main>
 
         
@@ -33,10 +45,13 @@
 
         <!-- Banco de Dados Global -->
         <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
         <script src="../../src/js/global/tema.js"></script>
         <script src="../../src/js/global/font-awesome.js"></script>
 
         <script src="../../src/js/components/menu.js"></script>
         <script src="../../src/js/components/arrastar-cards.js"></script>
+        <script src="../../src/js/pages/analises.js"></script>
     </body>
 </html>

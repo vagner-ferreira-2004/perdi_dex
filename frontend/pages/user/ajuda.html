@@ -15,13 +15,41 @@
 
         <!-- Páginas -->
         <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+        <link rel="stylesheet" href="../../src/css/pages/ajuda.css">
     </head>
     <body>
         <!-- MENU LATERAL FIXO -->
         <menu-user></menu-user>
 
         <!-- MAIN -->
-        <main></main>
+        <main class="pagina-ajuda">
+            <header>
+                <h1>Central de ajuda</h1>
+                <p>Encontre orientações para localizar e devolver itens encontrados.</p>
+            </header>
+            <section class="ajuda-perguntas" aria-label="Perguntas frequentes">
+                <article>
+                    <h2>Como cadastrar um item encontrado?</h2>
+                    <p>Acesse “Cadastro do Item”, selecione categoria e local, informe a data e descreva o item. Uma foto nítida ajuda na identificação. O cadastro ficará em análise até ser revisado pela administração.</p>
+                </article>
+                <article>
+                    <h2>Por que meu cadastro está em análise?</h2>
+                    <p>Os cadastros passam por uma revisão antes de aparecerem no catálogo público. Você receberá uma notificação quando houver uma decisão.</p>
+                </article>
+                <article>
+                    <h2>Como procuro um item perdido?</h2>
+                    <p>Use a página “Itens do Sistema” para pesquisar por descrição, categoria, cor, local ou data. Compare os detalhes e solicite o resgate somente quando conseguir identificar o item como seu.</p>
+                </article>
+                <article>
+                    <h2>Como acompanho resgates e contestações?</h2>
+                    <p>Solicite o resgate pela página “Itens do Sistema” e acompanhe o pedido em “Meus itens”. Se aprovado, combine local e horário com a administração pelos canais oficiais e confirme a retirada com sua senha somente depois de receber o item. Para contestar uma devolução, envie uma descrição de pelo menos 20 caracteres e, se desejar, até 3 imagens de evidência de no máximo 10 MB cada; acompanhe a decisão em “Minhas contestações”.</p>
+                </article>
+                <article>
+                    <h2>Como atualizar meus dados?</h2>
+                    <p>Em “Configurações”, você pode atualizar nome, e-mail, telefone e senha. Os dados institucionais são mantidos pela administração do sistema.</p>
+                </article>
+            </section>
+        </main>
         
         
         <!-- JS -->
@@ -29,6 +57,8 @@
         <script src="../../src/js/global/banco-dados.js"></script>
 
         <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
         <script src="../../src/js/global/tema.js"></script>
         <script src="../../src/js/global/font-awesome.js"></script>
         <script src="../../src/js/components/menu.js"></script>

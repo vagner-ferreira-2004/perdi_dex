@@ -1,0 +1,65 @@
+.usuarios-admin {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.usuarios-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.usuarios-cabecalho h1 {
+    margin: 0;
+    color: var(--title-blue);
+}
+
+.usuarios-cabecalho p {
+    color: var(--text-gray);
+}
+
+.tabela-usuarios-wrap {
+    overflow-x: auto;
+    background: var(--bg-dash);
+    border: 1px solid var(--border-card);
+    border-radius: var(--raio);
+}
+
+.tabela-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-usuarios th,
+.tabela-usuarios td {
+    padding: 0.9rem;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.tabela-usuarios th {
+    color: var(--title-blue);
+}
+
+.tabela-usuarios tr:last-child td {
+    border-bottom: 0;
+}
+
+.paginacao-usuarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.paginacao-usuarios button {
+    padding: 0.55rem 0.9rem;
+}
+
+#mensagemUsuarios[role="alert"] {
+    color: #b42318;
+}

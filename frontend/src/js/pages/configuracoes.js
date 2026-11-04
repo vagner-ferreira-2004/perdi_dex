@@ -1,36 +1,3 @@
-// ============================================================
-// Página de Configurações — lógica de front-end (Dinâmica Admin/User)
-// ============================================================
-
-function ehAdmin() {
-    return document.body.getAttribute('data-user-type') === 'admin';
-}
-
-function obterUsuario() {
-    if (!window.BancoDeDados) return {};
-    return ehAdmin() ? window.BancoDeDados.administrador : window.BancoDeDados.usuario;
-}
-
-function iniciais(nome) {
-    return window.obterIniciaisNome ? window.obterIniciaisNome(nome) : 'U';
-}
-
-function mostrarToast(mensagem, tipo = 'sucesso') {
-    if (typeof GerenciadorToast !== 'undefined') {
-        GerenciadorToast.exibir(mensagem);
-    } else {
-        const toast = document.getElementById('toast');
-        if (toast) {
-            toast.textContent = mensagem;
-            toast.classList.toggle('erro', tipo === 'erro');
-            toast.classList.add('mostrar');
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => toast.classList.remove('mostrar'), 2800);
-        }
-    }
-}
-
-// ---------- Máscaras ----------
 function mascararTelefone(valor) {
     return valor.replace(/\D/g, '').slice(0, 11)
         .replace(/^(\d{2})(\d)/, '($1) $2')
@@ -44,228 +11,210 @@ function mascararCPF(valor) {
         .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 }
 
-// ---------- Validações ----------
-function emailValido(valor) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
-}
-
-function telefoneValido(valor) {
-    return valor.replace(/\D/g, '').length >= 10;
-}
-
-function cpfValido(valor) {
-    return valor.replace(/\D/g, '').length === 11;
-}
-
 function definirErro(campoId, mensagem) {
     const input = document.getElementById(campoId);
-    const msgEl = document.getElementById(campoId + 'Erro');
+    const msgEl = document.getElementById(`${campoId}Erro`);
     if (input) input.classList.toggle('erro', Boolean(mensagem));
     if (msgEl) msgEl.textContent = mensagem || '';
 }
 
-function preencherFormulario() {
-    const user = obterUsuario();
-
-    if (document.getElementById('campoNome')) document.getElementById('campoNome').value = user.nome || '';
-    if (document.getElementById('campoEmail')) document.getElementById('campoEmail').value = user.email || '';
-    if (document.getElementById('campoTelefone')) document.getElementById('campoTelefone').value = user.telefone || '';
-    if (document.getElementById('campoCpf')) document.getElementById('campoCpf').value = user.cpf || '';
-    
-    // Campo RGM existe apenas no painel do usuário
-    if (document.getElementById('campoRgm')) document.getElementById('campoRgm').value = user.rgm || '';
-
-    if (document.getElementById('nomeExibicao')) document.getElementById('nomeExibicao').textContent = user.nome || '';
-    if (document.getElementById('membroDesde')) document.getElementById('membroDesde').textContent = user.membroDesde ? `Desde ${user.membroDesde}` : '';
-    
-    const avatarGrande = document.getElementById('avatarIniciais');
-    if (avatarGrande) avatarGrande.textContent = iniciais(user.nome);
-
-    const textoPerfilEl = document.getElementById('textoPerfilInstituicao');
-    if (textoPerfilEl) textoPerfilEl.textContent = user.perfil || '';
-    
-    const iconePerfilEl = document.getElementById('iconePerfilInstituicao');
-    if (iconePerfilEl) iconePerfilEl.className = user.iconePerfil || '';
+function mostrarToast(mensagem, tipo = 'sucesso') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = mensagem;
+    toast.classList.toggle('erro', tipo === 'erro');
+    toast.classList.add('mostrar');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('mostrar'), 3500);
 }
 
-function alternarVisibilidadeSenha(botao) {
-    const wrap = botao.closest('.campo-input-wrap');
-    const input = wrap.querySelector('input');
-    const mostrando = input.type === 'text';
-    input.type = mostrando ? 'password' : 'text';
-    botao.innerHTML = mostrando ? iconeOlho() : iconeOlhoFechado();
+function obterCamposPessoais() {
+    return {
+        name: document.getElementById('campoNome')?.value.trim() || '',
+        email: document.getElementById('campoEmail')?.value.trim() || '',
+        phone: document.getElementById('campoTelefone')?.value.replace(/\D/g, '') || ''
+    };
 }
 
-function iconeOlho() {
-    return `<i class="fa-regular fa-eye"></i>`;
+function preencherFormulario(user) {
+    const nome = document.getElementById('campoNome');
+    const email = document.getElementById('campoEmail');
+    const telefone = document.getElementById('campoTelefone');
+    const cpf = document.getElementById('campoCpf');
+    const rgm = document.getElementById('campoRgm');
+    if (nome) nome.value = user.name || '';
+    if (email) email.value = user.email || '';
+    if (telefone) telefone.value = mascararTelefone(user.phone || '');
+    if (cpf) cpf.value = mascararCPF(user.cpf || '');
+    if (rgm) rgm.value = user.rgm || '';
+
+    const nomeExibicao = document.getElementById('nomeExibicao');
+    if (nomeExibicao) nomeExibicao.textContent = user.name || '';
+    const avatar = document.getElementById('avatarIniciais');
+    if (avatar) avatar.textContent = (user.name || 'U').trim().split(/\s+/).slice(0, 2).map((parte) => parte[0]).join('').toUpperCase();
+    const perfil = document.getElementById('textoPerfilInstituicao');
+    if (perfil) perfil.textContent = user.profile || '';
 }
 
-function iconeOlhoFechado() {
-    return `<i class="fa-regular fa-eye-slash"></i>`;
+function limparSenhas() {
+    ['senhaAtual', 'senhaNova', 'senhaConfirmar'].forEach((id) => {
+        const input = document.getElementById(id);
+        if (input) input.value = '';
+        definirErro(id, '');
+    });
 }
 
-function validarDadosPessoais() {
-    let ok = true;
-    const nome = document.getElementById('campoNome')?.value.trim() || '';
-    const email = document.getElementById('campoEmail')?.value.trim() || '';
-    const telefone = document.getElementById('campoTelefone')?.value.trim() || '';
-    const cpf = document.getElementById('campoCpf')?.value.trim() || '';
+function inicializar(user) {
+    const api = window.PerdidexApi;
+    if (!api || !user) return;
+    preencherFormulario(user);
 
-    if (nome.length < 3) { definirErro('campoNome', 'Informe seu nome completo'); ok = false; }
-    else definirErro('campoNome', '');
+    document.getElementById('campoTelefone')?.addEventListener('input', (event) => {
+        event.target.value = mascararTelefone(event.target.value);
+    });
+    document.querySelectorAll('.alt-senha').forEach((botao) => {
+        botao.innerHTML = '<i class="fa-regular fa-eye"></i>';
+        botao.addEventListener('click', () => {
+            const input = botao.closest('.campo-input-wrap')?.querySelector('input');
+            if (!input) return;
+            input.type = input.type === 'password' ? 'text' : 'password';
+            botao.innerHTML = input.type === 'password'
+                ? '<i class="fa-regular fa-eye"></i>'
+                : '<i class="fa-regular fa-eye-slash"></i>';
+        });
+    });
 
-    if (!emailValido(email)) { definirErro('campoEmail', 'Informe um e-mail válido'); ok = false; }
-    else definirErro('campoEmail', '');
-
-    if (!telefoneValido(telefone)) { definirErro('campoTelefone', 'Informe um telefone válido'); ok = false; }
-    else definirErro('campoTelefone', '');
-
-    if (!cpfValido(cpf)) { definirErro('campoCpf', 'CPF inválido.'); ok = false; }
-    else definirErro('campoCpf', '');
-
-    return ok;
-}
-
-function validarSenha() {
-    const atual = document.getElementById('senhaAtual')?.value || '';
-    const nova = document.getElementById('senhaNova')?.value || '';
-    const confirmar = document.getElementById('senhaConfirmar')?.value || '';
-
-    if (!atual && !nova && !confirmar) {
-        definirErro('senhaAtual', ''); definirErro('senhaNova', ''); definirErro('senhaConfirmar', '');
-        return true;
+    const tema = document.getElementById('prefTema');
+    if (tema) {
+        tema.checked = (localStorage.getItem('tema') || 'light') === 'dark';
+        tema.addEventListener('change', (event) => {
+            const novoTema = event.target.checked ? 'dark' : 'light';
+            if (typeof window.alternarTemaGlobal === 'function') {
+                window.alternarTemaGlobal(novoTema);
+            } else {
+                document.documentElement.setAttribute('data-theme', novoTema);
+                localStorage.setItem('tema', novoTema);
+            }
+        });
     }
 
-    let ok = true;
-    if (!atual) { definirErro('senhaAtual', 'Informe sua senha atual'); ok = false; }
-    else definirErro('senhaAtual', '');
+    document.getElementById('formConfiguracoes')?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const dados = obterCamposPessoais();
+        let valido = true;
+        if (dados.name.length < 3) {
+            definirErro('campoNome', 'Informe seu nome completo');
+            valido = false;
+        } else definirErro('campoNome', '');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados.email)) {
+            definirErro('campoEmail', 'Informe um e-mail válido');
+            valido = false;
+        } else definirErro('campoEmail', '');
+        if (dados.phone.length < 10) {
+            definirErro('campoTelefone', 'Informe um telefone válido');
+            valido = false;
+        } else definirErro('campoTelefone', '');
 
-    if (nova.length < 6) { definirErro('senhaNova', 'Use pelo menos 6 caracteres'); ok = false; }
-    else definirErro('senhaNova', '');
-
-    if (nova !== confirmar) { definirErro('senhaConfirmar', 'As senhas não coincidem'); ok = false; }
-    else definirErro('senhaConfirmar', '');
-
-    return ok;
-}
-
-function inicializar() {
-    preencherFormulario();
-
-    document.getElementById('campoTelefone')?.addEventListener('input', (e) => {
-        e.target.value = mascararTelefone(e.target.value);
-    });
-    document.getElementById('campoCpf')?.addEventListener('input', (e) => {
-        e.target.value = mascararCPF(e.target.value);
-    });
-
-    document.querySelectorAll('.alt-senha').forEach(botao => {
-        botao.innerHTML = iconeOlho();
-        botao.addEventListener('click', () => alternarVisibilidadeSenha(botao));
-    });
-
-    const nomesPref = { 
-        prefEmails: 'E-mails', 
-        prefStatus: 'Status', 
-        prefReencontro: 'Devolvidos',
-        prefTema: 'Modo escuro'
-    };
-
-    Object.keys(nomesPref).forEach(id => {
-        const elemento = document.getElementById(id);
-        if (elemento) {
-            if (id === 'prefTema') {
-                const temaSalvo = localStorage.getItem('tema') || document.documentElement.getAttribute('data-theme') || 'light';
-                elemento.checked = (temaSalvo === 'dark');
-
-                elemento.addEventListener('change', (e) => {
-                    const novoTema = e.target.checked ? 'dark' : 'light';
-                    if (typeof window.alternarTemaGlobal === 'function') {
-                        window.alternarTemaGlobal(novoTema);
-                    } else {
-                        document.documentElement.setAttribute('data-theme', novoTema);
-                        localStorage.setItem('tema', novoTema);
-                    }
-                    mostrarToast(e.target.checked ? "Modo escuro ativado" : "Modo claro ativado");
-                });
-            } else {
-                elemento.addEventListener('change', (e) => {
-                    const estado = e.target.checked ? 'ativadas' : 'desativadas';
-                    mostrarToast(`Notificações de "${nomesPref[id]}" ${estado}`);
-                });
-            }
-        }
-    });
-
-    // Salvar alterações
-    document.getElementById('formConfiguracoes')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const dadosOk = validarDadosPessoais();
-        const senhaOk = validarSenha();
-
-        if (!dadosOk || !senhaOk) {
-            mostrarToast('Verifique os campos destacados em vermelho.', 'erro');
+        const atual = document.getElementById('senhaAtual')?.value || '';
+        const nova = document.getElementById('senhaNova')?.value || '';
+        const confirmar = document.getElementById('senhaConfirmar')?.value || '';
+        const alterarSenha = Boolean(atual || nova || confirmar);
+        if (alterarSenha) {
+            if (!atual) {
+                definirErro('senhaAtual', 'Informe sua senha atual');
+                valido = false;
+            } else definirErro('senhaAtual', '');
+            if (nova.length < 8) {
+                definirErro('senhaNova', 'Use pelo menos 8 caracteres');
+                valido = false;
+            } else definirErro('senhaNova', '');
+            if (nova !== confirmar) {
+                definirErro('senhaConfirmar', 'As senhas não coincidem');
+                valido = false;
+            } else definirErro('senhaConfirmar', '');
+        } else limparSenhas();
+        if (!valido) {
+            mostrarToast('Verifique os campos destacados.', 'erro');
             return;
         }
 
-        if (window.BancoDeDados) {
-            const userRef = ehAdmin() ? window.BancoDeDados.administrador : window.BancoDeDados.usuario;
-            
-            if (userRef) {
-                userRef.nome = document.getElementById('campoNome').value.trim();
-                userRef.email = document.getElementById('campoEmail').value.trim();
-                userRef.telefone = document.getElementById('campoTelefone').value.trim();
-                userRef.cpf = document.getElementById('campoCpf').value.trim();
-                
-                if (document.getElementById('campoRgm')) {
-                    userRef.rgm = document.getElementById('campoRgm').value.trim();
-                }
-
-                window.dispatchEvent(new CustomEvent('usuarioAtualizado'));
+        const submit = event.currentTarget.querySelector('[type="submit"]');
+        if (submit) submit.disabled = true;
+        let perfilSalvo = false;
+        try {
+            if (dados.name !== user.name || dados.email !== user.email || dados.phone !== (user.phone || '').replace(/\D/g, '')) {
+                user = await api.patch('/users/me', dados);
+                window.PerdidexUser = user;
+                window.dispatchEvent(new CustomEvent('usuarioAtualizado', { detail: user }));
+                preencherFormulario(user);
             }
+            perfilSalvo = true;
+            if (alterarSenha) {
+                await api.patch('/users/me/password', {
+                    current_password: atual,
+                    new_password: nova
+                });
+            }
+            limparSenhas();
+            mostrarToast('Alterações salvas com sucesso!');
+        } catch (error) {
+            mostrarToast(
+                perfilSalvo
+                    ? `Dados pessoais salvos, mas não foi possível alterar a senha: ${error.message}`
+                    : `Não foi possível salvar as alterações: ${error.message}`,
+                'erro'
+            );
+        } finally {
+            if (submit) submit.disabled = false;
         }
-
-        if(document.getElementById('senhaAtual')) document.getElementById('senhaAtual').value = '';
-        if(document.getElementById('senhaNova')) document.getElementById('senhaNova').value = '';
-        if(document.getElementById('senhaConfirmar')) document.getElementById('senhaConfirmar').value = '';
-
-        preencherFormulario();
-        mostrarToast('Alterações salvas com sucesso!');
     });
 
     document.getElementById('btnCancelar')?.addEventListener('click', () => {
-        preencherFormulario();
-        ['campoNome', 'campoEmail', 'campoTelefone', 'campoCpf', 'senhaAtual', 'senhaNova', 'senhaConfirmar'].forEach(id => definirErro(id, ''));
-        if(document.getElementById('senhaAtual')) document.getElementById('senhaAtual').value = '';
-        if(document.getElementById('senhaNova')) document.getElementById('senhaNova').value = '';
-        if(document.getElementById('senhaConfirmar')) document.getElementById('senhaConfirmar').value = '';
-        mostrarToast('Alterações descartadas');
+        preencherFormulario(user);
+        limparSenhas();
+        ['campoNome', 'campoEmail', 'campoTelefone'].forEach((id) => definirErro(id, ''));
     });
 
-    // Excluir conta
     const overlay = document.getElementById('overlayExcluir');
-    const inputSenhaExcluir = document.getElementById('senhaExcluir');
-    const btnConfirmarExcluir = document.getElementById('btnConfirmarExcluir');
-
     document.getElementById('btnAbrirExcluir')?.addEventListener('click', () => {
-        if (inputSenhaExcluir) inputSenhaExcluir.value = '';
-        overlay.classList.add('aberto');
+        const senha = document.getElementById('senhaExcluir');
+        if (senha) senha.value = '';
+        overlay?.classList.add('aberto');
     });
-
-    document.getElementById('btnCancelarExcluir')?.addEventListener('click', () => overlay.classList.remove('aberto'));
-    
-    overlay?.addEventListener('click', (e) => { 
-        if (e.target === overlay) overlay.classList.remove('aberto'); 
+    document.getElementById('btnCancelarExcluir')?.addEventListener('click', () => overlay?.classList.remove('aberto'));
+    overlay?.addEventListener('click', (event) => {
+        if (event.target === overlay) overlay.classList.remove('aberto');
     });
-
-    btnConfirmarExcluir?.addEventListener('click', () => {
-        overlay.classList.remove('aberto');
-        mostrarToast('Conta excluída! Você será redirecionado(a)');
+    document.getElementById('btnConfirmarExcluir')?.addEventListener('click', async (event) => {
+        const senha = document.getElementById('senhaExcluir')?.value || '';
+        if (!senha) {
+            mostrarToast('Informe sua senha para confirmar.', 'erro');
+            return;
+        }
+        const button = event.currentTarget;
+        button.disabled = true;
+        let redirectDelay = 0;
+        try {
+            await api.delete('/users/me', { body: { current_password: senha } });
+            try {
+                await api.logout();
+            } catch (logoutError) {
+                mostrarToast(`Conta desativada, mas não foi possível limpar o cookie da sessão: ${logoutError.message}`, 'erro');
+                redirectDelay = 3500;
+            }
+            setTimeout(() => window.location.replace('../auth/index.html?mode=login'), redirectDelay);
+        } catch (error) {
+            mostrarToast(`Não foi possível desativar a conta: ${error.message}`, 'erro');
+        } finally {
+            button.disabled = false;
+        }
     });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay) overlay.classList.remove('aberto');
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') overlay?.classList.remove('aberto');
     });
 }
 
-document.addEventListener('DOMContentLoaded', inicializar);
+document.addEventListener('DOMContentLoaded', async () => {
+    const user = await window.PerdidexSession?.ready;
+    if (user) inicializar(user);
+});

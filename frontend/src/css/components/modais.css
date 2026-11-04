@@ -465,6 +465,12 @@ body.modal-aberto {
     background-color: var(--orange2);
 }
 
+.btn-resgatar-vermelho:disabled,
+.btn-contestar-laranja:disabled{
+    opacity: .55;
+    cursor: not-allowed;
+}
+
 
 .titulos-resgate{
     display: flex;
