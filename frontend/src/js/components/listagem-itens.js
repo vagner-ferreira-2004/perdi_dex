@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const sessionUser = await window.PerdidexSession?.ready;
-    if (!sessionUser) return;
-    const isAdmin = sessionUser.role === 'admin';
+    const sessionUser = window.PerdidexSession
+        ? await window.PerdidexSession.ready
+        : null;
+    const isAdmin = sessionUser?.role === 'admin';
     const dadosOriginais = [];
 
     let categorias = [];
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 requestTotal = requests.total || 0;
                 requestPage += 1;
             } while ((requestPage - 1) * 100 < requestTotal);
-        } else if (!isAdmin) {
+        } else if (!isAdmin && sessionUser) {
             let requestPage = 1;
             let requestTotal = 0;
             do {
@@ -281,6 +282,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.querySelectorAll('.btn-resgatar').forEach(btn => {
             btn.onclick = () => {
+                if (!sessionUser) {
+                    window.location.assign('../pages/auth/index.html?mode=login');
+                    return;
+                }
                 const item = obterItem(btn);
                 if (item) GerenciadorModais?.abrirResgate(item);
             };
@@ -288,6 +293,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         document.querySelectorAll('.btn-contestar').forEach(btn => {
             btn.onclick = () => {
+                if (!sessionUser) {
+                    window.location.assign('../pages/auth/index.html?mode=login');
+                    return;
+                }
                 const item = obterItem(btn);
                 if (item) GerenciadorModais?.abrirContestar(item);
             };

@@ -93,10 +93,10 @@ const GerenciadorSelect = (() => {
             configurar(perfilSelect, {
                 validarObrigatorio: true,
                 mensagemErro: "Por favor, selecione um perfil.",
-                onSelect: (valor) => {
+                onSelect: (valor, opcao) => {
                     if (!rgmContainer || !rgmInput) return;
 
-                    if (valor === "estudante") {
+                    if (opcao?.dataset.profileName === "student") {
                         rgmContainer.style.display = "flex";
                         rgmInput.required = true;
                     } else {

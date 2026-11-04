@@ -1,5 +1,5 @@
 (function () {
-    const apiBase = (window.PERDIDEX_API_BASE_URL || window.location.origin).replace(/\/+$/, '');
+    const apiBase = (window.PERDIDEX_API_BASE_URL || 'http://localhost:3333').replace(/\/+$/, '');
     let csrfToken = null;
     let csrfRequest = null;
 

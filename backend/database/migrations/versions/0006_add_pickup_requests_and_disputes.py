@@ -1,13 +1,13 @@
 """add pickup requests and property disputes
 
-Revision ID: 0006_add_pickup_requests_and_disputes
+Revision ID: 0006_pickup_disputes
 Revises: 0005_add_notifications
 Create Date: 2026-11-04
 """
 from alembic import op
 import sqlalchemy as sa
 
-revision = "0006_add_pickup_requests_and_disputes"
+revision = "0006_pickup_disputes"
 down_revision = "0005_add_notifications"
 branch_labels = None
 depends_on = None
