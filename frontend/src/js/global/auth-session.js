@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const api = window.PerdidexApi;
     if (!api) return;
 
-    const isAdminPage = /\/pages\/admin\//.test(window.location.pathname);
-    const authUrl = '../auth/index.html?mode=login';
+    const isAdminPage = /\/pages\/admin(?:\/|$)/.test(window.location.pathname);
+    const authUrl = '/pages/auth/index.html?mode=login';
 
     window.PerdidexSession = {
         ready: api.get('/users/me')
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isAdmin = user.role === 'admin';
                 if (isAdmin !== isAdminPage) {
                     window.location.replace(
-                        isAdmin ? '../admin/index.html' : '../user/index.html'
+                        isAdmin ? '/pages/admin/index.html' : '/pages/user/index.html'
                     );
                     return null;
                 }

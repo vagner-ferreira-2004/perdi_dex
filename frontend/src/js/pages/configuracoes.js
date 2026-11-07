@@ -202,7 +202,7 @@ function inicializar(user) {
                 mostrarToast(`Conta desativada, mas não foi possível limpar o cookie da sessão: ${logoutError.message}`, 'erro');
                 redirectDelay = 3500;
             }
-            setTimeout(() => window.location.replace('../auth/index.html?mode=login'), redirectDelay);
+            setTimeout(() => window.location.replace('/pages/auth/index.html?mode=login'), redirectDelay);
         } catch (error) {
             mostrarToast(`Não foi possível desativar a conta: ${error.message}`, 'erro');
         } finally {

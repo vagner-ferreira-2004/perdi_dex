@@ -66,7 +66,7 @@ class MenuUserComponent extends HTMLElement {
             <div class="btn-menu"><i class="fa-solid fa-bars"></i></div>
 
             <!-- Logo -->
-            <div class="logo"><a href="../../index.html"><img class="logo-completa" src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"><img class="logo-simbolo" src="../../../src/images/logos/simbolo-logo.png" alt="Logo"></a></div>
+            <div class="logo"><a href="/index.html"><img class="logo-completa" src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"><img class="logo-simbolo" src="../../../src/images/logos/simbolo-logo.png" alt="Logo"></a></div>
 
             <!-- Perfil -->
             <div class="perfil">
@@ -92,25 +92,25 @@ class MenuUserComponent extends HTMLElement {
                 <li class="grupo">
                     <h3>Navegação</h3>
                     <ul>
-                        <li><a href="index.html"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i><span>Início</span></a></li>
-                        <li><a href="cadastro-item.html"><i class="fi fi-rr-square-plus icon-normal"></i><i class="fi fi-sr-square-plus icon-ativo"></i><span>Cadastro do Item</span></a></li>
-                        <li><a href="itens-sistema.html"><i class="fi fi-rr-box-alt icon-normal"></i><i class="fi fi-sr-box-alt icon-ativo"></i><span>Itens do Sistema</span></a></li>
+                        <li><a href="/pages/user/index.html"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i><span>Início</span></a></li>
+                        <li><a href="/pages/user/cadastro-item.html"><i class="fi fi-rr-square-plus icon-normal"></i><i class="fi fi-sr-square-plus icon-ativo"></i><span>Cadastro do Item</span></a></li>
+                        <li><a href="/pages/user/itens-sistema.html"><i class="fi fi-rr-box-alt icon-normal"></i><i class="fi fi-sr-box-alt icon-ativo"></i><span>Itens do Sistema</span></a></li>
                     </ul>
                 </li>
 
                 <li class="grupo">
                     <h3>Conta</h3>
                     <ul>
-                        <li><a href="notificacoes.html"><i class="fa-regular fa-bell icon-normal"></i><i class="fa-solid fa-bell icon-ativo"></i><span>Notificações</span><div class="nao-lidas" style="display: none;">0</div></a></li>
-                        <li><a href="contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Minhas contestações</span></a></li>
-                        <li><a href="configuracoes.html"><i class="fi fi-rr-settings icon-normal"></i><i class="fa-solid fa-gear icon-ativo"></i><span>Configurações</span></a></li>
+                        <li><a href="/pages/user/notificacoes.html"><i class="fa-regular fa-bell icon-normal"></i><i class="fa-solid fa-bell icon-ativo"></i><span>Notificações</span><div class="nao-lidas" style="display: none;">0</div></a></li>
+                        <li><a href="/pages/user/contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Minhas contestações</span></a></li>
+                        <li><a href="/pages/user/configuracoes.html"><i class="fi fi-rr-settings icon-normal"></i><i class="fa-solid fa-gear icon-ativo"></i><span>Configurações</span></a></li>
                     </ul>
                 </li>
 
                 <li class="grupo">
                     <h3>Suporte</h3>
                     <ul>
-                        <li><a href="ajuda.html"><i class="fa-regular fa-circle-question icon-normal"></i><i class="fa-solid fa-circle-question icon-ativo"></i><span>Ajuda</span></a></li>
+                        <li><a href="/pages/user/ajuda.html"><i class="fa-regular fa-circle-question icon-normal"></i><i class="fa-solid fa-circle-question icon-ativo"></i><span>Ajuda</span></a></li>
                         <hr>
                         <li><a href="#" class="btn-sair"><i class="fa-solid fa-arrow-right-from-bracket icon-normal"></i><i class="fa-solid fa-right-from-bracket icon-ativo"></i><span>Sair</span></a></li>
                     </ul>
@@ -128,12 +128,18 @@ class MenuUserComponent extends HTMLElement {
         const temaSalvo = localStorage.getItem("tema") || "light";
         document.documentElement.setAttribute("data-theme", temaSalvo);
 
-        const paginaAtual = window.location.pathname.split("/").pop();
+        const paginaAtual = window.location.pathname
+            .replace(/\/index\.html$/, '')
+            .replace(/\.html$/, '')
+            .replace(/\/+$/, '');
         const links = this.querySelectorAll(".lista a");
 
         links.forEach(link => {
-            const paginaLink = link.getAttribute("href");
-            if (paginaLink && (paginaLink === paginaAtual || (paginaAtual === '' && paginaLink.includes('itens-sistema')))) {
+            const paginaLink = new URL(link.href).pathname
+                .replace(/\/index\.html$/, '')
+                .replace(/\.html$/, '')
+                .replace(/\/+$/, '');
+            if (paginaLink === paginaAtual) {
                 link.classList.add("ativo");
             }
         });
@@ -206,7 +212,7 @@ class MenuUserComponent extends HTMLElement {
             event.preventDefault();
             try {
                 await window.PerdidexApi.logout();
-                window.location.assign('../auth/index.html?mode=login');
+                window.location.assign('/pages/auth/index.html?mode=login');
             } catch (error) {
                 window.alert(`Não foi possível encerrar a sessão: ${error.message}`);
             }
@@ -247,7 +253,7 @@ class MenuAdminComponent extends HTMLElement {
             <div class="btn-menu"><i class="fa-solid fa-bars"></i></div>
 
             <!-- Logo -->
-            <div class="logo"><a href="../../index.html"><img class="logo-completa" src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"><img class="logo-simbolo" src="../../../src/images/logos/simbolo-logo.png" alt="Logo"></a></div>
+            <div class="logo"><a href="/index.html"><img class="logo-completa" src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"><img class="logo-simbolo" src="../../../src/images/logos/simbolo-logo.png" alt="Logo"></a></div>
 
             <!-- Perfil -->
             <div class="perfil">
@@ -273,19 +279,19 @@ class MenuAdminComponent extends HTMLElement {
                 <li class="grupo">
                     <h3>Gestão</h3>
                     <ul>
-                        <li><a href="index.html"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i><span>Início</span></a></li>
-                        <li><a href="analises.html"><i class="fi fi-rr-analyse icon-normal"></i><i class="fi fi-sr-analyse icon-ativo"></i><span>Análises</span></a></li>
-                        <li><a href="solicitacoes.html"><i class="fa-solid fa-hand"></i><span>Resgates</span></a></li>
-                        <li><a href="contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Contestações</span></a></li>
-                        <li><a href="usuarios.html"><i class="fa-regular fa-user icon-normal"></i><i class="fa-solid fa-user icon-ativo"></i><span>Usuários</span></a></li>
+                        <li><a href="/pages/admin/index.html"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i><span>Início</span></a></li>
+                        <li><a href="/pages/admin/analises.html"><i class="fi fi-rr-analyse icon-normal"></i><i class="fi fi-sr-analyse icon-ativo"></i><span>Análises</span></a></li>
+                        <li><a href="/pages/admin/solicitacoes.html"><i class="fa-solid fa-hand"></i><span>Resgates</span></a></li>
+                        <li><a href="/pages/admin/contestacoes.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Contestações</span></a></li>
+                        <li><a href="/pages/admin/usuarios.html"><i class="fa-regular fa-user icon-normal"></i><i class="fa-solid fa-user icon-ativo"></i><span>Usuários</span></a></li>
                     </ul>
                 </li>
 
                 <li class="grupo">
                     <h3>Conta</h3>
                     <ul>
-                        <li><a href="notificacoes.html"><i class="fa-regular fa-bell icon-normal"></i><i class="fa-solid fa-bell icon-ativo"></i><span>Notificações</span><div class="nao-lidas" style="display: none;">0</div></a></li>
-                        <li><a href="configuracoes.html"><i class="fi fi-rr-settings icon-normal"></i><i class="fa-solid fa-gear icon-ativo"></i><span>Configurações</span></a></li>
+                        <li><a href="/pages/admin/notificacoes.html"><i class="fa-regular fa-bell icon-normal"></i><i class="fa-solid fa-bell icon-ativo"></i><span>Notificações</span><div class="nao-lidas" style="display: none;">0</div></a></li>
+                        <li><a href="/pages/admin/configuracoes.html"><i class="fi fi-rr-settings icon-normal"></i><i class="fa-solid fa-gear icon-ativo"></i><span>Configurações</span></a></li>
                     </ul>
                 </li>
 
@@ -310,12 +316,18 @@ class MenuAdminComponent extends HTMLElement {
         document.documentElement.setAttribute("data-theme", temaSalvo);
 
         // Lógica de Links Ativos ajustada para as rotas do adm
-        const paginaAtual = window.location.pathname.split("/").pop();
+        const paginaAtual = window.location.pathname
+            .replace(/\/index\.html$/, '')
+            .replace(/\.html$/, '')
+            .replace(/\/+$/, '');
         const links = this.querySelectorAll(".lista a");
 
         links.forEach(link => {
-            const paginaLink = link.getAttribute("href");
-            if (paginaLink && (paginaLink === paginaAtual || (paginaAtual === '' && paginaLink.includes('index-admin')))) {
+            const paginaLink = new URL(link.href).pathname
+                .replace(/\/index\.html$/, '')
+                .replace(/\.html$/, '')
+                .replace(/\/+$/, '');
+            if (paginaLink === paginaAtual) {
                 link.classList.add("ativo");
             }
         });
@@ -391,7 +403,7 @@ class MenuAdminComponent extends HTMLElement {
             event.preventDefault();
             try {
                 await window.PerdidexApi.logout();
-                window.location.assign('../auth/index.html?mode=login');
+                window.location.assign('/pages/auth/index.html?mode=login');
             } catch (error) {
                 window.alert(`Não foi possível encerrar a sessão: ${error.message}`);
             }

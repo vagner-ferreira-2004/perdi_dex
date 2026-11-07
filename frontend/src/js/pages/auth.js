@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const response = await api.get('/users/me');
             const destination = response.role === 'admin'
-                ? '../admin/index.html'
-                : '../user/index.html';
+                ? '/pages/admin/index.html'
+                : '/pages/user/index.html';
             window.location.assign(destination);
         } catch (error) {
             setFeedback(loginForm, error.message, true);
