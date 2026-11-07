@@ -31,7 +31,9 @@ class LocalCorsTests(unittest.TestCase):
             headers={
                 "Origin": "http://localhost:5500",
                 "Access-Control-Request-Method": "POST",
-                "Access-Control-Request-Headers": "content-type,x-csrf-token",
+                "Access-Control-Request-Headers": (
+                    "content-type,x-csrf-token,ngrok-skip-browser-warning"
+                ),
             },
         )
 
@@ -42,6 +44,10 @@ class LocalCorsTests(unittest.TestCase):
         )
         self.assertIn(
             "X-CSRF-Token",
+            response.headers.get("Access-Control-Allow-Headers", ""),
+        )
+        self.assertIn(
+            "ngrok-skip-browser-warning",
             response.headers.get("Access-Control-Allow-Headers", ""),
         )
 

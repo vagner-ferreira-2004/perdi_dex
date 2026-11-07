@@ -36,7 +36,8 @@ def createApp() -> Flask:
                 "GET, HEAD, POST, PATCH, DELETE, OPTIONS"
             )
             response.headers["Access-Control-Allow-Headers"] = (
-                "Content-Type, X-CSRF-Token, Authorization"
+                "Content-Type, X-CSRF-Token, Authorization, "
+                "ngrok-skip-browser-warning"
             )
             response.vary.add("Origin")
         return response

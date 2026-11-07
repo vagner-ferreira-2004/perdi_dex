@@ -26,7 +26,10 @@
                 const response = await fetch(`${apiBase}/auth/csrf`, {
                     method: 'GET',
                     credentials: 'include',
-                    headers: { Accept: 'application/json' },
+                    headers: {
+                        Accept: 'application/json',
+                        'ngrok-skip-browser-warning': '1'
+                    },
                     cache: 'no-store'
                 });
                 const payload = await readResponse(response);
@@ -53,6 +56,7 @@
             headers.set('Content-Type', 'application/json');
         }
         headers.set('Accept', 'application/json');
+        headers.set('ngrok-skip-browser-warning', '1');
 
         if (!['GET', 'HEAD', 'OPTIONS'].includes(method)) {
             if (!csrfToken) {
