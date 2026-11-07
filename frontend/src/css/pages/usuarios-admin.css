@@ -1,12 +1,20 @@
 .usuarios-admin {
+    width: calc(100% - 230px);
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.5rem;
+    min-height: 100vh;
+    margin: 0 auto 0 230px;
+    padding: clamp(1rem, 3vw, 2rem);
+    transition: margin-left 0.5s, width 0.5s;
+}
+
+.usuarios-admin.active {
+    width: calc(100% - 70px);
+    margin-left: 70px;
 }
 
 .usuarios-cabecalho {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1rem;
@@ -14,11 +22,20 @@
 
 .usuarios-cabecalho h1 {
     margin: 0;
+    font-family: var(--font-baloo);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--title-blue);
 }
 
 .usuarios-cabecalho p {
+    margin-top: 0.25rem;
     color: var(--text-gray);
+}
+
+#totalUsuarios {
+    flex-shrink: 0;
+    color: var(--title-blue);
+    font-weight: 600;
 }
 
 .tabela-usuarios-wrap {
@@ -26,10 +43,12 @@
     background: var(--bg-dash);
     border: 1px solid var(--border-card);
     border-radius: var(--raio);
+    box-shadow: 0 4px 16px rgba(23, 43, 155, 0.06);
 }
 
 .tabela-usuarios {
     width: 100%;
+    min-width: 680px;
     border-collapse: collapse;
     text-align: left;
 }
@@ -42,6 +61,44 @@
 
 .tabela-usuarios th {
     color: var(--title-blue);
+    background: var(--bg-main);
+    font-weight: 700;
+}
+
+.tabela-usuarios tbody tr {
+    transition: background-color var(--transicao);
+}
+
+.tabela-usuarios tbody tr:hover {
+    background-color: var(--hover-menu);
+}
+
+.tabela-usuarios td:last-child,
+.tabela-usuarios th:last-child {
+    text-align: center;
+}
+
+.tabela-usuarios td:last-child button {
+    min-width: 92px;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: var(--raio-pequeno);
+    background: var(--red);
+    color: var(--white);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transicao), transform var(--transicao);
+}
+
+.tabela-usuarios td:last-child button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.tabela-usuarios td:last-child button:disabled {
+    cursor: wait;
+    opacity: 0.6;
 }
 
 .tabela-usuarios tr:last-child td {
@@ -52,14 +109,72 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1rem;
+    color: var(--text-gray);
 }
 
 .paginacao-usuarios button {
-    padding: 0.55rem 0.9rem;
+    min-width: 96px;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--button);
+    border-radius: var(--raio-pequeno);
+    background: var(--button);
+    color: var(--white);
+    font: inherit;
+    cursor: pointer;
+    transition: opacity var(--transicao), background-color var(--transicao);
+}
+
+.paginacao-usuarios button:hover:not(:disabled) {
+    background: var(--blue);
+}
+
+.paginacao-usuarios button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
 }
 
 #mensagemUsuarios[role="alert"] {
     color: #b42318;
+}
+
+@media (max-width: 780px) {
+    .usuarios-admin,
+    .usuarios-admin.active {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem;
+    }
+
+    .usuarios-cabecalho {
+        align-items: flex-start;
+    }
+
+    .usuarios-cabecalho p {
+        max-width: 42ch;
+    }
+}
+
+@media (max-width: 480px) {
+    .usuarios-admin,
+    .usuarios-admin.active {
+        padding: 0.75rem;
+    }
+
+    .usuarios-cabecalho {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .tabela-usuarios th,
+    .tabela-usuarios td {
+        padding: 0.75rem 0.6rem;
+    }
+
+    .paginacao-usuarios {
+        gap: 0.5rem;
+    }
 }

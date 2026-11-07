@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.btn-resgatar').forEach(btn => {
             btn.onclick = () => {
                 if (!sessionUser) {
-                    window.location.assign('../pages/auth/index.html?mode=login');
+                    window.location.assign('/pages/auth/index.html?mode=login');
                     return;
                 }
                 const item = obterItem(btn);
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.btn-contestar').forEach(btn => {
             btn.onclick = () => {
                 if (!sessionUser) {
-                    window.location.assign('../pages/auth/index.html?mode=login');
+                    window.location.assign('/pages/auth/index.html?mode=login');
                     return;
                 }
                 const item = obterItem(btn);

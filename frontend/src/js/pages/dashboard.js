@@ -95,10 +95,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     contar('.box.devolvidos', contagens.Devolvido);
     if (isAdmin) {
         const adminListLinks = {
-            '.box.analises a': 'analises.html',
-            '.box.aprovados a': 'itens-perdidos.html?status=aprovado',
-            '.box.reprovados a': 'itens-perdidos.html?status=reprovado',
-            '.box.devolvidos a': 'itens-perdidos.html?status=devolvido'
+            '.box.analises a': '/pages/admin/analises.html',
+            '.box.aprovados a': '/pages/admin/itens-perdidos.html?status=aprovado',
+            '.box.reprovados a': '/pages/admin/itens-perdidos.html?status=reprovado',
+            '.box.devolvidos a': '/pages/admin/itens-perdidos.html?status=devolvido'
         };
         Object.entries(adminListLinks).forEach(([selector, href]) => {
             const link = document.querySelector(selector);
@@ -117,15 +117,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const linkResgatados = document.querySelector('.box.resgatados a');
     if (linkSolicitacoes) {
         linkSolicitacoes.href = isAdmin
-            ? 'solicitacoes.html'
-            : 'cadastro-item.html?status=solicitado#meus-itens';
+            ? '/pages/admin/solicitacoes.html'
+            : '/pages/user/cadastro-item.html?status=solicitado#meus-itens';
         linkSolicitacoes.hidden = false;
         if (solicitacoesErro) linkSolicitacoes.title = `Não foi possível carregar: ${solicitacoesErro.message}`;
     }
     if (linkResgatados) {
         linkResgatados.href = isAdmin
-            ? 'itens-perdidos.html'
-            : 'cadastro-item.html?status=resgatado#meus-itens';
+            ? '/pages/admin/itens-perdidos.html'
+            : '/pages/user/cadastro-item.html?status=resgatado#meus-itens';
         linkResgatados.hidden = false;
         if (solicitacoesErro) linkResgatados.title = `Não foi possível carregar: ${solicitacoesErro.message}`;
     }
@@ -166,8 +166,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const local = [item.location?.central_place, item.location?.description].filter(Boolean).join(' - ');
             return `<div class="item"><img src="${escaparHtml(item.photo?.url || '')}" alt="Foto do item"><div class="info"><div class="texto"><p class="texto-limitado-2">${escaparHtml(item.characteristic?.description || '')}</p><div class="atributos"><span class="data"><i class="fa-solid fa-calendar"></i><p>${escaparHtml(data)}</p></span><span class="local"><i class="fa-solid fa-location-dot"></i><p>${escaparHtml(local)}</p></span></div></div><div class="status ${status[0]}"><span>${status[1]}</span></div></div></div>`;
         }).join('<hr>');
-        const listUrl = isAdmin ? 'itens-perdidos.html' : 'cadastro-item.html?#meus-itens';
-        const registerUrl = isAdmin ? 'analises.html' : 'cadastro-item.html';
+        const listUrl = isAdmin
+            ? '/pages/admin/itens-perdidos.html'
+            : '/pages/user/cadastro-item.html#meus-itens';
+        const registerUrl = isAdmin
+            ? '/pages/admin/analises.html'
+            : '/pages/user/cadastro-item.html';
         containerItens.innerHTML = `<div class="funcao"><h4 class="subtitulo">${isAdmin ? 'Itens recentes' : 'Últimos itens cadastrados'}</h4><a class="ver-pagina" href="${listUrl}">Ver todos <i class="fa-solid fa-arrow-right"></i></a></div>${cards || '<p>Nenhum item encontrado.</p>'}<a class="ver-cadastro" href="${registerUrl}"><i class="fa-solid fa-plus"></i><span>${isAdmin ? 'Revisar cadastros' : 'Cadastrar novo item'}</span></a>`;
     }
 
@@ -179,7 +183,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const cards = recentNotifications.map((notification, index) => {
                 const link = typeof notification.link === 'string' && notification.link.startsWith('/pages/')
                     ? notification.link
-                    : 'notificacoes.html';
+                    : isAdmin
+                        ? '/pages/admin/notificacoes.html'
+                        : '/pages/user/notificacoes.html';
                 const date = new Date(notification.created_at).toLocaleDateString('pt-BR');
                 return `<div class="notificacao ${notification.read_at ? 'lida' : 'nao-lida'}">
                     <div class="foto notif-foto-wrapper"><div class="notif-icon-status"><i class="fa-regular fa-bell"></i></div></div>
@@ -188,9 +194,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <a class="dashboard-notificacao-link" href="${escaparHtml(link)}">Abrir</a></div>
                 </div>${index < recentNotifications.length - 1 ? '<hr>' : ''}`;
             }).join('');
-            containerNotif.innerHTML = `<div class="funcao"><h4 class="subtitulo">Notificações</h4><a class="ver-pagina" href="notificacoes.html">Ver todas <i class="fa-solid fa-arrow-right"></i></a></div>${cards || '<p>Nenhuma notificação.</p>'}`;
+            const notificationsUrl = isAdmin
+                ? '/pages/admin/notificacoes.html'
+                : '/pages/user/notificacoes.html';
+            containerNotif.innerHTML = `<div class="funcao"><h4 class="subtitulo">Notificações</h4><a class="ver-pagina" href="${notificationsUrl}">Ver todas <i class="fa-solid fa-arrow-right"></i></a></div>${cards || '<p>Nenhuma notificação.</p>'}`;
         } catch (error) {
-            containerNotif.innerHTML = `<div class="funcao"><h4 class="subtitulo">Notificações</h4><a class="ver-pagina" href="notificacoes.html">Ver todas</a></div><p role="alert">Não foi possível carregar as notificações: ${escaparHtml(error.message)}</p>`;
+            const notificationsUrl = isAdmin
+                ? '/pages/admin/notificacoes.html'
+                : '/pages/user/notificacoes.html';
+            containerNotif.innerHTML = `<div class="funcao"><h4 class="subtitulo">Notificações</h4><a class="ver-pagina" href="${notificationsUrl}">Ver todas</a></div><p role="alert">Não foi possível carregar as notificações: ${escaparHtml(error.message)}</p>`;
         }
     }
 });
