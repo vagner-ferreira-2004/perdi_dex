@@ -20,11 +20,25 @@ py server.py
 
 Se o banco estiver indisponível, o processo informa o erro e termina com código `1`.
 
-## Teste local do frontend
+## Frontend e acesso pelo Ngrok
 
-O cliente web aponta por padrão para `http://localhost:3333`. O backend permite
-requisições com cookies somente da origem `http://localhost:5500` por padrão. Para testar,
-inicie o backend e, em outro terminal, sirva os arquivos do frontend:
+O cliente web aponta por padrão para a URL pública atual do backend:
+`https://surging-enjoyably-cost.ngrok-free.dev`. Se a URL do Ngrok mudar, atualize o
+valor padrão em `frontend/src/js/global/api.js`.
+
+Para permitir sessões por cookie quando o frontend local (`http://localhost:5500`)
+acessa o backend pelo Ngrok, configure estas variáveis no `backend/.env`:
+
+```env
+CORS_ALLOWED_ORIGINS=http://localhost:5500
+SESSION_COOKIE_SAMESITE=None
+SESSION_COOKIE_SECURE=true
+```
+
+Reinicie o backend depois de alterar o `.env`. O Ngrok deve encaminhar para a mesma
+porta definida em `SERVER_PORT` (por padrão, `3333`).
+
+Para servir o frontend localmente, inicie o backend e, em outro terminal, execute:
 
 ```bash
 cd ../frontend

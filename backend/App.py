@@ -21,7 +21,7 @@ def createApp() -> Flask:
         CSRF_COOKIE_NAME="perdidex_csrf",
         SESSION_COOKIE_SECURE=os.getenv("SESSION_COOKIE_SECURE", "false").lower()
         == "true",
-        SESSION_COOKIE_SAMESITE="Strict",
+        SESSION_COOKIE_SAMESITE=os.getenv("SESSION_COOKIE_SAMESITE", "Strict"),
         CORS_ALLOWED_ORIGINS=cors_origins,
     )
     createLimiter(app)
