@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Itens do Sistema</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+
+        <!-- CSS -->
+        <!-- Estilos Externos -->
+        <!-- Recorte da Foto -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+        <!-- Data e Calendário -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <!-- Estilos Globais do Sistema -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+
+        <!-- Páginas -->
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        <link rel="stylesheet" href="../../src/css/components/itens.css">
+        
+        <!-- Componentes Estruturais -->
+        <link rel="stylesheet" href="../../src/css/components/filtros.css">
+        <link rel="stylesheet" href="../../src/css/components/modais.css">
+        <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+    </head>
+    <body>
+        <!-- MENU LATERAL FIXO -->
+        <menu-user></menu-user>
+
+        <!-- MAIN -->
+        <main>
+            <!-- Topo Mobile -->
+            <div class="topo-mobile">
+                <div class="logo"><a href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
+            </div>
+            
+
+            <!-- TOPO DE PESQUISA & CONTROLES -->
+            <div class="topo-pesquisa">
+                <h2>Itens do Sistema</h2>
+                
+                <!-- Barra de Pesquisa e Modo de Visualização (Grade / Lista) -->
+                <search-bar></search-bar>
+            </div>
+
+
+            <!-- INFORMAÇÕES DE PESQUISA & ORDENAÇÃO -->
+            <ordenar-itens></ordenar-itens>
+
+
+            <!-- TODOS OS ITENS (CARDS & TABELA)-->
+            <todos-itens></todos-itens>
+
+
+            <!-- MODAL DE DETALHES DO ITEM -->
+            <modal-detalhes></modal-detalhes>
+
+
+            <!-- MODAL DE CONFIRMAÇÃO DE RESGATE -->
+            <modal-resgate></modal-resgate>
+            
+
+            <!-- MODAL DE CONTESTAÇÃO -->
+            <modal-contestar-item></modal-contestar-item>
+        </main>
+
+
+        <!-- JS -->
+        <!-- Bibliotecas Externas -->
+        <!-- Recorte da Foto -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+        <!-- Data e Calendário -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+        <!-- Banco de Dados Global -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+
+        <!-- Lógica para Listar Itens -->
+        <script src="../../src/js/components/listagem-itens.js"></script>
+
+        <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+
+        <!-- Utilitários Base -->
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/foto.js"></script>
+        <script src="../../src/js/components/select.js"></script>
+
+        <!-- Componentes Estruturais -->
+        <script src="../../src/js/components/itens.js"></script>
+        <script src="../../src/js/components/modais-itens.js"></script>
+        <script src="../../src/js/components/search.js"></script>
+        <script src="../../src/js/components/arrastar-cards.js"></script>
+    </body>
+</html>

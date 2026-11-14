@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import Boolean, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.database import Base
@@ -25,7 +25,10 @@ class User(Base):
         ForeignKey("profile.id_profile"), nullable=False
     )
     role_id: Mapped[int] = mapped_column(ForeignKey("role.id_role"), nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
-    objects_found: Mapped[list["ObjectFound"]] = relationship(back_populates="user")
+    objects_found: Mapped[list["ObjectFound"]] = relationship(
+        back_populates="user", foreign_keys="ObjectFound.id_user"
+    )
     profile: Mapped["Profile"] = relationship(back_populates="users")
     role: Mapped["Role"] = relationship(back_populates="users")

@@ -1,0 +1,548 @@
+/* =========================
+   LOGIN
+========================= */
+
+/* Título */
+h2{
+   font-family: Baloo;
+   font-weight: 700;
+
+   text-align: center;
+   text-transform: uppercase;
+   color: var(--title-header);
+}
+
+.sign-in-form h2{
+   font-size: 29px;
+   line-height: 32px;
+}
+.sign-up-form h2{
+   font-size: 24px;
+   line-height: 30px;
+}
+
+/* Campo */
+.area-campos{
+   position: relative;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   
+   gap: 0.8rem;
+   margin: 1.5rem 0 2rem 0;
+}
+.campo{
+   position: relative;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 5px;
+}
+
+.campo .icon{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   font-size: 13px;
+   width: 37px;
+   height: 35px;
+   border-radius: 14px;
+
+   background-color: var(--border-blue);
+   color: var(--title-header);
+}
+.campo-senha .icon-eye{
+   position: absolute;
+   top: 0;
+   right: 12px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   font-size: 11px;
+   height: 37px;
+   color: var(--title-header);
+   cursor: pointer;
+}
+
+.campo .input{
+   position: relative;
+}
+.campo label{
+   position: absolute;
+   top: -6px;
+   left: 12px;
+
+   font-size: 11px;
+   font-weight: 600;
+   line-height: 11px;
+   text-align: left;
+
+   border-radius: 5px;
+   padding: 0 4px;
+   color: var(--title-header);
+   background-color: var(--bg-body);
+}
+.campo-select label{
+   margin-left: 44px;
+}
+
+.sign-up-form .campo label::after{
+   content: '*';
+   color: var(--red);
+}
+
+.campo-rgm span{
+   position: absolute;
+   top: -7px;
+   left: 45px;
+
+   font-size: 8px;
+   font-weight: 600;
+   line-height: 8px;
+   text-align: left;
+ 
+   padding: 2px 4px;
+   color: var(--title-header);
+   background-color: var(--bg-body);
+}
+
+.sign-in-form .campo input{
+   width: 220px;
+}
+.sign-up-form .campo input{
+   width: 270px;
+}
+
+.campo input{
+   font-family: Poppins;
+   font-size: 12px;
+   font-weight: 400;
+   text-align: left;
+
+   height: 36px;
+   padding: 14px;
+
+   border-radius: 14px;
+   border: 2px solid var(--border-blue);
+   outline: none;
+
+   background-color: var(--bg-body);
+   color: var(--text-header);
+   transition: all 0.5s;
+}
+.campo input:focus{
+   border: 2px solid var(--blue-light2);
+   box-shadow: 0 0 0 3px var(--shadow-blue) !important;
+   transition: all 0.5s;
+}
+.campo input::placeholder,
+.campo select::placeholder{
+   color: var(--gray2);
+}
+
+.campo input:-webkit-autofill{
+   -webkit-text-fill-color: var(--text-header);
+   -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset;
+   transition: all 0.5s;
+}
+
+.campo-senha input{
+   padding-right: 34px;
+}
+
+.esqueceu-senha{
+   position: relative;
+   bottom: 5px;
+   right: 11px;
+   
+   font-size: 12px;
+   font-weight: 400;
+   line-height: 12px;
+
+   text-align: right;
+   text-decoration: none;
+   width: 100%;
+
+   color: var(--title-header);
+   transition: all 0.5s;
+}
+.esqueceu-senha:hover{
+   color: var(--red);
+   transition: all 0.5s;
+}
+
+.form-feedback{
+   width: min(100%, 300px);
+   margin: 0.35rem auto;
+   color: var(--title-header);
+   font-size: 11px;
+   text-align: center;
+}
+
+.form-feedback.erro{
+   color: var(--red);
+}
+
+form button[type="submit"]:disabled{
+   cursor: wait;
+   opacity: 0.7;
+}
+
+
+/* Botão */
+.btn-entrar,
+.btn-cadastrar{
+   font-family: Baloo;
+   font-size: 15px;
+   font-weight: 600;
+   line-height: 15px;
+
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+
+   border-radius: 14px;
+   padding: 10px 16px;
+
+   background-color: var(--button);
+   color: var(--bg-box);
+   transition: all 0.5s;
+}
+.btn-entrar:hover,
+.btn-cadastrar:hover{
+   background-color: var(--red);
+   color: var(--white);
+   transform: scale(1.1);
+   transition: all 0.5s;
+}
+
+
+/* Transição */
+.transicao{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   gap: 7px;
+   margin: 2rem 0 0 0;
+}
+.transicao p{
+   font-size: 13px;
+   font-weight: 400;
+   line-height: 14px;
+   text-align: center;
+}
+.transicao button{
+   font-family: Baloo;
+   font-size: 15px;
+   font-weight: 600;
+   line-height: 15px;
+
+   text-align: center;
+   border: none;
+   outline: none;
+
+   background-color: transparent;
+   color: var(--blue-light2);
+   transition: all 0.5s;
+}
+.transicao button:hover{
+   color: var(--red);
+   transform: scale(1.1);
+   transition: all 0.5s;
+}
+
+
+/* =========================
+   CADASTRO
+========================= */
+
+/* Select */
+.custom-select{
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 5px;
+}
+
+/* Estilo do botão principal (a caixa que aparece na tela) */
+.select-btn {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+   width: 270px;
+   height: 36px;
+   padding: 16px;
+
+   border-radius: 14px;
+   border: 2px solid var(--border-blue);
+   outline: none;
+
+   background-color: var(--bg-body);
+   transition: all 0.3s ease;
+   cursor: pointer;
+}
+.select-btn span{
+   font-family: Poppins;
+   font-size: 12px;
+   font-weight: 400;
+   line-height: 12px;
+   text-align: left;
+   color: var(--gray2);
+}
+
+/* Efeito quando o select está "focado" (aberto) */
+.select-btn.ativo{
+   border-color: var(--blue-light2);
+   box-shadow: 0 0 0 3px var(--shadow-blue);
+}
+
+.select-btn.ativo .seta{
+   transform: rotate(180deg); /* Gira a setinha para cima */
+}
+
+.seta{
+   font-size: 11px;
+   color: var(--text-menu);
+   transition: transform 0.3s ease;
+}
+
+/* O Dropdown (Lista de opções) */
+.select-dropdown{
+   position: absolute;
+   top: calc(100% + 5px); /* Fica logo abaixo do botão com 8px de espaço */
+   right: 0;
+
+   width: 270px;
+   border-radius: 15px;
+   border: 1px solid var(--border-blue);
+
+   box-shadow: 0 10px 15px -3px var(--shadow-black);
+   background-color: var(--bg-body);
+   overflow: hidden;
+   
+   /* Esconde o dropdown por padrão */
+   opacity: 0;
+   visibility: hidden;
+   transform: translateY(-10px); /* Animação deslizando de cima */
+   transition: all 0.3s ease;
+   z-index: 100;
+}
+
+/* Classe aplicada via JS para mostrar o dropdown */
+.select-dropdown.mostrar{
+   opacity: 1;
+   visibility: visible;
+   transform: translateY(0);
+}
+
+/* Cada item da lista */
+.option{
+   font-size: 12px;
+   font-weight: 400;
+   line-height: 12px;
+
+   padding: 12px 16px;
+   border-bottom: 1px solid var(--border-blue);
+
+   color: var(--text-header);
+   transition: background 0.2s;
+   cursor: pointer;
+}
+.option i{
+   font-size: 12px;
+   margin-right: 4px;
+   color: var(--text-header);
+}
+
+.option:first-child{
+   color: var(--gray3);
+}
+
+.option:last-child{
+   border-bottom: none;
+}
+
+.option:hover{
+   background-color: var(--blue-light2);
+   color: var(--white);
+}
+.option:hover i{
+   color: var(--white);
+}
+
+
+
+
+/* =========================
+   PAINEL
+========================= */
+.painel .home{
+   position: absolute;
+   top: 1.5rem;
+
+   display: flex;
+   align-items: center;
+   gap: 0.8rem;
+   width: 100%;
+}
+.painel-login .home{
+   left: 2.2rem;
+   justify-content: flex-start;
+}
+.painel-cadastro .home{
+   right: 2.2rem;
+   justify-content: flex-end;
+}
+
+.painel .home hr{
+   width: 1px;
+   height: 40px;
+   border: none;
+   background-color: var(--shadow-blue);
+}
+
+/* Logo */
+.painel .logo{
+   display: flex;
+   align-items: center;
+}
+.painel-login .logo{
+   justify-content: flex-start;
+   margin-right: 0.5rem;
+}
+.painel-cadastro .logo{
+   justify-content: flex-end;
+   margin-left: 0.5rem;
+}
+
+.logo{
+   text-decoration: none;
+   outline: none;
+   transition: all 0.5s;
+}
+.logo:hover{
+   transform: scale(1.1);
+   transition: all 0.5s;
+}
+.logo img{
+   width: 120px;
+}
+
+
+/* Botão Alterar Tema */
+.btn-tema{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   border: none;
+   outline: none;
+   background-color: transparent;
+
+   font-size: 16px;
+   border-radius: 50%;
+   padding: 9px;
+   color: var(--white);
+   background-color: transparent;
+   transition: all 0.5s;
+}
+.btn-tema:hover{
+   background-color: var(--hover-button);
+   transition: all 0.5s;
+}
+.btn-tema i{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+
+
+/* Objetos */
+.painel-login .objetos{
+   width: 260px;
+}
+.painel-cadastro .objetos{
+   width: 350px;
+}
+
+/* Formas */
+.forma-red{
+   position: absolute;
+   top: -20px;
+
+   background-image: url('../../images/ilustracoes/forma-red.png');
+   background-repeat: no-repeat;
+   background-size: 100%;
+
+   width: 150px;
+   height: 150px;
+}
+.forma-blue{
+   position: absolute;
+   bottom: -50px;
+
+   background-image: url('../../images/ilustracoes/forma-white.png');
+   background-repeat: no-repeat;
+   background-size: 100%;
+
+   width: 250px;
+   height: 250px;
+}
+
+.painel-login .forma-red{
+   right: 0;
+   transform: scale(-1);
+}
+.painel-login .forma-blue{
+   right: -15px;
+   transform: scaleX(-1) rotate(-10deg);
+}
+
+.painel-cadastro .forma-red{
+   left: 0;
+   transform: scaleY(-1);
+}
+.painel-cadastro .forma-blue{
+   left: -15px;
+   transform: rotate(-10deg);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+   .forma-red,
+   .forma-blue,
+   .objetos{
+      display: none;
+   }
+
+   .painel{
+      height: 80px;
+      background-image: none;
+      background-color: var(--bg-perfil);
+   }
+   .painel .home{
+      top: 20px;
+      left: initial;
+      right: initial;
+      justify-content: center;
+   }
+
+   form{
+      padding: 80px 0 0 0;
+   }
+}

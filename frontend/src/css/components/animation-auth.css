@@ -1,0 +1,357 @@
+/* =========================
+   CONTAINER
+========================= */
+.container{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+    background-color: var(--bg-body);
+}
+
+/* Desativa transições durante o carregamento inicial */
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}
+
+
+/* ÁREA DOS FORMULÁRIOS */
+.forms{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+
+    width: 50%;
+    height: 100%;
+    transition: 1s ease-in-out;
+}
+
+
+/* Formulários */
+form{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        opacity 0.6s ease-in-out,
+        transform 0.6s ease-in-out;
+}
+
+/* Login */
+.sign-in-form{
+    z-index: 2;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Cadastro */
+.sign-up-form{
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+
+/* PAINEL */
+.painel{
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 50%;
+
+    width: 50%;
+    height: 100%;
+
+    background-image: var(--bg-fixo);
+
+    overflow: hidden;
+    transition: 1s ease-in-out;
+}
+
+
+/* Conteúdo do Painel */
+.painel-login,
+.painel-cadastro{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        opacity 0.7s ease-in-out,
+        transform 0.7s ease-in-out;
+}
+
+
+/* Imagem Login */
+.painel-login{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* Imagem Cadastro */
+.painel-cadastro{
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+
+/* Imagens */
+.painel img{
+    object-fit: contain;
+}
+
+
+
+
+/* MODO CADASTRO */
+
+/* Formulários vão para a direita */
+.container.sign-up-mode .forms{
+    left: 50%;
+}
+
+/* Login sai */
+.container.sign-up-mode .sign-in-form{
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Cadastro entra */
+.container.sign-up-mode .sign-up-form{
+    z-index: 2;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Painel vai para esquerda */
+.container.sign-up-mode .painel{
+    left: 0;
+}
+
+/* Imagem login sai */
+.container.sign-up-mode .painel-login{
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Imagem cadastro entra */
+.container.sign-up-mode .painel-cadastro{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+    .forms{
+        width: 55%;
+    }
+    .painel{
+        left: 55%;
+        width: 45%;
+    }
+
+    .container.sign-up-mode .forms{
+        left: 45%;
+    }
+    .container.sign-up-mode .painel{
+        left: 0;
+    }
+
+    .painel img{
+        max-width: 85%;
+        max-height: 70%;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+    /* CONTAINER */
+    .container{
+        min-height: 100vh;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+
+    /* FORMULÁRIOS */
+    .forms{
+        position: relative;
+        z-index: 2;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        min-height: 100vh;
+        transition: none;
+    }
+    form{
+        position: relative;
+
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+
+        box-sizing: border-box;
+        padding: 270px 25px 40px;
+
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease;
+    }
+
+
+    /* LOGIN */
+    .sign-in-form{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* CADASTRO */
+    .sign-up-form{
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    /* PAINEL */
+    .painel{
+        position: absolute;
+        z-index: 3;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 230px;
+        transition: none;
+    }
+
+
+    /* CONTEÚDO DO PAINEL */
+    .painel-login,
+    .painel-cadastro{
+        width: 100%;
+        height: 100%;
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease;
+    }
+
+
+    /* IMAGENS */
+    .painel-login img,
+    .painel-cadastro img{
+        width: 70%;
+        max-width: 300px;
+        max-height: 190px;
+
+        object-fit: contain;
+    }
+
+
+    /* MODO CADASTRO */
+    .container.sign-up-mode .forms{
+        left: 0;
+    }
+
+
+    /* LOGIN */
+    .container.sign-up-mode .sign-in-form{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+
+    /* CADASTRO */
+    .container.sign-up-mode .sign-up-form{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
+    /* PAINEL */
+    .container.sign-up-mode .painel{
+        left: 0;
+    }
+
+
+    /* IMAGEM LOGIN */
+    .container.sign-up-mode .painel-login{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+
+    /* IMAGEM CADASTRO */
+    .container.sign-up-mode .painel-cadastro{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
+    /* TRANSIÇÃO */
+    .transicao{
+        margin-top: 25px;
+    }
+    .transicao button{
+        padding: 9px 22px;
+    }
+}
+
+
+/* =========================
+   CELULARES PEQUENOS
+========================= */
+@media (max-width: 480px) {
+    .painel{
+        height: 200px;
+    }
+
+    form{
+        padding: 235px 20px 30px;
+    }
+
+    .painel-login img,
+    .painel-cadastro img{
+        width: 75%;
+
+        max-width: 250px;
+        max-height: 165px;
+    }
+
+
+    .transicao{
+        margin-top: 20px;
+    }
+    .transicao button{
+        padding: 8px 20px;
+    }
+}

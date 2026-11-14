@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Itens</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+    
+        <!-- Flatpickr CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <!-- Flatpickr JS + Idioma PT -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        <link rel="stylesheet" href="../../src/css/components/itens.css">
+        <link rel="stylesheet" href="../../src/css/components/filtros.css">
+        <link rel="stylesheet" href="../../src/css/components/modais.css">
+    </head>
+    <body>
+        <!-- MENU LATERAL FIXO -->
+        <menu-admin></menu-admin>
+
+        <!-- MAIN -->
+        <main>
+            <div class="topo-mobile">
+                <div class="logo"><a href="index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span><span></span><span></span></button>
+            </div>
+            <div class="topo-pesquisa">
+                <h2>Itens do sistema</h2>
+                <search-bar></search-bar>
+            </div>
+            <ordenar-itens></ordenar-itens>
+            <todos-itens></todos-itens>
+            <modal-detalhes></modal-detalhes>
+        </main>
+
+        
+        <!-- JS -->
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+        <script src="../../src/js/components/listagem-itens.js"></script>
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/itens.js"></script>
+        <script src="../../src/js/components/modais-itens.js"></script>
+        <script src="../../src/js/components/search.js"></script>
+        <script src="../../src/js/components/arrastar-cards.js"></script>
+    </body>
+</html>

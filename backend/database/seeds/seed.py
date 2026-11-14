@@ -9,6 +9,11 @@ LOCATIONS = [
     ("Block A", "Corridor in front of room 4"),
     ("Cafeteria", "Next to Lab 5"),
 ]
+PROFILES = {
+    "student": "Student",
+    "professor": "Professor",
+    "staff": "Staff",
+}
 TEST_USER = {
     "name": "Development User",
     "cpf": "00000000000",
@@ -26,6 +31,10 @@ def seedDatabase() -> None:
                 session.add(Role(name=name))
         session.flush()
         common_role = session.query(Role).filter_by(name="common").one()
+        for name, display_name in PROFILES.items():
+            if session.query(Profile).filter_by(name=name).first() is None:
+                session.add(Profile(name=name, display_name=display_name))
+        session.flush()
         for name in CATEGORIES:
             if session.query(Category).filter_by(name=name).first() is None:
                 session.add(Category(name=name))

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Cadastro do Item</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+
+        <!-- CSS -->
+        <!-- Estilos Externos -->
+        <!-- Recorte da Foto -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+        <!-- Data e Calendário -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <!-- Estilos Globais do Sistema -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+
+        <!-- Utilitários Base -->
+        <link rel="stylesheet" href="../../src/css/components/data.css">
+
+        <!-- Componentes Estruturais -->
+        <link rel="stylesheet" href="../../src/css/components/filtros.css">
+        <link rel="stylesheet" href="../../src/css/components/modais.css">
+
+        <!-- Páginas -->
+        <link rel="stylesheet" href="../../src/css/pages/cadastro-item.css">
+        <link rel="stylesheet" href="../../src/css/components/itens.css">
+        <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+    </head>
+    <body>
+        <!-- MENU LATERAL FIXO -->
+        <menu-user></menu-user>
+        
+        <!-- MAIN -->
+        <main>
+            <!-- Topo Mobile -->
+            <div class="topo-mobile">
+                <div class="logo"><a href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
+            </div>
+
+            <!-- Topo -->
+            <div class="topo-pagina">
+                <!-- Introdução -->
+                <div class="intro">
+                    <h2>Cadastro do Item Encontrado</h2>
+                    <p>Informe os detalhes do objeto para ajudar a devolvê-lo ao dono.</p>
+                </div>
+
+                <!-- Conta -->
+                <a href="/pages/user/configuracoes.html" class="conta"><div class="avatar" id="avatarTopoUser"></div></a>
+            </div>
+
+            <!-- CONTEÚDO -->
+            <div class="content">
+                <!-- FORMULÁRIO -->
+                <form action="" class="cadastro">
+                    <div class="coluna coluna1">
+                        <!-- Foto -->
+                        <div class="upload-container campo campo-foto">
+                            <label>Foto do Item</label>
+
+                            <div class="upload-box">
+                                <!-- Imagem de prévia final recortada -->
+                                <img class="upload-preview" alt="Prévia"/>
+
+                                <!-- Placeholder padrão -->
+                                <div class="upload-placeholder">
+                                    <i class="fa-regular fa-camera upload-icon"></i>
+                                    <span class="title">Clique aqui para adicionar uma foto</span>
+                                    <span class="subtitle">PNG, JPG, JPEG, WEBP ou AVIF <br> (máx. 10 MB)</span>
+                                </div>
+
+                                <!-- Input de arquivo real oculto -->
+                                <input type="file" name="photo" class="upload-input" accept="image/png, image/jpg, image/jpeg, image/webp, image/avif" hidden>
+                            </div>
+
+                            <!-- Nome do arquivo exibido fora da borda -->
+                            <span class="upload-filename"></span>
+
+                            <!-- Campo oculto para enviar a imagem cortada (Base64) no formulário -->
+                            <input type="hidden" id="foto" class="upload-base64-input" required>
+                        </div>
+                    </div>
+
+                    <div class="coluna coluna2">
+                        <!-- Categoria -->
+                        <div class="campo campo-select custom-select-container">
+                            <label>Categoria</label>
+
+                            <div class="select-btn">
+                                <span class="select-btn-text">Selecione uma categoria...</span>
+                                <i class="fa-solid fa-angle-down select-icon"></i>
+                            </div>
+
+                            <div class="select-dropdown">
+                                <div class="option selecione" data-value="">Selecione uma categoria...</div>
+                            </div>
+
+                            <!-- Input que armazena o valor a ser enviado no formulário -->
+                            <input type="hidden" name="id_category" id="categoria" class="input-oculto" required>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div class="campo campo-textarea">
+                            <label for="descricao">Descrição</label>
+                            <textarea class="campo-textarea" name="descricao" id="descricao" placeholder="Descreva o item" maxlength="400" required></textarea>
+                            <span class="contador-caracteres">0/400</span>
+                        </div>
+                    </div>
+
+                    <div class="coluna coluna3">
+                        <!-- Cor -->
+                        <div class="campo campo-select custom-select-container">
+                            <label>Cor principal</label>
+
+                            <div class="select-btn">
+                                <span class="select-btn-text">Selecione uma cor...</span>
+                                <i class="fa-solid fa-angle-down select-icon"></i>
+                            </div>
+
+                            <div class="select-dropdown">
+                                <div class="option selecione" data-value="">Selecione uma cor...</div>
+                                <div class="option" data-value="Branco"><div class="space-color branco"></div>Branco</div>
+                                <div class="option" data-value="Cinza"><div class="space-color cinza"></div>Cinza</div>
+                                <div class="option" data-value="Rosa"><div class="space-color rosa"></div>Rosa</div>
+                                <div class="option" data-value="Amarelo"><div class="space-color amarelo"></div>Amarelo</div>
+                                <div class="option" data-value="Laranja"><div class="space-color laranja"></div>Laranja</div>
+                                <div class="option" data-value="Vermelho"><div class="space-color vermelho"></div>Vermelho</div>
+                                <div class="option" data-value="Verde"><div class="space-color verde"></div>Verde</div>
+                                <div class="option" data-value="Azul"><div class="space-color azul"></div>Azul</div>
+                                <div class="option" data-value="Roxo"><div class="space-color roxo"></div>Roxo</div>
+                                <div class="option" data-value="Marrom"><div class="space-color marrom"></div>Marrom</div>
+                                <div class="option" data-value="Preto"><div class="space-color preto"></div>Preto</div>
+                                <div class="option" data-value="Outros">Outros</div>
+                            </div>
+
+                            <!-- Input que armazena o valor a ser enviado no formulário -->
+                            <input type="hidden" name="color" id="cor" class="input-oculto" required>
+                        </div>
+
+
+                        <!-- Marca -->
+                        <div class="campo campo-marca">
+                            <label for="marca">Marca</label>
+                            <input type="text" id="marca" name="brand" placeholder="Digite a marca (opcional)">
+                        </div>
+
+
+                        <!-- Data -->
+                        <div class="campo campo-data">
+                            <label for="data">Data</label>
+                            <div class="input-icone-wrapper">
+                                <input type="text" id="data" placeholder="dd/mm/aaaa" autocomplete="off" required>
+                                <i class="fa-regular fa-calendar"></i>
+                            </div>
+                        </div>
+                        
+
+                        <!-- Local -->
+                        <div class="campo">
+                            <label for="local">Local</label>
+                            <div class="campo-select custom-select-container" id="seletorLocal">
+                                <div class="select-btn">
+                                    <span class="select-btn-text">Selecione o local...</span>
+                                    <i class="fa-solid fa-angle-down select-icon"></i>
+                                </div>
+                                <div class="select-dropdown"></div>
+                                <input type="hidden" name="id_location" id="local" class="input-oculto" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="botao">
+                        <button type="submit">Cadastrar</button>
+                    </div>
+                </form>
+
+                <!-- INFORMAÇÕES -->
+                <div class="informacoes">
+                    <img src="../../src/images/ilustracoes/anotacoes.png" alt="Anotações">
+                    <div class="conteudo">
+                        <h4>Informações Importantes</h4>
+                        <div class="info"><i class="fa-solid fa-image"></i><span>Use uma foto nítida para ajudar na sua identificação</span></div>
+                        <div class="info"><i class="fa-solid fa-pencil"></i><span>Descreva com detalhes relevantes do objeto encontrado</span></div>
+                        <div class="info"><i class="fa-solid fa-calendar-check"></i><span>Informe o local e a data corretos de onde foi achado</span></div>
+                        <div class="info"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Todo cadastro é analisado antes de entrar no sistema</span></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- TOPO DE PESQUISA & CONTROLES -->
+            <div class="topo-pesquisa">
+                <h2>Meus Itens</h2>
+                
+                <!-- Barra de Pesquisa e Modo de Visualização (Grade / Lista) -->
+                <search-bar></search-bar>
+            </div>
+
+
+            <!-- INFORMAÇÕES DE PESQUISA & ORDENAÇÃO -->
+            <ordenar-itens></ordenar-itens>
+
+
+            <!-- COMPONENTE PERSONALIZADO MEUS ITENS -->
+            <meus-itens id="meus-itens"></meus-itens>
+
+
+            <!-- MODAL DE DETALHES DO ITEM -->
+            <modal-detalhes></modal-detalhes>
+
+
+            <!-- MODAL DE EDITAR ITEM -->
+            <modal-editar-item></modal-editar-item>
+
+
+            <!-- MODAL DE EXCLUIR ITEM -->
+            <modal-excluir-item></modal-excluir-item>
+
+
+            <!-- MODAL DE REMOVER SOLICITAÇÃO RESGATE -->
+            <modal-retirar-solicitacao></modal-retirar-solicitacao>
+
+        
+            <!-- MODAL DE COMPROVANTE DE RESGATE -->
+            <modal-comprovante-resgate></modal-comprovante-resgate>
+            
+
+            <!-- MODAL DE SENHA PARA RETIRADA -->
+            <modal-senha-retirada></modal-senha-retirada>
+
+
+            <!-- MODAL DE RECORTAR FOTO -->
+            <modal-recorte-foto></modal-recorte-foto>
+        </main>
+        
+        
+        <!-- JS -->
+        <!-- Bibliotecas Externas -->
+        <!-- Recorte da Foto -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+        <!-- Data e Calendário -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+        <!-- Banco de Dados Global -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+
+        <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+
+        <!-- Lógica Principais -->
+        <script src="../../src/js/pages/dashboard.js"></script>
+        <script src="../../src/js/pages/cadastro-item.js"></script>
+        <script src="../../src/js/components/listagem-itens.js"></script>
+
+        <!-- Utilitários Base -->
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/foto.js"></script>
+        <script src="../../src/js/components/select.js"></script>
+
+        <!-- Componentes Estruturais -->
+        <script src="../../src/js/components/itens.js"></script>
+        <script src="../../src/js/components/modais-itens.js"></script>
+        <script src="../../src/js/components/search.js"></script>
+        <script src="../../src/js/components/arrastar-cards.js"></script>
+    </body>
+</html>

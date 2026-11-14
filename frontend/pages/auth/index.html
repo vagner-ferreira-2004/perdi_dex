@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Login</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/animation-auth.css">
+        <link rel="stylesheet" href="../../src/css/pages/auth.css">
+    </head>
+    <body>
+        <main>
+            <!-- CONTAINER -->
+            <div class="container">
+                <!-- ÁREA DOS FORMULÁRIOS -->
+                <div class="forms">
+                    <!-- LOGIN -->
+                    <form class="sign-in-form">
+                        <h2>Login</h2>
+
+                        <div class="area-campos">
+                            <!-- Campo -->
+                            <div class="campo">
+                                <i class="fa-solid fa-envelope icon"></i>
+                                <div class="input">
+                                    <label for="email-login">E-mail</label>
+                                    <input type="email" name="email" id="email-login" autocomplete="email" required>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo campo-senha">
+                                <i class="fa-solid fa-lock icon"></i>
+                                <div class="input">
+                                    <label for="senha-login">Senha</label>
+                                    <input type="password" name="senha" id="senha-login" autocomplete="current-password" required>
+                                    <i class="fa-solid fa-eye icon-eye" onclick="mostrarSenha(this)"></i>
+                                </div>
+                            </div>
+
+                            <p class="form-feedback" role="alert" aria-live="polite" hidden></p>
+
+                            <a class="esqueceu-senha" href="">Esqueceu a senha?</a>
+                        </div>
+                        
+                        <!-- Botão -->
+                        <button class="btn-entrar" type="submit">Entrar</button>
+
+                        <!-- Transição -->
+                        <div class="transicao">
+                            <p>Ainda não tem conta?</p>
+                            <button type="button" id="sign-up-btn">Cadastre-se</button>
+                        </div>
+                    </form>
+
+
+                    <!-- CADASTRO -->
+                    <form class="sign-up-form">
+                        <h2>Criar conta</h2>
+
+                        <!-- Campos -->
+                        <div class="area-campos">
+                            <!-- Campo -->
+                            <div class="campo">
+                                <i class="fa-solid fa-user icon"></i>
+                                <div class="input">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" name="nome" id="nome" placeholder="Digite seu nome completo" required>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo">
+                                <i class="fa-solid fa-address-card icon"></i>
+                                <div class="input">
+                                    <label for="cpf">CPF</label>
+                                    <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo campo-select">
+                                <div class="custom-select" id="perfilSelect">
+                                    <!-- Input invisível que guarda o valor real selecionado -->
+                                    <input type="hidden" name="perfil" id="perfil-selecionado">
+                                    
+                                    <i class="fa-solid fa-link icon"></i>
+                                    <label for="perfil">Perfil na Faculdade</label>
+
+                                    <!-- O botão visível que o usuário clica -->
+                                    <div class="select-btn">
+                                        <span>Selecione um perfil...</span>
+                                        <span class="seta"><i class="fa-solid fa-angle-down"></i></span>
+                                    </div>
+                                    
+                                    <!-- A lista suspensa (dropdown) -->
+                                    <div class="select-dropdown">
+                                        <div class="option" data-value="">Selecione um perfil...</div>
+                                        <div class="option" data-profile-name="student" data-value=""><i class="fa-solid fa-user-graduate"></i> Estudante</div>
+                                        <div class="option" data-profile-name="professor" data-value=""><i class="fa-solid fa-person-chalkboard"></i> Professor</div>
+                                        <div class="option" data-profile-name="staff" data-value=""><i class="fa-solid fa-user-tie"></i> Funcionário</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Campo -->
+                            <div class="campo campo-rgm" id="rgm-container" style="display: none;">
+                                <i class="fa-solid fa-graduation-cap icon"></i>
+                                <div class="input">
+                                    <label for="rgm">RGM</label><span>(Obrigatório para estudantes)</span>
+                                    <input type="text" name="rgm" id="rgm-input" placeholder="00000000" maxlength="8">
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo">
+                                <i class="fa-solid fa-phone icon"></i>
+                                <div class="input">
+                                    <label for="rgm">Telefone</label>
+                                    <input type="tel" name="telefone" id="telefone" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel" required>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo">
+                                <i class="fa-solid fa-envelope icon"></i>
+                                <div class="input">
+                                    <label for="email-register">E-mail</label>
+                                    <input type="email" name="email" id="email-register" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo campo-senha">
+                                <i class="fa-solid fa-lock icon"></i>
+                                <div class="input">
+                                    <label for="senha">Senha</label>
+                                    <input type="password" name="senha" id="senha-cadastro" placeholder="Crie uma senha" autocomplete="new-password" required>
+                                    <i class="fa-solid fa-eye icon-eye" onclick="mostrarSenha(this)"></i>
+                                </div>
+                            </div>
+
+                            <!-- Campo -->
+                            <div class="campo campo-senha">
+                                <i class="fa-solid fa-lock icon"></i>
+                                <div class="input">
+                                    <label for="senha">Confirmar Senha</label>
+                                    <input type="password" name="confirmar_senha" id="confirmar-senha" placeholder="Confirme a senha" autocomplete="new-password" required>
+                                    <i class="fa-solid fa-eye icon-eye" onclick="mostrarSenha(this)"></i>
+                                </div>
+                            </div>                              
+                        </div>
+
+                            <p class="form-feedback" role="alert" aria-live="polite" hidden></p>
+
+                            <!-- Botão -->
+                        <button class="btn-cadastrar" type="submit">Cadastrar</button>
+
+                        <!-- Transição -->
+                        <div class="transicao">
+                            <p>Já tem conta?</p>
+                            <button type="button" id="sign-in-btn">Entre</button>
+                        </div>
+                    </form>
+                </div>
+
+            
+                <!-- PAINEL -->
+                <div class="painel">
+                    <!-- Imagem Login -->
+                    <div class="painel-login">
+                        <div class="forma-red"></div>
+
+                        <div class="home">
+                            <a class="logo" href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"></a>
+                            <hr>
+                            <button class="btn-tema"><i class="fi fi-rr-brightness"></i></button>
+                        </div>
+
+                        <img class="objetos" src="../../src/images/ilustracoes/objetos-login.png" alt="Objetos perdidos">
+                        <div class="forma-blue"></div>
+                    </div>
+
+                    <!-- Imagem Cadastro -->
+                    <div class="painel-cadastro">
+                        <div class="forma-red"></div>
+                        
+                        <img class="objetos" src="../../src/images/ilustracoes/objetos-cadastro.png" alt="Objetos perdidos">
+                        
+                        <div class="home">
+                            <button class="btn-tema"><i class="fi fi-rr-brightness"></i></button>
+                            <hr>
+                            <a class="logo" href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo da Perdidex"></a>
+                        </div>
+                        
+                        <div class="forma-blue"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- JS -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        
+        <script src="../../src/js/components/animation-auth.js"></script>
+        <script src="../../src/js/components/select.js"></script>
+        <script src="../../src/js/components/senha.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/pages/auth.js"></script>
+    </body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Configurações</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+    
+        <!-- CSS -->
+        <!-- Estilos Globais do Sistema -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        
+        <!-- Páginas -->
+        <link rel="stylesheet" href="../../src/css/pages/notificacoes.css">
+        <link rel="stylesheet" href="../../src/css/pages/configuracoes.css">
+        <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+    </head>
+    <body>
+        <!-- MENU LATERAL FIXO -->
+        <menu-user></menu-user>
+
+        <!-- MAIN -->
+        <main class="pagina">
+            <!-- Topo Mobile -->
+            <div class="topo-mobile">
+                <div class="logo"><a href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
+            </div>
+
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Configurações</h1>
+                    <p>Gerencie suas informações pessoais e preferências.</p>
+                </div>
+            </div>
+
+            <div class="grade-config">
+
+                <!-- Coluna esquerda -->
+                <div>
+                    <div class="cartao cartao-perfil">
+                        <div class="avatar-grande" id="avatarIniciais"></div>
+                        <div>
+                            <p class="nome" id="nomeExibicao"></p>
+                            <p class="desde" id="membroDesde"></p>
+                        </div>
+                    </div>
+
+                    <div class="cartao preferencias">
+                        <h2>Preferências do Sistema</h2>
+                        <p class="subtitulo">Escolha como deseja receber notificações e ver o sistema.</p>
+
+                        <div class="linha-pref">
+                            <div class="linha-pref-texto">
+                                <span class="linha-pref-icone"><i class="fa-regular fa-envelope"></i></span>
+                                <span>
+                                    <strong>E-mails</strong>
+                                    <span>Receba notificações por e-mail sobre os itens.</span>
+                                </span>
+                            </div>
+                            <label class="interruptor">
+                                <input type="checkbox" id="prefEmails">
+                                <span class="trilho"><span class="bola"></span></span>
+                            </label>
+                        </div>
+
+                        <div class="linha-pref">
+                            <div class="linha-pref-texto">
+                                <span class="linha-pref-icone"><i class="fa-solid fa-chart-line"></i></span>
+                                <span>
+                                    <strong>Status</strong>
+                                    <span>Receba notificações sobre atualizações dos itens.</span>
+                                </span>
+                            </div>
+                            <label class="interruptor">
+                                <input type="checkbox" id="prefStatus">
+                                <span class="trilho"><span class="bola"></span></span>
+                            </label>
+                        </div>
+
+                        <div class="linha-pref">
+                            <div class="linha-pref-texto">
+                                <span class="linha-pref-icone"><i class="fa-solid fa-arrows-rotate"></i></span>
+                                <span>
+                                    <strong>Devolvido</strong>
+                                    <span>Receba notificações quando um item for devolvido.</span>
+                                </span>
+                            </div>
+                            <label class="interruptor">
+                                <input type="checkbox" id="prefReencontro">
+                                <span class="trilho"><span class="bola"></span></span>
+                            </label>
+                        </div>
+
+                        <div class="linha-pref">
+                            <div class="linha-pref-texto">
+                                <span class="linha-pref-icone"><i class="fi fi-br-night-day"></i></span>
+                                <span>
+                                    <strong>Alterar tema</strong>
+                                    <span>Altere a aparência do sistema para cores claras ou escuras.</span>
+                                </span>
+                            </div>
+                            <label class="interruptor">
+                                <input type="checkbox" id="prefTema">
+                                <span class="trilho"><span class="bola"></span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="cartao zona-perigo">
+                        <div class="zona-perigo-linha">
+                            <div class="txt">
+                                <strong><i class="fa-regular fa-trash-can"></i>Excluir conta</strong>
+                                <p>Desativar sua conta e preservar o histórico operacional.</p>
+                            </div>
+                            <button class="seta-link" id="btnAbrirExcluir" aria-label="Excluir conta"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna direita -->
+                <div class="cartao formulario">
+                    <form id="formConfiguracoes" novalidate>
+                        <h2>Editar dados pessoais</h2><br>
+
+                        <div class="form-grade">
+                            <div class="campo">
+                                <label for="campoNome">Nome<span class="obrig">*</span></label>
+                                <input type="text" id="campoNome" placeholder="Seu nome completo" autocomplete="name">
+                                <span class="msg-erro" id="campoNomeErro"></span>
+                            </div>
+                            <div class="campo">
+                                <label for="campoEmail">E-mail<span class="obrig">*</span></label>
+                                <input type="email" id="campoEmail" placeholder="voce@email.com" autocomplete="email">
+                                <span class="msg-erro" id="campoEmailErro"></span>
+                            </div>
+                            <div class="campo">
+                                <label for="campoTelefone">Telefone<span class="obrig">*</span></label>
+                                <input type="text" id="campoTelefone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel">
+                                <span class="msg-erro" id="campoTelefoneErro"></span>
+                            </div>
+                            <!-- Perfil Sincronizado Dinamicamente -->
+                            <div class="campo campo-perfil">
+                                <label>Perfil na Instituição</label>
+                                <div class="campo-input-wrap">
+                                    <div class="area-select">
+                                        <span>
+                                            <i id="iconePerfilInstituicao" class="icon-perfil" class=""></i> 
+                                            <span id="textoPerfilInstituicao"></span>
+                                        </span>
+                                        <i class="fa-solid fa-lock icon-lock" title="Este campo não pode ser alterado"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <label for="campoCpf">CPF<span class="obrig">*</span></label>
+                                <input type="text" id="campoCpf" placeholder="000.000.000-00" inputmode="numeric" readonly>
+                                <span class="msg-erro" id="campoCpfErro"></span>
+                            </div>
+                            <div class="campo">
+                                <label for="campoRgm">RGM<span class="obrig">*</span></label>
+                                <input type="text" id="campoRgm" placeholder="00000000" inputmode="numeric" readonly>
+                                <span class="msg-erro" id="campoRgmErro"></span>
+                            </div>
+                        </div>
+
+                        <div class="separador-secao">
+                            <h2>Alterar senha</h2><br>
+
+                            <div class="form-grade tres-col">
+                                <div class="campo">
+                                    <label for="senhaAtual">Senha atual</label>
+                                    <div class="campo-input-wrap">
+                                        <input type="password" id="senhaAtual" placeholder="Digite sua senha atual" autocomplete="current-password">
+                                        <button type="button" class="alt-senha" aria-label="Mostrar senha"></button>
+                                    </div>
+                                    <span class="msg-erro" id="senhaAtualErro"></span>
+                                </div>
+                                <div class="campo">
+                                    <label for="senhaNova">Nova senha</label>
+                                    <div class="campo-input-wrap">
+                                        <input type="password" id="senhaNova" placeholder="Digite sua nova senha" autocomplete="new-password">
+                                        <button type="button" class="alt-senha" aria-label="Mostrar senha"></button>
+                                    </div>
+                                    <span class="msg-erro" id="senhaNovaErro"></span>
+                                </div>
+                                <div class="campo">
+                                    <label for="senhaConfirmar">Confirmar senha</label>
+                                    <div class="campo-input-wrap">
+                                        <input type="password" id="senhaConfirmar" placeholder="Confirme a nova senha" autocomplete="new-password">
+                                        <button type="button" class="alt-senha" aria-label="Mostrar senha"></button>
+                                    </div>
+                                    <span class="msg-erro" id="senhaConfirmarErro"></span>
+                                </div>
+                            </div>
+                            <p class="dica-senha">Use ao menos 8 caracteres</p>
+                        </div>
+
+                        <div class="acoes-form">
+                            <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+                            <button type="submit" class="btn btn-primario">Salvar alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal de exclusão de conta -->
+        <div class="overlay-modal modal-excluir-conta" id="overlayExcluir">
+            <div class="modal">
+                <div class="modal-topo">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <h3>Excluir sua conta?</h3>
+                </div>
+                <p>Sua conta será desativada e você perderá o acesso. O histórico operacional necessário será preservado.</p>
+                <div class="area">
+                    <div class="campo">
+                        <label for="senhaExcluir">Confirme a exclusão da conta</label>
+                        <div class="campo-input-wrap">
+                            <input type="password" id="senhaExcluir" placeholder="Digite sua senha" autocomplete="current-password">
+                            <button type="button" class="alt-senha" aria-label="Mostrar senha"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-acoes">
+                    <button class="btn btn-secundario" id="btnCancelarExcluir">Cancelar</button>
+                    <button class="btn btn-perigo-cheio" id="btnConfirmarExcluir">Excluir minha conta</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+        
+
+        <!-- JS -->
+        <!-- Banco de Dados Global -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+
+        <!-- Lógica das Configurações -->
+        <script src="../../src/js/pages/configuracoes.js"></script>
+
+        <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+
+        <!-- Utilitários Base -->
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+    </body>
+</html>

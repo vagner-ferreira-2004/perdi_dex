@@ -1,0 +1,89 @@
+/* DASHBOARD USUÁRIO */
+body{
+    background-color: var(--bg-main);
+}
+main{
+    position: relative;
+    margin-left: 230px;
+
+    padding: 1.5rem;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+    transition: all 0.5s;
+}
+
+main.active{
+    margin-left: 70px;
+}
+
+/* Topo */
+main .topo-pagina{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 1.5rem;
+    width: 100%;
+}
+
+main .topo-mobile{
+    display: none;
+}
+
+/* Introdução */
+main .topo-pagina .intro{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.2rem;
+}
+main .topo-pagina .intro h2{
+    font-family: Baloo;
+    font-size: 19px;
+    font-weight: 700;
+
+    line-height: 20px;
+    text-align: left;
+    color: var(--title-blue);
+}
+main .topo-pagina .intro p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;    
+}
+
+/* Conta */
+main .topo-pagina .conta{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+    outline: none;
+}
+main .topo-pagina .conta .avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Baloo;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 20px;
+
+    text-transform: uppercase;
+    text-align: center; 
+
+    border-radius: 50%;
+    padding: 10px;
+
+    color: var(--color-blue);
+    background-color: var(--border-blue);
+    transition: all 0.5s;
+}
+main .topo-pagina .conta .avatar:hover{
+    transform: scale(1.1);
+    transition: all 0.5s;
+}

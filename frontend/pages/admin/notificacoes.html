@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Notificações (Admin)</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+    
+        <!-- CSS -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+
+        <!-- CSS adaptado para o Admin -->
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        <link rel="stylesheet" href="../../src/css/pages/dashboard-user.css">
+        
+        <link rel="stylesheet" href="../../src/css/pages/configuracoes.css">
+        <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+    </head>
+    <!-- Atributo data-user-type para o JS identificar que é a página do Admin -->
+    <body data-user-type="admin">
+        <!-- MENU LATERAL FIXO DO ADMIN -->
+        <menu-admin></menu-admin>
+
+        <!-- MAIN -->        
+        <main class="pagina">
+            <!-- Topo Mobile -->
+            <div class="topo-mobile">
+                <div class="logo"><a href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
+            </div>
+            
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Notificações do Sistema</h1>
+                    <p>Fique por dentro das solicitações e cadastros pendentes.</p>
+                </div>
+                <button class="btn btn-secundario marcar-todas" id="btnMarcarTodas">
+                    <i class="fa-regular fa-square-check"></i>
+                    Marcar todas como lidas
+                </button>
+            </div>
+
+            <div class="barra-filtros">
+                <div class="filtros">
+                    <button class="filtro-chip ativo" data-filtro="todas">Todas <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="nao-lidas">Não lidas <span class="contagem">0</span></button>
+                    <!-- Filtros específicos do Admin -->
+                    <button class="filtro-chip" data-filtro="cadastros"><span class="ponto"></span> Cadastros <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="solicitacoes"><span class="ponto"></span> Solicitações <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="outros"><span class="ponto"></span> Outros <span class="contagem">0</span></button>
+                </div>
+                
+                <div class="ordenar">
+                    <span class="label-ordenar">Ordenar por:</span>
+                    <div class="campo-ordenar" id="campoOrdenarNotificacoes">
+                        <div class="custom-select">
+                            <div class="select-btn">
+                                <span class="btn-texto"><i class="fa-solid fa-arrow-down-wide-short"></i> Mais recentes</span>
+                                <span class="seta"><i class="fa-solid fa-angle-down"></i></span>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="option" data-value="recentes"><i class="fa-solid fa-arrow-down-wide-short"></i> Mais recentes</div>
+                                <div class="option" data-value="antigas"><i class="fa-solid fa-arrow-up-wide-short"></i> Mais antigas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lista-notificacoes" id="listaNotificacoes"></div>
+
+            <div class="paginacao" id="paginacao"></div>
+        </main>
+
+        <!-- Modal de detalhe da notificação -->
+        <div class="overlay-modal" id="overlayDetalhe">
+            <div class="modal">
+                <button type="button" class="modal-btn-fechar" id="modalNotificacaoFechar" title="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <div class="item-cabecalho">
+                    <div class="notif-foto-wrapper">
+                        <img id="detalheFoto" src="" alt="Foto do item">
+                        <div id="detalheIcone" class="notificacao-icone notif-icon-status"></div>
+                    </div>
+                    <div>
+                        <h3 id="detalheTitulo"></h3>
+                        <span id="detalheTempo" class="time"></span>
+                    </div>
+                </div>
+                <p id="detalheDescricao"></p>
+                <div class="notificacao-motivo" id="detalheMotivo" style="display:none;">
+                    <span><i class="fa-solid fa-triangle-exclamation"></i></span><span></span>
+                </div>
+                
+                <div class="modal-acoes" style="margin-top: 18px;">
+                    <button class="btn btn-secundario" id="fecharDetalhe">Sair</button>
+                    <a href="#" id="detalheLinkItem" class="btn btn-primario">Ver Item <i class="fa-solid fa-box-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        <!-- JS -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+
+        <script src="../../src/js/pages/notificacoes.js"></script>
+    </body>
+</html>

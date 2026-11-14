@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Procurar pertences</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../src/images/logos/icon-logo.ico">
+
+        <!-- CSS -->
+        <!-- Estilos Externos -->
+        <!-- Data e Calendário -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <!-- Estilos Globais do Sistema -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+
+        <!-- Páginas -->
+        <link rel="stylesheet" href="../src/css/pages/home.css">
+        <link rel="stylesheet" href="../src/css/components/documentacao.css">
+        <link rel="stylesheet" href="../../src/css/components/itens.css">
+
+        <!-- Componentes Estruturais -->
+        <link rel="stylesheet" href="../../src/css/components/filtros.css">
+        <link rel="stylesheet" href="../../src/css/components/modais.css">
+    </head>
+    <body class="page-search">
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="content">
+                <a class="logo" href="../index.html"><div></div></a>
+
+                <div class="login">
+                    <button class="btn-tema"><i class="fi fi-rr-brightness"></i></button>
+                    <hr>
+                    <a class="btn-login" href="../pages/auth/index.html?mode=login"><i class="fa-solid fa-circle-user"></i> Login</a>
+                </div>
+            </div>
+        </nav>
+        
+
+        <!-- Botão Voltar ao Topo -->
+        <button id="btn-topo" class="btn-topo" aria-label="Voltar ao topo"><i class="fa-solid fa-angle-up"></i></button>
+
+
+        <!-- HEADER -->
+        <header class="documentacao">
+            <div class="content">
+                <div class="texto">
+                    <a class="voltar-home" href="../index.html?#rodape"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+                    <h2>Procure seus pertences</h2>
+                    <span class="update">Faça login para resgatar um item!</span>
+                    <p>Temos aqui a lista completa de itens já cadastrados no sistema, que estão sem seus donos.</p>                
+                </div>
+                <img src="../src/images/ilustracoes/pertences.png" alt="Ilustração sobre procurar pentences">
+            </div>
+        </header>
+
+
+        <!-- MAIN -->
+        <main>
+            <!-- TOPO DE PESQUISA & CONTROLES -->
+            <div class="topo-pesquisa">
+                <h2>Itens do Sistema</h2>
+                
+                <!-- Barra de Pesquisa e Modo de Visualização (Grade / Lista) -->
+                <search-bar></search-bar>
+            </div>
+
+
+            <!-- INFORMAÇÕES DE PESQUISA & ORDENAÇÃO -->
+            <ordenar-itens></ordenar-itens>
+
+
+            <!-- TODOS OS ITENS (CARDS & TABELA)-->
+            <todos-itens></todos-itens>
+
+
+            <!-- MODAL DE DETALHES DO ITEM -->
+            <modal-detalhes></modal-detalhes>
+
+
+            <!-- MODAL DE CONFIRMAÇÃO DE RESGATE -->
+            <modal-resgate></modal-resgate>
+
+
+            <!-- MODAL DE CONTESTAÇÃO -->
+            <modal-contestar-item></modal-contestar-item>
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="content">
+                <div class="logo-rodape"></div>
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>Links Rápidos</h3>
+                    <a href="busca-itens.html">Procurar pertences</a>
+                    <a href="../pages/auth/index.html?mode=login">Registrar achados</a>
+                </div>
+
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>Institucional</h3>
+                    <a href="politica-privacidade.html">Política de Privacidade</a>
+                    <a href="termos-uso.html">Termos de Uso</a>
+                </div>
+
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>UNICID</h3>
+                    <p>
+                        Universidade Cidade de São Paulo <br>
+                        Rua Cesário Galeno, 448/475 <br>
+                        Tatuapé, São Paulo - SP <br>
+                        CEP 03071-000
+                    </p>
+                </div>
+            </div>
+            <div class="copyright">
+                <hr><p>&copy; <span class="ano-atual"></span> &bull; Copyright | PERDIDEX &mdash; Sistema de Achados e Perdidos</p>
+            </div>
+        </footer>
+
+
+        <!-- JS -->
+        <!-- Bibliotecas Externas -->
+        <!-- Data e Calendário -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+
+        <!-- Banco de Dados Global -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../src/js/global/api.js"></script>
+
+        <!-- Lógica para Listar Itens -->
+        <script src="../../src/js/components/listagem-itens.js"></script>
+
+        <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+        <script src="../src/js/pages/home.js"></script>
+
+        <!-- Utilitários Base -->
+        <script src="../../src/js/components/data.js"></script>
+        <script src="../../src/js/components/foto.js"></script>
+        <script src="../../src/js/components/select.js"></script>
+
+        <!-- Componentes Estruturais -->
+        <script src="../../src/js/components/itens.js"></script>
+        <script src="../../src/js/components/modais-itens.js"></script>
+        <script src="../../src/js/components/search.js"></script>
+        <script src="../../src/js/components/arrastar-cards.js"></script>
+    </body>
+</html>

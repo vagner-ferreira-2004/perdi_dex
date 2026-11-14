@@ -1,0 +1,78 @@
+/* Importação dos Syles */
+@import url('./reset.css');
+@import url('./vars.css');
+@import url('./media_query.css');
+
+/* Ícones */
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'); 
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-chubby/css/uicons-solid-chubby.css');
+@import url('https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css');
+
+
+
+/* Fontes */
+@font-face {
+    font-family: Baloo;
+    src: url('../../fonts/Baloo2-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: Poppins;
+    src: url('../../fonts/Poppins-Regular.ttf');
+}
+
+
+/* Global */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    transition: 
+        background-color 0.3s ease, 
+        color 0.3s ease, 
+        border-color 0.3s ease, 
+        box-shadow 0.3s ease;
+}
+
+html{
+    font-size: 16px;
+}
+
+body{
+    font-family: Poppins, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-body);
+}
+
+::selection{
+    background-color: var(--red);
+    color: var(--white);
+}
+
+
+/* Barra de Rolagem */
+::-webkit-scrollbar{
+    width: 12px;
+}
+/* Fundo */
+::-webkit-scrollbar-track{
+    background-color: var(--bg-body);
+}
+/* Clica e Arrasta */
+::-webkit-scrollbar-thumb{
+    background-color: var(--blue-light2);
+    border-radius: 4px;
+    
+    border: 3px solid var(--bg-body);
+    background-clip: padding-box;
+    transition: all 0.5s;
+}
+/* Ao passar o mouse */
+::-webkit-scrollbar-thumb:active{
+    background-color: var(--blue-light2);
+    transition: all 0.5s;
+}

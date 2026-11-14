@@ -1,0 +1,767 @@
+/* ============================================================
+Achados & Perdidos — Estilos compartilhados
+Fontes: Poppins (texto) / Baloo 2 (títulos)
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap');
+
+
+*{ box-sizing: border-box; }
+
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-body);
+    transition: background var(--transicao), color var(--transicao);
+    min-height: 100vh;
+}
+
+h1, h2, h3, .titulo-fonte{
+    font-family: 'Baloo 2', sans-serif;
+}
+
+button, input{ font-family: inherit; outline: none;}
+
+a{ color: inherit; }
+
+
+
+/* ================================================================
+    NOTIFICAÇÕES
+================================================================ */
+/* ---------- Marcar como lidas ---------- */
+.marcar-todas{
+    gap: 5px !important;
+    font-size: 12px !important;
+    line-height: 12px !important;
+    padding: 5px 13px !important;
+    height: 32px !important;
+}
+.marcar-todas i{
+    font-size: 14px;
+}
+
+/* ---------- Container geral ---------- */
+.pagina{
+    max-width: 1200px;
+    padding: 32px 24px 64px;
+}
+
+.cabecalho-pagina{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.cabecalho-pagina h1{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+    color: var(--title-blue);
+    margin: 0 0 4px;
+}
+.cabecalho-pagina p{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    margin: 0;
+    color: var(--text-header);
+}
+
+/* ---------- Botões genéricos ---------- */
+.btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: Baloo;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 10px;
+
+    border: none;
+    cursor: pointer;
+    transition: all var(--transicao);
+}
+
+.btn-primario{
+    background: var(--blue-light2);
+    color: var(--white);
+}
+
+.btn-primario:disabled{ opacity: .55; cursor: not-allowed; }
+
+.btn-secundario{
+    background: transparent;
+    color: var(--blue-light2);
+    border: 2px solid var(--blue-light2);
+    transition: all 0.5s;
+}
+
+.btn-primario:hover,
+.btn-perigo-cheio:hover{
+    border-color: var(--blue5);
+    background: var(--blue5);
+    transition: all 0.5s;
+}
+.btn-secundario:hover{
+    border-color: var(--blue5) !important;
+    background: var(--hover-menu) !important;
+    color: var(--blue5) !important;
+    transition: all 0.5s;
+}
+
+.btn-perigo-cheio{
+    background: var(--red);
+    color: var(--white);
+}
+
+.marcar-todas:hover,
+.btn-pequeno:hover{
+    border-color: var(--blue-light2) !important;
+    background: var(--blue-light2) !important;
+    color: var(--white) !important;
+}
+
+/* ================================================================
+   NOTIFICAÇÕES
+================================================================ */
+.barra-filtros{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.filtros{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filtro-chip{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+    padding: 6px 14px;
+    height: 30px;
+    border-radius: 14px;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: center;
+
+    border: 1px solid var(--border-card);
+    background: var(--bg-dash);
+    color: var(--text-header);
+
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.fiitro-chip:hover{
+    background-color: var(--hover-menu);
+    transition: all 0.5s;
+}
+.filtro-chip .ponto{
+    width: 7px; height: 7px; border-radius: 50%;
+}
+
+.filtro-chip[data-filtro="aprovados"] .ponto{ background: var(--green); }
+.filtro-chip[data-filtro="reprovados"] .ponto{ background: var(--red); }
+.filtro-chip[data-filtro="outros"] .ponto{ background: var(--blue-light2); }
+
+.filtro-chip.ativo{
+    font-weight: 600;
+    background: var(--title-blue);
+    border-color: var(--title-blue);
+    color: var(--white);
+}
+
+.filtro-chip .contagem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--hover-button);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.filtro-chip:not(.ativo) .contagem{
+    background: var(--hover-menu);
+    color: var(--text-gray);
+}
+
+
+.lista-notificacoes{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notificacao{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 45px;
+    row-gap: 15px;
+    padding: 16px 18px;
+    border: 1px solid var(--border-card);
+    border-left: 4px solid var(--border-card);
+    
+    border-radius: var(--raio);
+    background: var(--bg-dash);
+    transition: all 0.5s; 
+}
+
+.notificacao .grupo1{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+.notificacao .grupo2{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.notificacao:hover{ background-color: var(--hover-menu); transition: all 0.5s; }
+
+.notificacao.nao-lida{ border-left-color: var(--blue-light2); }
+.notificacao[data-tipo="aprovado"].nao-lida{ border-left-color: var(--green); }
+.notificacao[data-tipo="reprovado"].nao-lida{ border-left-color: var(--red); }
+.notificacao[data-tipo="outro"].nao-lida{ border-left-color: var(--blue-light2); }
+
+.notificacao.lida{ opacity: .68; }
+
+.notificacao[data-tipo="aprovado"] .notificacao-icone{ background: var(--green); }
+.notificacao[data-tipo="reprovado"] .notificacao-icone{ background: var(--red); }
+.notificacao[data-tipo="outro"] .notificacao-icone{ background: var(--blue-light2); }
+
+
+
+
+/* ================================================== */
+/* CORES DOS FILTROS (ADMIN)                          */
+/* ================================================== */
+.filtro-chip[data-filtro="cadastros"] .ponto { background: var(--orange); }
+.filtro-chip[data-filtro="solicitacoes"] .ponto { background: var(--purple); }
+.filtro-chip[data-filtro="outros"] .ponto { background: var(--blue-light2); }
+
+
+/* ================================================== */
+/* BORDAS DAS NOTIFICAÇÕES NÃO LIDAS (ADMIN)          */
+/* ================================================== */
+.notificacao[data-tipo="cadastro"].nao-lida { border-left-color: var(--orange); }
+.notificacao[data-tipo="solicitacao"].nao-lida { border-left-color: var(--purple); }
+.notificacao[data-tipo="outro"].nao-lida { border-left-color: var(--blue-light2); }
+
+
+/* ================================================== */
+/* CORES DOS ÍCONES (LISTA)                           */
+/* ================================================== */
+.notificacao[data-tipo="cadastro"] .notif-icon-status { background: var(--bg-orange); color: var(--color-orange); }
+.notificacao[data-tipo="solicitacao"] .notif-icon-status { background: var(--bg-purple); color: var(--color-purple); }
+.notificacao[data-tipo="outro"] .notif-icon-status { background-color: var(--bg-light) !important; color: var(--color-light) !important;  }
+
+
+/* ================================================== */
+/* CORES DOS TÍTULOS (OPCIONAL, SE QUISER COLORIR)    */
+/* ================================================== */
+.notificacao[data-tipo="cadastro"] .notificacao-titulo { color: var(--orange); }
+.notificacao[data-tipo="solicitacao"] .notificacao-titulo { color: var(--purple); }
+.notificacao[data-tipo="outro"] .notificacao-titulo { color: var(--blue-light2); }
+
+
+/* Cores do ícone dentro do Modal */
+.modal[data-tipo="cadastro"] .notificacao-icone { background: var(--bg-orange); color: var(--color-orange); }
+.modal[data-tipo="solicitacao"] .notificacao-icone { background: var(--bg-purple); color: var(--color-purple); }
+.modal[data-tipo="outro"] .notificacao-icone { background: var(--bg-light); color: var(--color-light); }
+
+/* Cores do Título dentro do Modal */
+.modal[data-tipo="cadastro"] #detalheTitulo { color: var(--orange); }
+.modal[data-tipo="solicitacao"] #detalheTitulo { color: var(--purple); }
+.modal[data-tipo="outro"] #detalheTitulo { color: var(--blue-light2); }
+
+
+
+.notificacao-corpo{ flex: 1; min-width: 0; }
+
+.notificacao-titulo{
+    font-family: Baloo;
+    font-size: 15px;
+    font-weight: 700;
+
+    line-height: 15px;
+    text-align: left;
+    margin: 0 0 3px;
+}
+.notificacao[data-tipo="aprovado"] .notificacao-titulo{
+    color: var(--green);
+}
+.notificacao[data-tipo="reprovado"] .notificacao-titulo{
+    color: var(--red);  
+}
+.notificacao[data-tipo="outro"] .notificacao-titulo{
+    color: var(--blue-light2);
+}
+
+.notificacao-desc{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+
+    color: var(--text-header);
+    margin: 0;
+}
+
+.notificacao-motivo{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    gap: 6px;
+    padding: 10px;
+    margin-top: 8px;
+    min-width: auto;
+    max-width: 500px;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+
+    border-radius: var(--raio-pequeno);
+    background-color: var(--bg-red);
+    color: var(--color-red);
+}
+
+.notificacao-acoes{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.notificacao-meta{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 92px;
+}
+
+.notificacao-tempo{
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: left;
+    color: var(--text-gray);
+}
+
+.notificacao-status{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 12px;
+    text-align: left;
+    color: var(--blue-light2);
+}
+.notificacao.lida .notificacao-status{ color: var(--text-gray); }
+.notificacao-status .bolinha{
+    width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+}
+
+
+.btn-ver{
+    font-size: 11px;
+    line-height: 11px;
+    height: 26px;
+    padding: 5px 10px;
+}
+
+.menu-opcoes{ position: relative; }
+
+.btn-opcoes{
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-gray);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+.btn-opcoes:hover{ background: var(--hover-menu); color: var(--title-blue); }
+
+.dropdown-opcoes{
+    position: absolute;
+    z-index: 30;
+    top: 36px;
+    right: 0;
+
+    background: var(--bg-dash);
+    border: 1px solid var(--border-card);
+    border-radius: var(--raio-pequeno);
+    
+    min-width: 215px;
+    overflow: hidden;
+    display: none;
+}
+.dropdown-opcoes.aberto{ display: block; }
+
+.dropdown-opcoes button{
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    color: var(--blue-light2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.dropdown-opcoes button i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+.dropdown-opcoes button:hover{ background: var(--hover-menu); }
+.dropdown-opcoes button.excluir{ color: var(--red); }
+
+.estado-vazio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 60px 20px;
+}
+.estado-vazio i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    margin-bottom: 8px;
+    color: var(--text-gray);
+}
+.estado-vazio h3{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    color: var(--text-gray);
+}
+.estado-vazio p{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    color: var(--text-gray);
+}
+
+.paginacao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 28px;
+}
+.paginacao i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+}
+
+.pagina-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px; 
+    height: 34px;
+    border-radius: 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 12px;
+    text-align: center;
+
+    border: 1px solid var(--border-card);
+    background: var(--bg-dash);
+    color: var(--text-gray);
+    cursor: pointer;
+}
+.pagina-btn.ativa{
+    background: var(--title-blue);
+    border-color: var(--title-blue);
+    color: var(--white);
+}
+.pagina-btn:hover:not(.ativa):not(:disabled){
+    background: var(--hover-menu);
+}
+.pagina-btn:disabled{
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+/* ---------- Toast ---------- */
+.toast{
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    
+    display: flex;
+    align-items: center;
+    gap: 9px;   
+    padding: 12px 20px;
+    border-radius: 15px;
+
+    background: var(--title-blue);
+    color: var(--white);
+    transform: translateX(-50%) translateY(20px);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: all .25s ease;
+    z-index: 200;
+}
+.toast.mostrar{ opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.toast.erro{ background: var(--red); }
+
+/* ---------- Modal ---------- */
+.overlay-modal{
+    position: fixed;
+    inset: 0;
+    background: var(--shadow-modal);
+    backdrop-filter: blur(2px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 150;
+    padding: 20px;
+}
+.overlay-modal.aberto{ display: flex; }
+
+.modal{
+    background: var(--bg-dash);
+    border-radius: 16px;
+    max-width: 440px;
+    width: 100%;
+    padding: 26px;
+    animation: surgir .18s ease;
+}
+@keyframes surgir { 
+    from { 
+        opacity:0; 
+        transform: translateY(10px) scale(.98);
+    } 
+    to {
+        opacity:1;
+        transform: translateY(0) scale(1);
+    } 
+}
+
+.modal-topo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.modal-topo i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    background-color: var(--red);
+    color: var(--white);
+}
+.modal-topo h3{
+    font-family: Baloo;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 16px;
+
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--red);
+}
+
+
+.modal .time{
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: var(--text-gray);
+}
+
+.modal-excluir-conta p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;
+    color: var(--text-header);
+    margin: 15px 0 0 0;
+}
+.modal-excluir-conta p strong{
+    font-weight: 600;
+    color: var(--red);
+}
+
+
+.modal-excluir-conta label,
+.modal-excluir-conta .alt-senha i{
+    color: var(--red) !important;
+}
+.modal-excluir-conta .btn-secundario{
+    border-color: var(--red);
+    color: var(--red);
+}
+.modal-excluir-conta input:focus{
+    border-color: var(--red) !important;
+    box-shadow: none !important;
+}
+
+.modal-excluir-conta .area{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 25px 0;
+}
+
+.modal-excluir-conta .campo{
+    width: 250px !important;
+}
+.modal p{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    color: var(--text-header);
+}
+.modal .modal-acoes{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.modal .item-cabecalho{ display:flex; align-items:center; gap:12px; margin-bottom: 14px; }
+.modal .item-cabecalho .notificacao-icone{
+    width: 22px;
+    height: 22px;
+}
+.modal .item-cabecalho .notificacao-icone i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+
+/* ================================================== */
+/* MODAL DE DETALHES - FOTO REDONDA E ÍCONE           */
+/* ================================================== */
+.modal .item-cabecalho { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 20px; 
+}
+
+/* Estrutura para a foto ficar redonda */
+.modal .notif-foto-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.modal .notif-foto-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* O ícone pequeno que fica sobreposto à foto */
+.modal .item-cabecalho .notificacao-icone {
+    position: absolute;
+    bottom: -2px;
+    right: -4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal .item-cabecalho .notificacao-icone i {
+    font-size: 11px;
+}
+
+/* ================================================== */
+/* MODAL DE DETALHES - CORES (USER COMUM)             */
+/* ================================================== */
+
+/* Cores do Ícone */
+.modal[data-tipo="aprovado"] .notificacao-icone { background: var(--green); color: var(--white); }
+.modal[data-tipo="reprovado"] .notificacao-icone { background: var(--red); color: var(--white); }
+.modal[data-tipo="outro"] .notificacao-icone { background: var(--blue-light2); color: var(--blue); }
+
+/* Cores do Título */
+.modal[data-tipo="aprovado"] #detalheTitulo { color: var(--green); }
+.modal[data-tipo="reprovado"] #detalheTitulo { color: var(--red); }
+.modal[data-tipo="outro"] #detalheTitulo { color: var(--blue); }
+
+/* Remove a margem do título no modal para alinhar com o tempo */
+.modal #detalheTitulo {
+    margin: 0 0 4px 0;
+}

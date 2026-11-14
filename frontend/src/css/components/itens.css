@@ -1,0 +1,984 @@
+/* ========================================================
+   TOPO: PESQUISA, TÍTULO E VIEW
+   ======================================================== */
+.topo-pesquisa {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+    width: 100%;
+}
+/* Título */
+.topo-pesquisa h2{
+    font-family: Baloo;
+    font-size: 21px;
+    font-weight: 700;
+
+    line-height: 22px;
+    text-align: left;
+    color: var(--title-blue);
+}
+
+/* Barra de Pesquisa */
+.search{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+
+    max-width: 400px;
+    height: 35px;
+    padding: 4px 0 4px 10px;
+    
+    border-radius: 12px;
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+}
+/* Campo */
+.campo-busca{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    gap: 10px;
+}
+.campo-busca i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text-gray);
+}
+.campo-busca input{
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: left;
+
+    width: 100%;
+    border: none;
+    outline: none;
+
+    background-color: transparent;
+    color: var(--text-header);
+}
+.campo-busca::placeholder{
+    color: var(--text-gray);
+}
+/* Botões */
+.search .btns{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+
+/* Botão Buscar */
+.btn-buscar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+    padding: 12px;
+    height: 35px;
+    border-radius: 12px;
+
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+    text-align: left;
+
+    border: none;
+    outline: none;
+    background-color: var(--blue-light2);
+    color: var(--white);
+
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.btn-buscar i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+.btn-buscar:hover{
+    background-color: var(--blue5);
+    transition: all 0.5s;
+}
+
+/* MODO DE VIEW */
+.btns-view{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+    width: 65px;
+    height: 35px;
+
+    border-radius: 8px;
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+}
+.btns-view .indicador{
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: 4px;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+
+    background-color: var(--title-blue);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+.btns-view.em-lista .indicador{
+    transform: translateX(27px);
+}
+
+.btn-view{
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--title-blue);
+
+    transition: color 0.2s;
+    cursor: pointer;
+}
+.btn-view i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-view.ativo{
+  color: var(--white);
+}
+
+
+/*===================================
+  RESPONSIVO MOBILE
+===================================*/
+@media screen and (max-width: 860px) {
+    /* Título */
+    .topo-pesquisa h2{
+        width: 100%;
+        text-align: center;
+    }
+    /* Barra de Pesquisa */
+    .search{
+        min-width: 322px !important;
+    }
+}
+
+
+
+
+
+/* ========================================================
+   INFO PESQUISA & SELECT DE ORDENAÇÃO
+   ======================================================== */
+.info-pesquisa{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    padding: 1.5rem 0;
+    width: 100%;
+}
+
+/* Quantidade de itens */
+.qtd-itens{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: var(--title-blue);
+}
+.qtd-itens span{
+    color: var(--text-header);
+}
+
+
+/* Ordenação */
+.campo-select{
+    position: relative;
+}
+/* Campo */
+.custom-select{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Label */
+.label-ordenar{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+
+    text-align: left;
+    white-space: nowrap;
+    color: var(--title-blue);
+}
+
+/* Select  */
+.select-btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 6px;
+    padding: 8px;
+    width: 135px;
+    height: 34px;
+    
+    border-radius: 10px;
+    border: 1px solid var(--border-card);
+    outline: none;
+
+    background-color: var(--bg-dash);
+    color: var(--text-gray);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.select-btn .btn-texto{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: left;
+}
+/* Seta */
+.select-btn .seta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 9px;
+    transition: transform 0.3s ease;
+}
+.select-btn.ativo .seta{
+    transform: rotate(180deg);
+}
+
+
+/* Opções */
+.select-dropdown{
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 4px);
+    right: 0;
+
+    width: 135px;
+    border-radius: 10px;
+
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+/* Quando aberto */
+.select-dropdown.mostrar{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: left;
+
+    gap: 6px;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border-card);
+
+    color: var(--text-header);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.option:hover{
+    background-color: var(--blue-light2);
+    color: var(--white);
+    transition: all 0.5s;
+}
+.option:last-child{
+    border-bottom: none;
+}
+
+
+/* ========================================================
+   CARDS DOS ITENS  
+   ======================================================== */
+.cards_container{
+    display: grid;
+    align-items: flex-start;
+    justify-content: center;
+
+    grid-template-columns: repeat(auto-fit, 310px);
+    gap: 1rem;
+}
+
+/* Card */
+.card-item{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    gap: 8px;
+    padding: 8px;
+    width: 310px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+}
+
+/* Foto */
+.card-item .foto{
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+}
+.card-item .foto img {
+    object-fit: cover;
+    width: 140px;
+    aspect-ratio: 1;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-card);
+}
+
+/* Categoria */
+.categoria:not(.attr-linha){
+    position: absolute;
+    top: 9px;
+    right: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+    padding: 5px;
+    border-radius: 6px;
+    background-color: var(--bg-blue);
+}
+.categoria i:not(.attr-linha){
+    font-size: 9px;
+    color: var(--blue-light2);
+}
+.categoria span:not(.attr-linha span){
+    font-family: Baloo;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 10px;
+
+    text-align: left;
+    margin-top: 2px;
+    color: var(--text-menu);
+}
+
+
+.tabela-itens .td-categoria{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    white-space: nowrap;
+}
+.tabela-itens .categoria{
+    position: relative;
+    top: initial;
+    right: initial;
+}
+.tabela-itens .categoria i{
+    font-size: 10px;
+}
+.tabela-itens .categoria span{
+    font-size: 11px !important;
+    line-height: 11px !important;
+}
+
+
+
+/* Status */
+.status{
+    position: absolute;
+    bottom: 9px;
+    right: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+    padding: 5px;
+    border-radius: 6px;
+}
+.status i{
+    font-size: 9px;
+}
+.status span{
+    font-family: Baloo;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 10px;
+
+    text-align: left;
+    margin-top: 2px;
+}
+
+.tabela-itens .status{
+    position: relative;
+    bottom: initial;
+    right: inherit;
+}
+.tabela-itens .status i{
+    font-size: 10px;
+}
+.tabela-itens .status span{
+    font-size: 11px;
+    line-height: 11px;
+    margin-top: 1px;
+}
+
+
+
+.status.aprovado{
+    background-color: var(--bg-green);
+    color: var(--color-green);
+}
+.status.reprovado{
+    background-color: var(--bg-red);
+    color: var(--color-red);
+}
+.status.analise{
+    background-color: var(--bg-orange);
+    color: var(--color-orange);
+}
+.status.devolvido{
+    background-color: var(--bg-light);
+    color: var(--color-light);
+}
+.status.resgatado{
+    background-color: var(--bg-blue);
+    color: var(--color-blue);
+}
+.status.solicitado{
+    background-color: var(--bg-purple);
+    color: var(--color-purple);
+}
+
+/* =========================================
+   NOVAS CORES DE STATUS (PERDIDO E ACHADO)
+   ========================================= */
+
+/* --- Status: PERDIDO --- */
+.status-tag.perdido, 
+.status.perdido{
+    background-color: var(--bg-perdido);
+    color: var(--color-perdido);
+}
+.ponto-status.perdido{
+    background-color: var(--perdido);
+}
+
+/* --- Status: ACHADO --- */
+.status-tag.achado, 
+.status.achado{
+    background-color: var(--bg-achado);
+    color: var(--color-achado);
+}
+.ponto-status.achado{
+    background-color: var(--achado);
+}
+
+
+
+
+/* Informações */
+.card-item .info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    height: 135px;
+    margin: 3px 5px 0 0;
+}
+
+/* Descrição */
+.card-item .descricao{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+}
+.card-item .texto {
+    font-size: 11px;
+    line-height: 13px;
+    color: var(--text-header);
+}
+.card-item .texto.limitado{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+/* Atributos */
+.card-item .atributos{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 7px;
+    margin: 7px 0 10px 0;
+}
+.card-item .atributos span{
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+/* Nomes */
+.card-item .atributos span p{
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    color: var(--text-gray);
+}
+
+/* Ícones */
+.card-item .atributos span i,
+.card-item .space-color{
+    width: 12px;
+    aspect-ratio: 1;
+}
+.card-item .atributos span i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Espaço Cor */
+.card-item .space-color{
+    border-radius: 50%;
+    border: 1px solid var(--text-gray);
+}
+
+.card-item .local i { color: var(--red); }
+.card-item .data i { color: var(--blue5); }
+.card-item .marca i { color: var(--blue-light2); }
+
+/* Cores dos círculos */
+.space-color.branco { background-color: var(--white); }
+.space-color.preto { background-color: var(--black); }
+.space-color.cinza { background-color: var(--gray3); }
+.space-color.marrom { background-color: var(--brown); }
+.space-color.rosa { background-color: var(--pink); }
+.space-color.azul { background-color: var(--blue); }
+.space-color.verde { background-color: var(--green); }
+.space-color.vermelho { background-color: var(--red); }
+.space-color.laranja { background-color: var(--orange2); }
+.space-color.amarelo { background-color: var(--yellow); }
+.space-color.roxo { background-color: var(--purple); }
+
+
+/* Botões */
+.card-item .btns{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.btn-resgatar,
+.btn-contestar,
+.btn-detalhes,
+.btn-editar,
+.btn-excluir,
+.btn-cancelar-solicitacao,
+.btn-comprovante{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+    width: 26px;
+    height: 23px;
+
+    border-radius: 8px;
+    border: 2px solid;
+    outline: none;
+
+    background-color: var(--bg-dash);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.btn-detalhes i,
+.btn-comprovante i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    margin-top: 1px;
+}
+.btn-resgatar i,
+.btn-contestar i,
+.btn-editar i,
+.btn-excluir i,
+.btn-cancelar-solicitacao i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+.btn-resgatar,
+.btn-contestar,
+.tabela-itens button{
+    gap: 4px;
+    padding: 4px 8px;
+    width: auto;
+}
+.btn-resgatar span,
+.btn-contestar span,
+.tabela-itens button span{
+    font-family: Baloo;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 12px;
+
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 1px;
+}
+#meus-itens .tabela-itens button span{
+    margin-top: 2px;
+}
+
+.btn-resgatar:hover,
+.btn-contestar:hover,
+.btn-detalhes:hover,
+.btn-editar:hover,
+.btn-excluir:hover,
+.btn-cancelar-solicitacao:hover,
+.btn-comprovante:hover{
+    color: var(--white);
+    transition: all 0.3s;
+}
+
+
+.btn-detalhes{
+    border-color: var(--blue-light2);
+    color: var(--blue-light2);
+}
+.btn-detalhes:hover{
+    background-color: var(--blue-light2);
+}
+
+.btn-editar{
+    border-color: var(--green);
+    color: var(--green);
+}
+.btn-editar:hover{
+    background-color: var(--green);
+}
+
+
+.btn-resgatar,
+.btn-excluir,
+.btn-cancelar-solicitacao{
+    border-color: var(--red);
+    color: var(--red);
+}
+.btn-resgatar:hover,
+.btn-excluir:hover,
+.btn-cancelar-solicitacao:hover{
+    background-color: var(--red);
+}
+
+.btn-contestar{
+    border-color: var(--orange2);
+    color: var(--orange2);
+}
+.btn-contestar:hover{
+    background-color: var(--orange2);
+}
+
+.btn-resgatar:disabled,
+.btn-contestar:disabled{
+    opacity: .55;
+    cursor: not-allowed;
+}
+.btn-resgatar:disabled:hover{
+    background: transparent;
+    color: var(--red);
+}
+.btn-contestar:disabled:hover{
+    background: transparent;
+    color: var(--orange2);
+}
+
+
+.btn-comprovante{
+    border-color: var(--purple);
+    color: var(--purple);
+}
+.btn-comprovante:hover{
+    background-color: var(--purple);
+}
+
+
+/* Animação suave de entrada dos cards e linhas */
+@keyframes surgirItem {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-item,
+.tabela-item-linha{
+    animation: surgirItem 0.25s ease forwards;
+}
+
+
+
+
+/* ========================================================
+   TABELA
+======================================================== */
+.table_container{
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 1300px;
+
+    padding: 8px 16px;
+    margin: 0 auto;
+    border-radius: 16px;
+
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+    overflow-x: auto;
+    cursor: grab; 
+}
+
+/* CLASSE ADICIONADA QUANDO O RATO CLICA PARA ARRASTAR */
+.table_container.arrastando {
+    cursor: grabbing;
+    user-select: none;
+}
+.table_container::-webkit-scrollbar{
+    display: none;
+}
+
+/* ========================================================
+   ESTRUTURA GERAL DA TABELA
+======================================================== */
+.tabela-itens{
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* Cabeçalho */
+.tabela-itens thead th{
+    font-family: Baloo;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    padding: 14px 12px;
+    color: var(--title-blue);
+    border-bottom: 1px solid var(--border-card);
+}
+
+/* Linhas */
+.tabela-itens tbody tr{
+    border-bottom: 1px solid var(--border-card);
+    transition: all 0.5s;
+}
+.tabela-itens tbody tr:last-child{
+    border-bottom: none;
+}
+
+.tabela-itens tbody tr:hover{
+    background-color: var(--hover-menu);
+    transition: all 0.5s;
+}
+
+.tabela-itens tbody td{
+    padding: 12px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: var(--text-header);
+}
+
+/* ========================================================
+   COLUNAS INDIVIDUAIS
+   ======================================================== */
+
+/* 1. Foto */
+.tabela-itens .td-foto{
+    width: 55px;
+}
+.tabela-itens .thumb-foto{
+    display: flex;
+    object-fit: cover;
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border-card);
+}
+
+/* 2. Nome / Descrição */
+.tabela-itens .td-nome{
+    max-width: 200px;
+}
+.tabela-itens .desc-nome{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+
+    color: var(--text-header);
+    margin: 0;
+    overflow: hidden;
+}
+
+/* 3 e 4. Células com Dados Empilhados (Local/Data e Cor/Marca) */
+.tabela-itens .td-local-data,
+.tabela-itens .td-cor-marca{
+    white-space: nowrap;
+}
+
+.info-dupla{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.info-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 110px;
+}
+.info-item span{
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: var(--text-gray);
+}
+
+/* Ícones das informações */
+.info-item i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 12px;
+    font-size: 11px;
+    text-align: center;
+}
+.info-item.local i { color: var(--red); }
+.info-item.data i  { color: var(--blue5); }
+.info-item.marca i { color: var(--blue-light2); }
+
+/* Círculo indicador de cor */
+.info-item .space-color{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--text-gray);
+    flex-shrink: 0;
+}
+
+
+/* 6. Ações */
+.tabela-itens .td-acoes{
+    white-space: nowrap;
+}
+.tabela-itens .acoes-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}

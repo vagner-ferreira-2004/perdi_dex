@@ -1,0 +1,553 @@
+/* MENU FIXO */
+menu-user,
+search-bar{
+    display: contents;
+}
+
+nav{
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;   
+
+    padding: 0 1.3rem; 
+    width: 230px;
+    height: 100vh;
+
+    background-image: var(--bg-fixo);
+    transition: width 0.5s;
+    overflow: hidden;
+}
+nav.active{
+    width: 70px;
+    padding: 0.5rem;
+}
+
+
+/* ícone Menu */
+nav.active .btn-menu{
+    justify-content: center;
+}
+
+/* Logo */
+nav.active .logo-completa,
+nav.active .btn-tema{
+    display: none;
+}
+nav.active .logo-simbolo{
+    display: block;
+    width: 30px;
+    margin: 1.2rem 0 0 8px;
+}
+
+/* Perfil */
+nav.active .perfil{
+    flex-direction: row;
+    justify-content: center;
+
+    padding: 0;
+    margin: 0.6rem 0;
+    background-color: transparent;
+}
+nav.active .perfil .cabecalho{
+    justify-content: center;
+}
+nav.active .perfil .avatar{
+    font-size: 14px;
+    line-height: 14px;
+    width: 36px;
+}
+nav.active .perfil .info,
+nav.active .perfil .btn-perfil,
+nav.active .perfil .dados{
+    display: none;
+}
+
+nav.active .grupo ul li a{
+    justify-content: center;
+}
+nav.active .grupo h3,
+nav.active .grupo span{
+    display: none;
+}
+
+nav.active .nao-lidas{
+    position: absolute;
+    left: 19px;
+    bottom: 15px;
+
+    font-size: 9px;
+    width: 16px;
+    height: 15px;
+}
+nav.active .nao-lidas .mais{
+    font-size: 7;
+}
+nav.active .lista{
+    margin-top: 0;
+    padding: 0 0.3rem;
+    gap: 0;
+}
+
+/* Copyright */
+nav.active footer .copyright{
+    justify-content: center;
+    text-align: center;
+}
+nav.active footer .nome-logo{
+    display: none;
+}
+
+/* Formas */
+nav.active .formas{
+    width: 310px;
+
+    background-position: 
+        left 30px bottom -13px,
+        left 15px bottom 7px;
+
+    background-size: 
+        85% auto,
+        85% auto;
+}
+
+
+
+/* Ícone Menu */
+.btn-menu{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 1.1rem 0 0 0; 
+    width: 100%;
+}
+.btn-menu i{
+    font-size: 14px;
+    color: var(--white);
+    cursor: pointer;
+}
+
+/* Logo */
+nav .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav .logo img{
+    width: 140px;
+    margin: 0.8rem 0 0 0;
+}
+nav .logo a{
+    text-decoration: none;
+    outline: none;
+}
+
+nav .logo-completa{
+    display: block;
+}
+nav .logo-simbolo{
+    display: none;
+}
+
+
+/* Perfil */
+nav .perfil{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: 85px;
+
+    border-radius: 10px;
+    padding: 12px 10px;
+    margin: 1.1rem 0;
+
+    background-color: var(--bg-perfil);
+}
+
+/* Dados */
+nav .perfil .dados{
+    position: absolute;
+    z-index: 10;
+    top: 85%;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 100%;
+    height: 60px;
+    gap: 9px;
+    padding: 50px 18px 20px 18px;
+
+    border-radius: 0 0 12px 12px;
+    box-sizing: border-box;
+    background-color: var(--bg-perfil);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
+}
+
+nav .perfil.aberto .dados{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+nav .perfil .dados span{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+    width: 100%;
+}
+nav .perfil .dados span i{
+    font-size: 10px;
+    color: var(--blue-light2);
+}
+nav .perfil .dados span p{
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: var(--blue-light);
+
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+/* Cabeçalho */
+nav .perfil .cabecalho{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    gap: 0.5rem;
+}
+
+
+
+
+/* Avatar */
+nav .perfil .avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Baloo;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    flex-shrink: 0;
+    width: 38px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    background-color: var(--blue3);
+    color: var(--blue-light);
+}
+
+nav .cabecalho .info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: calc(100% - 50px);
+}
+nav .cabecalho .info strong{
+    font-family: Baloo;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+
+    text-align: left;
+    color: var(--blue-light);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90px;
+}
+
+nav .cabecalho .info div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+}
+nav .cabecalho .info div i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--blue-light);
+}
+nav .cabecalho .info div span{
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: var(--blue-light);
+}
+
+
+/* Ícone Seta */
+nav .perfil .btn-perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+    color: var(--blue-light3);
+
+    margin-right: 0.3rem;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+nav .perfil.aberto .btn-perfil{
+    transform: rotate(-180deg);
+    transition: all 0.5s;
+}
+
+
+
+/*--------------------------------*/
+
+
+/* Páginas */
+nav .lista{
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    width: 100%;
+    height: 100%;
+    margin: 0.3rem 0 100px 0;
+
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+/* Barra de Rolagem */
+nav .lista::-webkit-scrollbar{
+    display: none;
+}
+
+
+
+/* Nome do grupo */
+nav .grupo h3{
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin: 0 0 0.3rem 0;
+    color: var(--blue-light3);
+}
+
+/* Link */
+nav .grupo ul li a{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.7rem;
+
+    padding: 1rem 1rem 1rem 12px;
+    border-radius: 10px;
+    border-left: 4px solid transparent;
+
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--white);
+
+    width: 100%;
+    height: 2.5rem;
+    transition: all 0.5s;
+}
+nav .grupo ul li a:hover{
+    background-color: var(--red);
+    transition: all 0.5s;
+}
+
+
+/* Fundo da página atual */
+.lista a.ativo {
+    background-color: var(--hover-button);
+    border-left: 4px solid var(--red);
+}
+
+
+/* Ícone */
+nav .grupo ul li i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 16px;
+
+    transition: all 0.5s;
+}
+/* Nome */
+nav .grupo ul li span{
+    font-size: 12px;
+    font-weight: 400;
+
+    line-height: 15px;
+    text-align: left;
+}
+
+/* Linha */
+nav .grupo ul hr{
+    margin: 0.5rem 0 0.5rem 0;
+    border: none;
+    border-top: 1px solid var(--blue-light3);
+    
+    width: 100%;
+    height: 0 !important;
+    transform: translateZ(0);
+}
+
+
+/* Notificações não lidas */
+nav .nao-lidas{
+    position: relative;
+    left: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 10px;
+    text-align: center;
+
+    width: 19px;
+    height: 18px;
+    flex-shrink: 0;
+    
+    border-radius: 50%;
+    background-color: var(--red);
+    transition: all 0.5s;
+}
+nav .nao-lidas .mais{
+    display: none;
+    font-size: 8px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+nav .lista a:hover .nao-lidas{
+    background-color: var(--white);
+    color: var(--red);
+    transition: all 0.5s;
+}
+
+
+/**/
+.lista a .icon-ativo{
+    display: none;
+}
+
+.lista a:hover .icon-normal,
+.lista a.ativo .icon-normal {
+    display: none;
+}
+
+.lista a:hover .icon-ativo,
+.lista a.ativo .icon-ativo {
+    display: block;
+}
+
+
+/* Footer */
+footer{
+    position: relative;
+    width: 100%;
+}
+/* Formas */
+.formas{
+    position: absolute;
+    z-index: 0;
+    left: -100px;
+    bottom: -100px;
+
+    width: 320px;
+    aspect-ratio: 1;
+
+    background-image: 
+        url('../../images/ilustracoes/forma-red.png'),
+        url('../../images/ilustracoes/forma-white.png');
+
+    background-repeat: 
+        no-repeat,
+        no-repeat;
+
+    background-position: 
+        left 20px bottom 0,
+        left 8px bottom 22px;
+
+    background-size: 
+        90% auto,
+        90% auto;
+}
+/* Copyright */
+nav footer .copyright{
+    position: relative;
+    z-index: 1;
+    bottom: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 12px;
+
+    text-align: right;
+    color: var(--gray);
+    width: 100%;
+}
+
