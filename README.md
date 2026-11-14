@@ -4,7 +4,7 @@ O PerdiDex é um sistema de achados e perdidos voltado à comunidade da faculdad
 
 ## Contexto e objetivo
 
-O processo tradicional de achados e perdidos depende de avisos dispersos e contatos informais. O PerdiDex centraliza os registros para que qualquer pessoa possa consultar os itens publicados. Para cadastrar um objeto encontrado ou solicitar o resgate de um item, é necessário ter uma conta; assim, as ações ficam associadas a um usuário identificado.
+O processo tradicional de achados e perdidos depende da procura manual do item no centro de achados e perdidos da faculdade, além de não ter um registro dos itens. O PerdiDex centraliza os registros para que qualquer pessoa possa consultar os itens publicados. Para cadastrar um objeto encontrado ou solicitar o resgate de um item, é necessário ter uma conta, assim, as ações ficam associadas a um usuário identificado.
 
 O catálogo público não deve expor dados pessoais de quem cadastrou ou solicitou um item. Se houver dúvida sobre a propriedade, o contato entre as pessoas deve ocorrer por um fluxo controlado, sem divulgar informações privadas para visitantes.
 
@@ -44,16 +44,16 @@ No sistema, o perfil institucional (estudante, professor ou funcionário) é dif
 
 - **RNF01 — Privacidade:** dados pessoais e informações de solicitantes devem ser visíveis somente a quem precisa deles para operar o processo.
 - **RNF02 — Segurança:** validar os dados no servidor, proteger rotas por autenticação e papel, armazenar senhas como hash e proteger operações autenticadas contra CSRF.
-- **RNF03 — Integridade e auditoria:** manter o vínculo entre item, usuário, decisão e datas; impedir transições incompatíveis e preservar um histórico suficiente para resolver conflitos.
+- **RNF03 — Integridade e auditoria:** manter o vínculo entre item, usuário, decisão e datas. Impedir transições incompatíveis e preservar um histórico suficiente para resolver conflitos.
 - **RNF04 — Usabilidade:** funcionar em telas móveis e desktop, comunicar estados e erros com clareza e oferecer busca por características relevantes do objeto.
-- **RNF05 — Mídia:** validar o tipo e o tamanho de imagens antes de armazená-las; o backend atual aceita JPG, JPEG, PNG, WEBP e AVIF de até 10 MB.
+- **RNF05 — Mídia:** validar o tipo e o tamanho de imagens antes de armazená-las. São aceitas imagens JPG, JPEG, PNG, WEBP e AVIF de até 10 MB.
 - **RNF06 — Manutenibilidade:** manter regras de negócio no backend, contratos validados, migrations versionadas e testes de acesso e comportamento.
 
 
 ## Estados principais
 
-- **Item:** `Pendente` → `Encontrado` ou `Reprovado`; após a retirada confirmada, `Devolvido`. Uma contestação aceita pode retornar o item para `Encontrado`.
-- **Solicitação de resgate:** `Pendente` → `Aprovado` ou `Reprovado`; também pode ser `Cancelado` pelo solicitante enquanto pendente. Uma solicitação aprovada e confirmada passa a `Concluido`.
+- **Item:** `Pendente` → `Encontrado` ou `Reprovado`. Após a retirada confirmada, `Devolvido`. Uma contestação aceita pode retornar o item para `Encontrado`.
+- **Solicitação de resgate:** `Pendente` → `Aprovado` ou `Reprovado`. Também pode ser `Cancelado` pelo solicitante enquanto pendente. Uma solicitação aprovada e confirmada passa a `Concluido`.
 - **Contestação:** começa `Pendente` e termina `Resolvida`, com decisão `Aceita` ou `Recusada`.
 
 ## Arquitetura e organização
@@ -63,7 +63,7 @@ No sistema, o perfil institucional (estudante, professor ou funcionário) é dif
 - `backend/models/` e `backend/database/`: modelos SQLAlchemy, conexão MySQL, seeds e migrations Alembic.
 - `backend/helpers/images.py`: envio e remoção de imagens pelo Cloudinary.
 - `backend/tests/`: testes de autenticação por cookie, CORS local, permissões, notificações, itens, resgates e imagens.
-- `.agents/plans/`: notas e planos de desenvolvimento; alguns registram estados anteriores da integração. Para o comportamento atual, considerar o código e os testes presentes como referência.
+- `.agents/plans/`: notas e planos de desenvolvimento. Alguns registram estados anteriores da integração. Para o comportamento atual, considerar o código e os testes presentes como referência.
 
 ## Tecnologias
 
