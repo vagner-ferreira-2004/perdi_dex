@@ -1,0 +1,910 @@
+/* =========================================================
+   FILTROS
+========================================================= */
+/* Botão Filtros */
+.btn-filtros{    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.btn-filtros i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+    color: var(--text-gray);
+    transition: all 0.5s;
+}
+.btn-filtros.ativo i{
+    color: var(--blue-light2) !important;
+}
+
+
+/* =========================================================
+   PAINEL DE FILTROS COM TRANSIÇÃO
+========================================================= */
+/* Caixa do Painel */
+.painel-filtros{
+    position: absolute;
+    z-index: 50;
+    top: 100%;
+    right: 0;
+
+    margin-top: 10px;
+    border-radius: 16px;
+    border: 1.5px solid var(--border-card);
+    box-shadow: 0 10px 30px var(--shadow-black);
+    background-color: var(--bg-dash);
+
+    width: 320px;
+    max-height: 480px;
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: 
+        max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        margin-top 0.3s ease,
+        visibility 0.3s ease;
+}
+
+/* Estado Fechado: Recolhe suavemente para cima */
+.painel-filtros.oculto{
+    display: block !important;
+    max-height: 0 !important;
+    opacity: 0 !important;
+
+    margin-top: 0 !important;
+    border-color: transparent !important;
+    pointer-events: none !important;
+
+    visibility: hidden !important;
+    overflow: hidden !important;
+    transform: translateY(-12px) !important; 
+    transition: all 0.3s ease;
+}
+
+
+/* Cabeçalho do Painel (Filtros + Setinha) */
+.painel-filtros .topo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+    padding: 14px 18px;
+    margin: 0;
+    width: 100%;
+
+    border-bottom: 1px solid var(--border-card);
+    user-select: none;
+    cursor: pointer;
+}
+.painel-filtros .topo i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.painel-filtros .topo i:first-child{
+    color: var(--blue-light2);
+    font-size: 15px;
+}
+
+.painel-filtros .topo span{
+    font-family: Baloo;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 15px;
+
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--title-blue);
+}
+
+/* Setinha girando suave */
+.seta-filtro{
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-gray);
+    transition: transform 0.2s ease;
+}
+.seta-filtro.invertida{
+    transform: rotate(180deg);
+}
+
+
+/* Conteúdo interno */
+.painel-filtros .conteudo{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    padding: 12px 17px;
+}
+
+/* Coluna */
+.filtros-grid{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    row-gap: 15px;
+}
+.filtro-coluna{
+    position: relative;
+}
+.filtro-coluna .custom-select{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Label */
+.filtro-label{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+
+    font-family: Baloo;
+    font-size: 13px;
+    font-weight: 500;
+
+    line-height: 13px;
+    text-align: left;
+    color: var(--title-blue);
+}
+.filtro-label i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    margin-bottom: 1px;
+    color: var(--blue-light2);
+}
+
+
+/* Select */
+.filtro-coluna .select-btn{
+    padding: 10px;
+    width: 136px;
+    height: 28px;
+    border-radius: 10px;
+}
+.filtro-coluna .select-btn .btn-texto{
+    gap: 6px;
+    font-size: 10px;
+    line-height: 10px;
+}
+/* Seta */
+.filtro-coluna .select-btn .seta{
+    font-size: 9px;
+    margin-bottom: 1px;
+}
+
+
+/* Dropdown */
+.filtro-coluna .select-dropdown{
+    position: absolute;
+    z-index: 50;
+    left: 0;
+
+    width: 140px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+.filtro-coluna .select-dropdown::-webkit-scrollbar{
+    display: none;
+}
+
+/* Círculo indicador de cor */
+.filtro-coluna .space-color{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--text-gray);
+    flex-shrink: 0;
+}
+
+
+
+
+
+/* =========================================================
+   CAMPOS DE DATA (INÍCIO - FIM) COM ÍCONES E TRAÇO
+========================================================= */
+
+/* Container dos dois campos */
+.filtro-datas-custom{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.filtro-datas-custom.oculto{
+    display: none;
+}
+
+/* Coluna individual (label + input) */
+.campo-data{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 4px;
+    margin-top: 15px;
+}
+
+/* Rótulo (Label: Inicial / Final) */
+.campo-data label{
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 10px;
+
+    text-align: left;
+    margin-left: 12px;
+    color: var(--title-blue);
+}
+
+/* Wrapper para sobrepor o ícone dentro do campo */
+.input-icone-wrapper{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Ícone de calendário dentro do input */
+.input-icone-wrapper i{
+    position: absolute;
+    right: 12px;
+    font-size: 13px;
+
+    color: var(--text-gray);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+/* Campo de Texto (Input) */
+.input-icone-wrapper input[type="text"]{
+    width: 131px;
+    height: 30px;
+    padding: 0 12px;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 10px;
+    text-align: left;
+    text-transform: lowercase;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+    color: var(--text-header);
+
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.input-icone-wrapper input[type="text"]::placeholder{
+    color: var(--text-gray);
+}
+
+/* Focus / Ativo (ao clicar para abrir o Flatpickr) */
+.input-icone-wrapper input[type="text"]:focus{
+    border-color: var(--blue-light2);
+    box-shadow: 0 0 0 3px var(--shadow-blue);
+}
+.input-icone-wrapper:focus-within i{
+    color: var(--blue-light2);
+}
+
+/* Traço Divisor */
+.divisor-datas{
+    position: relative;
+    bottom: -16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+}
+.divisor-datas hr{
+    border: none;
+    width: 10px;
+    height: 1px;
+    background-color: var(--border-card);
+}
+
+
+
+/* Botões Filtros */
+.filtro-acoes{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+    width: 100%;
+}
+.filtro-acoes button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+    padding: 5px;
+    width: 100px;
+    height: 30px;
+
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid var(--blue-light2);
+
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.filtro-acoes button i{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.filtro-acoes button span{
+    font-family: Baloo;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 13px;
+
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.btn-limpar-filtros{
+    background-color: var(--bg-dash);
+    color: var(--blue-light2);
+}
+.btn-aplicar-filtros{
+    background-color: var(--blue-light2);
+    color: var(--white);
+}
+
+.btn-limpar-filtros:hover{
+    background-color: var(--hover-menu);
+    border-color: var(--blue5);
+    color: var(--blue5);
+    transition: all 0.5s;
+}
+.btn-aplicar-filtros:hover{
+    background-color: var(--blue5);
+    border-color: var(--blue5);
+    transition: all 0.5s;
+}
+
+
+
+/* =========================================================
+   CAIXA EXTERNA DO CALENDÁRIO (CONTAINER PRINCIPAL)
+========================================================= */
+
+/* Estiliza o "card" que surge quando você clica no input */
+.flatpickr-calendar{
+    z-index: 999999 !important;
+    font-family: Poppins;
+    width: 290px !important;
+
+    padding: 10px;
+    border-radius: 12px !important;
+    border: 1px solid var(--border-card) !important;
+    
+    box-shadow: 0 10px 25px var(--shadow-blue) !important;
+    background-color: var(--bg-dash) !important;
+}
+
+/* Seta triangular que aponta para o campo de texto no topo do calendário */
+.flatpickr-calendar.arrowTop:before,
+.flatpickr-calendar.arrowTop:after{
+    border-bottom-color: var(--bg-dash) !important; /* Mesma cor de fundo para disfarçar o triângulo */
+}
+
+
+/* =========================================================
+   2. CABEÇALHO E NAVEGAÇÃO DE MESES (SETAS < E >)
+========================================================= */
+/* Linha superior onde ficam as setas de navegação, mês e ano */
+.flatpickr-months{
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+/* Os botões das setas de voltar e avançar o mês */
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Ícones do FontAwesome dentro dos botões de navegação */
+.flatpickr-months .flatpickr-prev-month i,
+.flatpickr-months .flatpickr-next-month i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--title-blue);
+    transition: color 0.2s ease;
+}
+
+/* Efeito ao passar o mouse nas setas de navegação de mês */
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover{
+    background-color: var(--hover-menu);
+}
+.flatpickr-months .flatpickr-prev-month:active,
+.flatpickr-months .flatpickr-next-month:active{
+    transform: scale(0.7);
+}
+
+
+
+/* =========================================================
+   3. BOTÃO DO MÊS (SUBSTITUTO CUSTOMIZADO DO SELECT NATIVO)
+========================================================= */
+.flatpickr-current-month{
+    padding: 0;
+}
+
+/* O botão com o nome do mês e a setinha para baixo */
+.flatpickr-current-month .btn-mes-custom{
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+
+    font-family: Baloo !important;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 15px;
+    text-align: left;
+
+    color: var(--title-blue);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Efeito hover no botão do mês */
+.flatpickr-current-month .btn-mes-custom:hover{
+    background-color: var(--hover-menu);
+}
+
+/* A setinha para baixo ao lado do mês */
+.flatpickr-current-month .btn-mes-custom i{
+    font-size: 10px;
+    color: var(--title-blue);
+    transition: transform 0.2s ease;
+}
+
+/* Gira a setinha para cima quando o menu de meses estiver aberto */
+.flatpickr-current-month .btn-mes-custom.ativo i{
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   4. JANELA FLUTUANTE (DROPDOWN DOS 12 MESES)
+========================================================= */
+/* Popup suspenso com a lista de Janeiro a Dezembro */
+.menu-meses-dropdown{
+    position: absolute;
+    z-index: 999999;
+    top: 48px;
+    left: 45px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 120px;
+    max-height: 220px;
+    padding: 6px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border-card);
+
+    box-shadow: 0 4px 8px var(--shadow-black);
+    background-color: var(--bg-dash);
+    overflow-y: auto;
+}
+.menu-meses-dropdown::-webkit-scrollbar,
+.menu-meses-dropdown.oculto{
+    display: none;
+}
+
+/* Cada opção individual de mês dentro do menu */
+.item-mes{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+    text-align: left;
+
+    padding: 10px 12px;
+    border-radius: 6px;
+
+    color: var(--text-header);
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+.item-mes:hover{
+    background-color: var(--hover-menu);
+    color: var(--title-blue);
+}
+
+/* Mês que está atualmente selecionado */
+.item-mes.selecionado{
+    font-weight: 500;
+    background-color: var(--blue-light2);
+    color: var(--white);
+}
+
+
+
+/* =========================================================
+   5. CONTROLE DO ANO (NÚMERO E SETINHAS COM FONTAWESOME)
+========================================================= */
+/* Caixa que envolve o número do ano e as duas setinhas */
+.flatpickr-current-month .numInputWrapper{
+    width: 64px !important;
+    padding: 4px 2px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.flatpickr-current-month .numInputWrapper:hover{
+    background-color: var(--hover-menu);
+}
+
+/* O campo de texto onde o ano (ex: 2026) é escrito */
+.flatpickr-current-month input.cur-year {
+    font-family: Baloo;
+    font-size: 16px;
+    font-weight: 600;
+
+    line-height: 16px;
+    text-align: left;
+    color: var(--title-blue);
+}
+
+/* As duas áreas clicáveis das setas de subir/descer o ano */
+.flatpickr-current-month .numInputWrapper span.arrowUp,
+.flatpickr-current-month .numInputWrapper span.arrowDown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 20px;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Configuração base para desenhar os ícones FontAwesome nas setas */
+.flatpickr-current-month .numInputWrapper span.arrowUp:after,
+.flatpickr-current-month .numInputWrapper span.arrowDown:after {
+    border: none;
+    font-family: "Font Awesome 6 Free", "FontAwesome" !important; /* Puxa a fonte de ícones */
+    font-weight: 900 !important; /* Obrigatório para ícones sólidos do FontAwesome */
+    font-size: 10px;
+    color: var(--title-blue);
+    transition: all 0.15s ease;
+}
+
+/* \f106 = Código Unicode do ícone 'fa-angle-up' */
+.flatpickr-current-month .numInputWrapper span.arrowUp:after { content: "\f106"; }
+
+/* \f107 = Código Unicode do ícone 'fa-angle-down' */
+.flatpickr-current-month .numInputWrapper span.arrowDown:after { content: "\f107"; }
+
+.flatpickr-current-month .numInputWrapper span.arrowUp:active:after,
+.flatpickr-current-month .numInputWrapper span.arrowDown:active:after{
+    transform: scale(0.7);
+}
+
+/* =========================================================
+   6. DIAS DA SEMANA E DIAS DO MÊS (GRADE/GRID)
+========================================================= */
+/* Os textos que indicam o dia (DOM, SEG, TER...) */
+span.flatpickr-weekday{
+    font-family: Baloo;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--text-gray);
+}
+
+/* Cada quadradinho de dia do calendário */
+.flatpickr-day{
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 34px;
+
+    text-align: center;
+    height: 34px;
+    border-radius: 8px;
+
+    border: 1px solid transparent;
+    color: var(--text-header);
+    transition: all 0.15s ease;
+}
+
+/* Hover em qualquer dia comum */
+.flatpickr-day:hover{
+    background-color: var(--hover-menu);
+    color: var(--title-blue);
+}
+
+/* Destaque para o dia de "Hoje" */
+.flatpickr-day.today{
+    font-weight: 700;
+    background: transparent;
+    border-color: var(--blue-light2);
+    color: var(--blue-light2);
+}
+
+/* Dia atualmente selecionado pelo usuário */
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover{
+    background-color: var(--blue-light2);
+    border-color: var(--blue-light2);
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* Dias que pertencem ao mês anterior ou próximo (ficam mais apagadinhos) */
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay{
+    color: var(--border-card);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*=================================
+  FILTROS POR STATUS
+=================================*/
+.filtros-status-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 0.5rem;
+    max-width: 100%;
+}
+
+
+.btn-tab-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 500;
+    
+    line-height: 11px;
+    text-align: center;
+    white-space: nowrap;
+
+    height: 32px;
+    padding: 5px 12px;
+    border-radius: 12px;
+    outline: none;
+
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+    color: var(--text-header);
+    transition: all 0.5s;
+}
+.btn-tab-status:hover{
+    background-color: var(--hover-menu);
+    transition: all 0.5s;
+}
+
+/* Estado activo (estilo do botão "Todos" na imagem) */
+.btn-tab-status.ativo{
+    font-weight: 700;
+    background-color: var(--title-blue);
+    color: var(--white);
+}
+.btn-tab-status.ativo .badge-qtd{
+    background-color: var(--hover-button);
+    color: var(--white);
+}
+
+/* Marcadores circulares coloridos */
+.ponto-status{
+    display: inline-block;
+    flex-shrink: 0;
+
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+}
+
+.ponto-status.analise { background-color: var(--orange2); }
+.ponto-status.aprovado { background-color: var(--green); }
+.ponto-status.reprovado { background-color: var(--red); }
+.ponto-status.devolvido { background-color: var(--blue-light2); }
+.ponto-status.resgatado { background-color: var(--blue5); }
+.ponto-status.solicitado { background-color: var(--purple); }
+
+
+/* Indicador numérico (quantidade) */
+.badge-qtd{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: center;
+    white-space: nowrap;
+
+    padding: 7.5px 7px 7px 7px;
+    clip-path: circle();
+    background-color: var(--hover-menu);
+    color: var(--text-gray);
+}
+
+
+
+.area-definicao{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.definicao-status{
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 7px;
+    margin: 1.5rem 0;
+
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 500;
+    
+    line-height: 11px;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    color: var(--text-header);
+}
+.definicao-status.ativo{
+    display: flex;
+}
+.definicao-status i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    padding: 10px;
+    clip-path: circle();
+}
+
+.definicao-status.todos i{
+    background-color: var(--hover-menu);
+    color: var(--title-blue);
+}
+.definicao-status.analises i{
+    background-color: var(--bg-orange);
+    color: var(--color-orange);
+}
+.definicao-status.aprovados i{
+    background-color: var(--bg-green);
+    color: var(--color-green);
+}
+.definicao-status.reprovados i{
+    background-color: var(--bg-red);
+    color: var(--color-red);
+}
+.definicao-status.devolvidos i{
+    background-color: var(--bg-light);
+    color: var(--color-light);
+}
+.definicao-status.resgatados i{
+    background-color: var(--bg-blue);
+    color: var(--color-blue);
+}
+.definicao-status.solicitados i{
+    background-color: var(--bg-purple);
+    color: var(--color-purple);
+}
+.definicao-status.perdidos i{
+    background-color: var(--bg-perdido);
+    color: var(--color-perdido);
+}
+.definicao-status.achados i{
+    background-color: var(--bg-achado);
+    color: var(--color-achado);
+}
+
+
+
+
+.nenhum-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    grid-column: 1 / -1;
+    gap: 0.6rem;
+    padding: 3rem 0;
+    max-width: 100%;
+}
+
+.nenhum-item i{
+    font-size: 50px;
+    color: var(--text-gray);
+}
+.nenhum-item h5{
+    font-family: Baloo;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: var(--text-gray);
+}
+.nenhum-item p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    color: var(--text-header);
+}

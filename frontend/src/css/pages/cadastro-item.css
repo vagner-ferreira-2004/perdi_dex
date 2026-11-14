@@ -1,0 +1,620 @@
+/*====================================
+  CADASTRO DO ITEM
+====================================*/
+.content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin: 1.5rem 0 5rem 0;
+}
+
+/* Container do Formulário (Fluido e Responsivo) */
+.cadastro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; /* Garante que todas as colunas tenham a mesma altura */
+    justify-content: flex-start;
+
+    gap: 1.5rem;
+    padding: 1.2rem;
+    width: 100%;
+    max-width: 880px; /* Evita que estique infinitamente em monitores grandes */
+    box-sizing: border-box;
+
+    border-radius: 15px;
+    border: 1px solid var(--border-card);
+    background-color: var(--bg-dash);
+}
+
+/* Botão de Submissão */
+.cadastro .botao {
+    width: 100%;
+    margin: 0.8rem 0 0 0;
+}
+.cadastro .botao button {
+    font-family: Baloo;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    width: 100%;
+    height: 28px;
+    border: none;
+    outline: none;
+
+    border-radius: 10px;
+    background-color: var(--blue-light2);
+    color: var(--white);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.cadastro .botao button:hover {
+    background-color: var(--red);
+    transition: all 0.5s;    
+}
+
+/* Organização das Colunas */
+.cadastro .coluna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between; /* Empurra o topo para cima e a base para baixo */
+    gap: 16px;
+    flex: 1 1 200px; /* Cresce e encolhe fluidamente */
+}
+
+/* Estilos Comuns dos Campos */
+.cadastro .campo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+    width: 100%;
+}
+
+.cadastro .campo label {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 14px;
+    text-align: left;
+    color: var(--title-blue);
+    margin-left: 12px;
+}
+.cadastro .campo label::after {
+    content: '*';
+    color: var(--red);
+}
+.campo-marca label::after {
+    content: none !important;
+}
+
+/* Inputs, Textareas e Selects Customizados */
+.cadastro .campo input,
+.cadastro .campo textarea,
+.cadastro .campo .select-btn {
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: var(--text-header);
+
+    width: 100%; /* Largura total da coluna */
+    box-sizing: border-box;
+    padding: 7px 12px;
+    outline: none;
+
+    border-radius: 12px;
+    border: 2px solid var(--blue-light2);
+    background-color: var(--bg-dash);
+    transition: all 0.5s;
+}
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: var(--text-gray);
+}
+.campo input:focus,
+.campo textarea:focus,
+.campo .select-btn:focus {
+    border: 2px solid var(--blue-light2) !important;
+    box-shadow: 0 0 0 3px var(--shadow-blue);
+    transition: all 0.5s;
+}
+
+.cadastro .campo input,
+.cadastro .campo .select-btn {
+    height: 34px;
+}
+
+/* ===================================
+   ALINHAMENTOS ESPECÍFICOS (CORREÇÕES)
+====================================*/
+
+/* COLUNA 1: FOTO */
+.cadastro .campo-foto {
+    height: 100%; 
+    position: relative; /* Permite posicionar o nome do arquivo fora do fluxo */
+}
+.upload-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    flex-grow: 1; /* Estica a caixa da foto até ao fundo perfeitamente */
+    min-height: 200px;
+    border-radius: 16px;
+
+    border: 2px dashed var(--blue-light2);
+    background-color: var(--hover-menu);
+    box-sizing: border-box;  
+
+    overflow: hidden;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.upload-box:hover {
+    background-color: var(--border-blue);
+    color: var(--white) !important;
+    transition: all 0.5s;
+}
+.upload-box:hover i,
+.upload-box:hover .title,
+.upload-box:hover .subtitle {
+    color: var(--button);
+}
+
+.upload-preview {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+.upload-placeholder i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: var(--title-blue);
+}
+.upload-placeholder .title {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: center;
+    color: var(--title-blue);
+    margin: 12px 0 8px 0;
+}
+.upload-placeholder .subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    color: var(--gray2);    
+}
+
+/* Nome do arquivo flutuando abaixo da caixa */
+.upload-filename {
+    display: none;
+    position: absolute;
+    bottom: -18px; /* Fica no espaço do gap, sem deformar a coluna */
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: center;
+    color: var(--text-header);
+
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* COLUNA 2: DESCRIÇÃO */
+.campo-textarea {
+    flex-grow: 1; /* Estica a área da descrição */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Permite que o contador flutue */
+}
+.campo-textarea textarea {
+    flex-grow: 1; /* Estica a caixa de texto até ao fundo */
+    min-height: 135px;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+}
+.campo-textarea textarea::-webkit-scrollbar {
+    display: none;
+}
+
+/* Contador flutuando abaixo da borda */
+.contador-caracteres {
+    position: absolute;
+    bottom: -16px; /* Fica no espaço vazio abaixo */
+    right: 8px;
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11px;
+    text-align: right;
+    color: var(--text-gray);
+}
+
+
+/* ===================================
+   CAMPOS ESPECIAIS (SELECT E DATA)
+====================================*/
+.campo-data .input-icone-wrapper {
+    cursor: pointer;
+}
+.cadastro .campo-data {
+    margin: 0;
+}
+.campo-select .selecione{
+    color: var(--text-gray) !important;
+}
+
+
+.select-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.select-btn .select-btn-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.select-btn-text {
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: var(--text-gray);
+}
+
+.select-icon {
+    font-size: 12px;
+    color: var(--text-gray);
+    transition: transform 0.4s ease;
+}
+.select-btn.ativo .select-icon {
+    transform: rotate(180deg);
+}
+
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.cadastro .select-dropdown {
+    position: absolute;
+    z-index: 100;
+    top: calc(100% + 6px);
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
+
+    border-radius: 16px;
+    border: 1px solid var(--blue-light2);
+    box-shadow: 0 10px 25px var(--shadow-black);
+    background-color: var(--bg-dash);
+
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translateY(-8px); 
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+.select-dropdown.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateY(0);
+}
+.select-dropdown::-webkit-scrollbar {
+    display: none;
+}
+
+.cadastro .select-dropdown .option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+
+    color: var(--text-header);
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.select-dropdown .option:hover {
+    background-color: var(--blue-light2);
+    color: var(--white);
+}
+
+/* Ícones de Cores */
+.space-color { width: 12px; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--text-gray); }
+.space-color.branco { background-color: var(--white); }
+.space-color.preto { background-color: var(--black); }
+.space-color.cinza { background-color: var(--gray3); }
+.space-color.marrom { background-color: var(--brown); }
+.space-color.rosa { background-color: var(--pink); }
+.space-color.azul { background-color: var(--blue); }
+.space-color.verde { background-color: var(--green); }
+.space-color.vermelho { background-color: var(--red); }
+.space-color.laranja { background-color: var(--orange2); }
+.space-color.amarelo { background-color: var(--yellow); }
+.space-color.roxo { background-color: var(--purple); }
+
+
+/* ====================================
+   MODAL DE RECORTE DA FOTO
+=====================================*/
+.cropper-modal {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--shadow-modal);
+    opacity: 1;
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 520px;
+    max-width: 95%;
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: var(--bg-dash);
+}
+
+.modal-recorte .modal-header{
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.modal-title {
+    font-family: Baloo;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--title-blue);
+}
+.btn-close-modal {
+    background: none;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-gray);
+    cursor: pointer;
+}
+
+.modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    max-height: 380px;
+    overflow: hidden;
+}
+.image-to-crop {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.cropper-line, .cropper-point { background-color: var(--blue-light2); }
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+.modal-footer button {
+    font-family: Baloo;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 15px;
+    text-align: center;
+    padding: 5px 20px;
+    max-width: 170px;
+    height: 35px;
+    border-radius: 14px;
+    border: 2px solid var(--blue-light2);
+    outline: none;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.btn-modal-cancel { background-color: var(--bg-dash); color: var(--blue-light2); }
+.btn-modal-confirm { background-color: var(--blue-light2); color: var(--white); }
+.btn-modal-cancel:hover { border-color: var(--blue5); background-color: var(--hover-menu); color: var(--blue5); }
+.btn-modal-confirm:hover { border-color: var(--blue5); background-color: var(--blue5); }
+
+
+/*===========================================
+  INFORMAÇÕES LATERAIS
+===========================================*/
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    
+    border: 1px solid var(--border-card);
+    background-color: var(--hover-menu);
+    flex: 1 1 280px;
+    min-width: 280px;
+    max-width: 350px;
+    box-sizing: border-box;
+}
+
+.informacoes img {
+    object-fit: contain;
+    width: 100%;
+    max-width: 100px;
+}
+.informacoes h4 {
+    font-family: Baloo;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 17px;
+    text-align: center;
+    color: var(--title-blue);
+    margin: 0 0 15px 0;
+    width: 100%;
+}
+.informacoes .conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 380px;
+}
+.informacoes .conteudo .info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.informacoes .conteudo .info i {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+    color: var(--title-blue);
+    margin-top: 2px;
+}
+.informacoes .conteudo .info span {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;
+    color: var(--text-header);
+    flex: 1;
+}
+
+/* ========================================================
+   CORREÇÃO DO CORTE DA COLUNA DE SÁBADO NO FLATPICKR
+======================================================== */
+.flatpickr-calendar { width: 320px !important; min-width: 320px !important; box-sizing: border-box !important; padding: 8px !important; overflow: visible !important; }
+.flatpickr-innerContainer { width: 100% !important; display: block !important; }
+.flatpickr-rContainer { width: 100% !important; }
+.flatpickr-weekdays { width: 100% !important; display: flex !important; justify-content: space-between !important; }
+.flatpickr-days { width: 100% !important; }
+.dayContainer { width: 100% !important; min-width: 100% !important; max-width: 100% !important; display: flex !important; flex-wrap: wrap !important; justify-content: space-around !important; }
+.flatpickr-day { max-width: 38px !important; height: 38px !important; line-height: 38px !important; flex-basis: 14.28% !important; }
+
+/* ========================================================
+   VISIBILIDADE DOS SELECTS DO FORMULÁRIO DE CADASTRO
+======================================================== */
+.custom-select-container .select-dropdown.mostrar {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+/* ===================================
+   RESPONSIVO LAYOUT GERAL
+====================================*/
+
+@media screen and (max-width: 1150px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .informacoes {
+        max-width: 100%; 
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 880px;
+        flex-direction: row;
+    }
+}
+
+/* Quebra o formulário em Grelha 2x2 para a última coluna */
+@media screen and (max-width: 980px) {
+    .cadastro .coluna1,
+    .cadastro .coluna2 {
+        flex: 1 1 calc(50% - 0.75rem);
+    }
+    .cadastro .coluna3 {
+        flex: 1 1 100%;
+        display: grid; 
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 1.5rem;
+    }
+    .informacoes {
+        flex-direction: column;
+    }
+}
+
+/* Celulares: Empilha tudo verticalmente */
+@media screen and (max-width: 580px) {
+    .cadastro .coluna1,
+    .cadastro .coluna2,
+    .cadastro .coluna3 {
+        flex: 1 1 100%;
+    }
+    .cadastro .coluna3 {
+        grid-template-columns: 1fr;
+    }
+}

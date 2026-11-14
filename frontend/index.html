@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Perdidex</title>
+        <link type="image/x-icon" rel="shortcut icon" href="./src/images/logos/icon-logo.ico">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="./src/css/global/global.css">
+        <link rel="stylesheet" href="./src/css/pages/home.css">
+    </head>
+    <body class="page-home">
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="content">
+                <a class="logo" href="index.html"><div></div></a>
+
+                <!-- Botão Mobile (Fica escondido no desktop) -->
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button>
+
+                <!-- Tudo que vai descer no mobile fica dentro desta div -->
+                <div class="nav-menu">
+                    <ul>
+                        <li><a href="#quem-somos"><i class="fa-regular fa-house icon-normal"></i><i class="fa-solid fa-house icon-ativo"></i>Quem Somos</a></li>
+                        <li><a href="#beneficios"><i class="fa-regular fa-star icon-normal"></i><i class="fa-solid fa-star icon-ativo"></i>Benefícios</a></li>
+                        <li><a href="#faculdade"><i class="fa-regular fa-building icon-normal"></i><i class="fa-solid fa-building icon-ativo"></i>Faculdade</a></li>
+                        <li><a href="#contato"><i class="fa-regular fa-envelope icon-normal"></i><i class="fa-solid fa-envelope icon-ativo"></i>Contato</a></li>
+                    </ul>
+
+                    <div class="login">
+                        <button class="btn-tema"><i class="fi fi-rr-brightness"></i></button>
+                        <hr>
+                        <a class="btn-login" href="./pages/auth/index.html?mode=login"><i class="fa-solid fa-circle-user"></i> Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- HEADER -->
+        <header>
+            <!-- HOME -->
+            <div class="hero">
+                <!-- Conteúdo -->
+                <div class="hero-content">
+                    <h1 class="title blue">Encontre os perdidos</h1>
+                    <h1 class="title blue-light">Devolva os achados</h1>
+                    <p class="description">Sistema digital para ajudar a encontrar pertences achados e perdidos na faculdade UNICID.</p>
+                
+                    <div class="action-cards">
+                        <!-- Procurar -->
+                        <a class="card card-red" href="./components/busca-itens.html">
+                            <i class="fa-solid fa-magnifying-glass icon"></i>
+                            <span class="subtitle">
+                                <h6>Procurar pertences</h6>
+                                <p>Veja todos os itens encontrados</p>
+                            </span>
+                            <i class="fa-solid fa-arrow-right seta"></i>
+                        </a>
+
+                        <!-- Registrar -->
+                        <a class="card card-blue" href="./pages/auth/index.html">
+                            <i class="fa-solid fa-plus icon"></i>
+                            <span class="subtitle">
+                                <h6>Registrar achados</h6>
+                                <p>Encontrou algo? Cadastre aqui</p>
+                            </span>
+                            <i class="fa-solid fa-arrow-right seta"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Imagem -->
+                <div class="hero-image">
+                    <img src="./src/images/logos/simbolo.png" alt="Símbolo da Perdidex">
+                </div>
+            </div>
+
+            <div class="fundo"><div></div></div>
+        </header>
+
+
+        <!-- Botão Voltar ao Topo -->
+        <button id="btn-topo" class="btn-topo" aria-label="Voltar ao topo"><i class="fa-solid fa-angle-up"></i></button>
+
+
+        <!-- MAIN -->
+        <main>
+            <!-- QUEM SOMOS -->
+            <section id="quem-somos" class="section quem-somos">
+                <div class="content">
+                    <img src="./src/images/ilustracoes/objetos-home.png" alt="Objetos perdidos">
+                    <div class="description">
+                        <div class="texto">
+                            <h2 class="titulo">Quem Somos</h2>
+                            <p>O PERDIDEX é um sistema para facilitar o encontros de pertences achados localizados na faculdade UNICID. Aqui pode registrar ou procurar algo que perdeu de forma prática e eficaz.</p>
+                        </div>
+                        <div class="boxs">
+                            <!-- Box -->
+                            <div class="box green">
+                                <i class="fa-solid fa-shield"></i>
+                                <span><h5>Seguro</h5><p>Seus dados pessoais ficam protegidos.</p></span>
+                            </div>
+
+                            <!-- Box -->
+                            <div class="box orange">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span><h5>Rápido</h5><p>Encontre ou registre em poucos cliques.</p></span>
+                            </div>
+
+                            <!-- Box -->
+                            <div class="box blue">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <span><h5>Fácil</h5><p>Interface simples e intuitiva para todos.</p></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- BENEFÍCIOS -->
+            <section id="beneficios" class="section beneficios">
+                <h2 class="titulo">Benefícios</h2>
+                <div class="content">
+                    <!-- Card -->
+                    <div class="card">
+                        <i class="fa-solid fa-key"></i>
+                        <h4>Reencontros</h4>
+                        <p>Os registros aumentam as chances de cada objeto voltar ao seu dono.</p>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="card">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <h4>Organização</h4>
+                        <p>Mantenha informações e processos de devolução organizados.</p>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="card">
+                        <i class="fa-solid fa-bell"></i>
+                        <h4>Notificações</h4>
+                        <p>Seja avisado de atualizações sobre os itens e suas solicitações.</p>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="card">
+                        <i class="fa-solid fa-sliders"></i>
+                        <h4>Filtros</h4>
+                        <p>Facilita encontrar um objeto por suas características, data ou local.</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- FACULDADE -->
+            <section id="faculdade" class="section faculdade">
+                <div class="content">
+                    <div class="description">
+                        <h2 class="titulo">Feito para faculdade UNICID</h2>
+                        <p>Sistema exclusivo para alunos e funcionários da UNICID. Juntos promovemos um lugar mais colaborativo, responsável e humano.</p>
+                        <div class="badge">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <p>Ambiente universitário mais organizado e solidário.</p>
+                        </div>
+                    </div>
+                    <div class="predio">
+                        <div class="logo-unicid"></div>
+                        <img src="./src/images/ilustracoes/predio.png" alt="Prédio da Faculdade">
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- CONTATO -->
+            <section id="contato" class="section contato">
+                <h2 class="titulo">Contato</h2>
+                <div class="content">
+                    <div class="help">
+                        <img src="./src/images/ilustracoes/baloes-mensagem.png" alt="Balões de mensagem vermelho e azul">
+                        <span><h4>Precisa de ajuda?</h4><p>Estamos prontos para te atender e tirar suas dúvidas.</p></span>
+                    </div>
+                    <div class="description">
+                        <!-- Informação -->
+                        <div class="info">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span><strong>E-mail</strong><p>suporte@perdidex.com</p></span>
+                        </div>
+
+                        <!-- Informação -->
+                        <div class="info">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span><strong>WhatsApp</strong><p>(11) 98012-0065</p></span>
+                        </div>
+
+                        <!-- Informação -->
+                        <div class="info">
+                            <i class="fi fi-rs-marker"></i>
+                            <span><strong>Locais</strong><p>Bloco Alfa - 4º andar <br> Bloco A - 2º andar</p></span>
+                        </div>
+
+                        <!-- Informação -->
+                        <div class="info">
+                            <i class="fa-regular fa-clock"></i>
+                            <span><strong>Horário de Atendimento</strong><p>Segunda a sexta, das 8h às 20h</p></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer id="rodape">
+            <div class="content">
+                <div class="logo-rodape"></div>
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>Links Rápidos</h3>
+                    <a href="./components/busca-itens.html">Procurar pertences</a>
+                    <a href="./pages/auth/index.html">Registrar achados</a>
+                </div>
+
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>Institucional</h3>
+                    <a href="./components/politica-privacidade.html">Política de Privacidade</a>
+                    <a href="./components/termos-uso.html">Termos de Uso</a>
+                </div>
+
+                <!-- Coluna -->
+                <div class="coluna">
+                    <h3>UNICID</h3>
+                    <p>
+                        Universidade Cidade de São Paulo <br>
+                        Rua Cesário Galeno, 448/475 <br>
+                        Tatuapé, São Paulo - SP <br>
+                        CEP 03071-000
+                    </p>
+                </div>
+            </div>
+            <div class="copyright">
+                <hr><p>&copy; <span class="ano-atual"></span> &bull; Copyright | PERDIDEX &mdash; Sistema de Achados e Perdidos</p>
+            </div>
+        </footer>
+        
+
+        <!-- JS -->
+        <script src="./src/js/global/tema.js"></script>
+        <script src="./src/js/global/font-awesome.js"></script>
+        <script src="./src/js/pages/home.js"></script>
+    </body>
+</html>

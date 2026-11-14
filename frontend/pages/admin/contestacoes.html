@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contestações de propriedade</title>
+        <link rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        <link rel="stylesheet" href="../../src/css/pages/analises.css">
+    </head>
+    <body>
+        <menu-admin></menu-admin>
+        <main class="analises-pagina">
+            <header class="analises-cabecalho">
+                <div>
+                    <h1>Contestações de propriedade</h1>
+                    <p>Analise a descrição e as evidências enviadas antes de decidir.</p>
+                </div>
+                <strong id="totalContestacoes" aria-live="polite">Carregando...</strong>
+            </header>
+            <div id="mensagemContestacoes" role="status" aria-live="polite"></div>
+            <div id="listaContestacoes" class="lista-analises" aria-live="polite"></div>
+        </main>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+        <script src="../../src/js/pages/contestacoes-admin.js"></script>
+    </body>
+</html>

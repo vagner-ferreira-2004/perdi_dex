@@ -1,0 +1,161 @@
+:root{
+    --black: #000;
+    --white: #fff;
+    --white2: #f4f6ff;
+
+    --gray: #e7e7e7;
+    --gray2: #8b8b8b;
+    --gray3: #a6a6a6;
+    --gray4: #3b383e;
+
+    --red: #cd1b31;
+    --red-light: #ffeaec;
+
+    --blue: #172b9b;
+    --blue2: #0b1864;
+    --blue3: #3b4e9e;
+    --blue4: #d9e4f3;
+    --blue5: #1e37c7;
+
+    --blue-light: #c9edff;
+    --blue-light2: #169ad8;
+    --blue-light3: #7893c7;
+    --blue-light4: #e7f4fa;
+
+    --brown: #5f362f;
+    --pink: #ff66c4;
+    --purple: #5e2697;
+    --yellow: #ffde59;
+
+    --green: #00907f;
+    --green2: #97e3b8;
+    --green-light: #e3f9f6;
+
+    --orange: #ffac65;
+    --orange2: #ec8329;
+    --orange-light: #fff4e7;
+
+    --shadow-black: rgba(0, 0, 0, 0.1);
+    --shadow-blue: rgba(22, 154, 216, 0.2);
+    --shadow-modal: rgba(15, 23, 42, 0.45);
+
+    --hover-button: rgba(255, 255, 255, 0.1);
+    --border-card: #E2EEF6;
+    --border-blue: #c9edff;
+
+    --text-body: #000;
+    --bg-body: #fff;
+    --bg-main: #f4f6ff;
+    --bg-header: linear-gradient(to bottom, #f4f6ff, #c9edff);
+    --bg-menu: rgba(244, 246, 255, 0.8);
+
+    --bg-fixo: linear-gradient(180deg, #172b9b, #0b1864);
+    --blue-opacity: rgba(11, 24, 100, 0.8);
+    
+    --title-header: #172b9b;
+    --text-header: #3b383e;
+    --text-menu: #172b9b;
+
+    --bg-perfil: #0b1864;
+    --bg-box: #fff;
+    --bg-card: #f4f6ff;
+    --bg-dash: #fff;
+    --bg-topo: #172b9b;
+    --bg-trilho: #e7e7e7;
+
+    --btn-topo: #172b9b;
+    --button: #169ad8;
+    --hover-menu: rgba(23, 43, 155, 0.1);
+
+    --logo-menu: url('../../images/logos/logo-claro.png');
+    --logo-unicid: url('../../images/ilustracoes/unicid-claro.png');
+    --logo-rodape: url('../../images/logos/logo-claro-completa.png');
+
+    --title-blue: #172b9b;
+    --text-gray: #8b8b8b;
+
+    --perdido: #e2374b;
+    --achado: #3ac0e9;
+
+    --bg-green: #e3f9f6;
+    --bg-red: #ffeaec;
+    --bg-orange: #fff4e7;
+    --bg-light: #e7f4fa;
+    --bg-blue: #d9e4f3;
+    --bg-purple: #ece2f8;
+    --bg-perdido: #fadfe2;
+    --bg-achado: #ebf9fd;
+
+    --color-green: #00907f;
+    --color-red: #cd1b31;
+    --color-orange: #ffac65;
+    --color-light: #169ad8;
+    --color-blue: #1e37c7;
+    --color-purple: #5e2697;
+    --color-perdido: #e2374b;
+    --color-achado: #3ac0e9;
+
+    --sombra: 0 4px 18px rgba(0,0,0,.35);
+    --sombra-forte: 0 16px 40px rgba(0,0,0,.5);
+    --raio: 14px;
+    --raio-pequeno: 8px;
+    --transicao: .18s ease;
+
+    --font-baloo: Baloo, sans-serif;
+    --font-poppins: Poppins, sans-serif; 
+}
+
+
+html[data-theme="dark"]{
+    --text-body: #fff;
+
+    --bg-body: #12161C;
+    --bg-main: #12161C;
+    --bg-header: linear-gradient(to bottom, #172b9b, #0b1864);
+    --bg-menu: rgba(11, 24, 100, 0.8);
+
+    --bg-fixo: linear-gradient(180deg, #0b1864, #0b1864);
+
+    --title-header: #c9edff;
+    --text-header: #f4f6ff;
+    --text-menu: #fff;
+    
+    --bg-perfil: #060e46;
+    --bg-box: #0b1864;
+    --bg-card: #1B2129;
+    --bg-dash: #1B2129;
+    --bg-topo: #0b1864;
+    --bg-trilho: #3A4552;
+
+    --border-card: #2A323C;
+    --border-blue: #172b9b;
+
+    --btn-topo: #cd1b31;
+    --button: #c9edff;
+    --hover-menu: rgba(255, 255, 255, 0.1);
+
+    --logo-menu: url('../../images/logos/logo-escuro.png');
+    --logo-unicid: url('../../images/ilustracoes/unicid-escuro.png');
+    --logo-rodape: url('../../images/logos/logo-escuro-completa.png');
+
+    --title-blue: #169ad8;
+    --text-gray: #e7e7e7;
+
+    --bg-green: #00907f;
+    --bg-red: #cd1b31;
+    --bg-orange: #ffac65;
+    --bg-light: #169ad8;
+    --bg-blue: #1e37c7;
+    --bg-purple: #5e2697;
+    --bg-perdido: #e2374b;
+    --bg-achado: #3ac0e9;
+
+    --color-green: #e3f9f6;
+    --color-red: #ffeaec;
+    --color-orange: #fff4e7;
+    --color-light: #e7f4fa;
+    --color-blue: #d9e4f3;
+    --color-purple: #ece2f8;
+    --color-perdido: #fadfe2;
+    --color-achado: #ebf9fd;
+}

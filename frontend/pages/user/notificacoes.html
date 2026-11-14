@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Notificações</title>
+        <link type="image/x-icon" rel="shortcut icon" href="../../src/images/logos/icon-logo.ico">
+    
+        <!-- CSS -->
+        <!-- Estilos Globais do Sistema -->
+        <link rel="stylesheet" href="../../src/css/global/global.css">
+        <link rel="stylesheet" href="../../src/css/components/menu.css">
+        <link rel="stylesheet" href="../../src/css/components/main-user.css">
+        
+        <!-- Páginas -->
+        <link rel="stylesheet" href="../../src/css/pages/notificacoes.css">
+        <link rel="stylesheet" href="../../src/css/pages/configuracoes.css">
+        <link rel="stylesheet" href="../../src/css/components/media-queries.css">
+    </head>
+    <body>
+        <!-- MENU LATERAL FIXO -->
+        <menu-user></menu-user>
+
+        <!-- MAIN -->        
+        <main class="pagina">
+            <!-- Topo Mobile -->
+            <div class="topo-mobile">
+                <div class="logo"><a href="../../index.html"><img src="../../src/images/logos/logo-escuro.png" alt="Logo"></a></div>
+                <button class="btn-mobile"><span></span> <span></span> <span></span></button> 
+            </div>
+            
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Notificações</h1>
+                    <p>Fique por dentro de tudo que acontece.</p>
+                </div>
+                <button class="btn btn-secundario marcar-todas" id="btnMarcarTodas">
+                    <i class="fa-regular fa-square-check"></i>
+                    Marcar todas como lidas
+                </button>
+            </div>
+
+            <div class="barra-filtros">
+                <div class="filtros">
+                    <button class="filtro-chip ativo" data-filtro="todas">Todas <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="nao-lidas">Não lidas <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="aprovados"><span class="ponto"></span> Aprovados <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="reprovados"><span class="ponto"></span> Reprovados <span class="contagem">0</span></button>
+                    <button class="filtro-chip" data-filtro="outros"><span class="ponto"></span> Outros <span class="contagem">0</span></button>
+                </div>
+                
+                <div class="ordenar">
+                    <span class="label-ordenar">Ordenar por:</span>
+                    <!-- Substituído pelo Custom Select -->
+                    <div class="campo-ordenar" id="campoOrdenarNotificacoes">
+                        <div class="custom-select">
+                            <div class="select-btn">
+                                <span class="btn-texto"><i class="fa-solid fa-arrow-down-wide-short"></i> Mais recentes</span>
+                                <span class="seta"><i class="fa-solid fa-angle-down"></i></span>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="option" data-value="recentes"><i class="fa-solid fa-arrow-down-wide-short"></i> Mais recentes</div>
+                                <div class="option" data-value="antigas"><i class="fa-solid fa-arrow-up-wide-short"></i> Mais antigas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lista-notificacoes" id="listaNotificacoes"></div>
+
+            <div class="paginacao" id="paginacao"></div>
+        </main>
+
+        <!-- Modal de detalhe da notificação -->
+        <div class="overlay-modal" id="overlayDetalhe">
+            <div class="modal">
+                <!-- Botão de Fechar (X) no Canto Superior Direito -->
+                <button type="button" class="modal-btn-fechar" id="modalNotificacaoFechar" title="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <div class="item-cabecalho">
+                    <div class="notif-foto-wrapper">
+                        <img id="detalheFoto" src="" alt="Foto do item">
+                        <div id="detalheIcone" class="notificacao-icone notif-icon-status"></div>
+                    </div>
+                    <div>
+                        <!-- Título receberá a classe dinâmica de cor no JS -->
+                        <h3 id="detalheTitulo"></h3>
+                        <span id="detalheTempo" class="time"></span>
+                    </div>
+                </div>
+                <p id="detalheDescricao"></p>
+                <div class="notificacao-motivo" id="detalheMotivo" style="display:none;">
+                    <span><i class="fa-solid fa-triangle-exclamation"></i></span><span></span>
+                </div>
+                
+                <!-- Nova estrutura de ações -->
+                <div class="modal-acoes" style="margin-top: 18px;">
+                    <button class="btn btn-secundario" id="fecharDetalhe">Sair</button>
+                    <a href="#" id="detalheLinkItem" class="btn btn-primario">Ver Item <i class="fa-solid fa-box-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+
+        <!-- JS -->
+        <!-- Banco de Dados Global -->
+        <script src="../../src/js/global/banco-dados.js"></script>
+        <script src="../../src/js/global/api.js"></script>
+        <script src="../../src/js/global/auth-session.js"></script>
+
+        <!-- Lógica das Notificações -->
+        <script src="../../src/js/pages/notificacoes.js"></script>
+
+        <!-- Scripts Globais do Sistema -->
+        <script src="../../src/js/global/tema.js"></script>
+        <script src="../../src/js/global/font-awesome.js"></script>
+        <script src="../../src/js/components/menu.js"></script>
+    </body>
+</html>
