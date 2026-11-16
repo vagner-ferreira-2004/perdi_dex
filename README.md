@@ -74,4 +74,6 @@ No sistema, o perfil institucional (estudante, professor ou funcionário) é dif
 - **Autenticação:** JWT em cookie, com proteção CSRF e controle de acesso por papel.
 
 ## Link de acesso ao site 
+Este sistema atualmente está funcionando somente através de um server presente na máquina de um dos nossos integrantes, por isso, é preciso solicitar para nós a ativação do server para conseguir usar o site completamente.
+
 https://perdidex.vercel.app
